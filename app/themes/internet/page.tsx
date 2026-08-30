@@ -5,57 +5,91 @@ import Link from 'next/link';
 
 const LESSON_STEPS = [
   {
-    title: "1. Ce n'est pas du nuage !",
-    content: "On parle souvent du 'Cloud', mais Internet est très physique. Ce sont des millions de kilomètres de câbles sous-marins en fibre optique qui relient les continents. Si tu envoies un Snap à un ami aux USA, l'info passe sous l'océan à la vitesse de la lumière.",
-    icon: "🔌",
+    title: "1. Internet ≠ Web",
+    content: "Beaucoup confondent les deux. Internet est le réseau physique mondial (câbles, routeurs...). Le Web est un SERVICE qui fonctionne SUR Internet. Il en existe d'autres : le mail (SMTP), le transfert de fichiers (FTP), etc. Le Web n'est donc qu'une application parmi d'autres.",
+    icon: "🌐",
     color: "border-blue-500"
   },
   {
-    title: "2. L'adresse IP",
-    content: "Pour que les données arrivent au bon endroit, chaque appareil (ton téléphone, le serveur de TikTok) possède une adresse unique : l'adresse IP. C'est comme l'adresse postale de ta maison, mais pour le réseau.",
-    icon: "🏠",
-    color: "border-indigo-500"
+    title: "2. L'histoire du Web",
+    content: "En 1989, Tim Berners-Lee, chercheur au CERN (Genève), propose un système hypertexte pour faciliter le partage d'informations entre scientifiques. Il invente alors le premier navigateur, le premier serveur Web et le langage HTML. Le World Wide Web est né.",
+    icon: "📜",
+    color: "border-amber-500"
   },
   {
-    title: "3. Le DNS : l'annuaire",
-    content: "C'est dur de retenir que Google c'est 142.250.179.78. Alors on a inventé le DNS. C'est un serveur qui traduit 'google.fr' en adresse IP. C'est le répertoire de ton téléphone, mais pour tout le Web.",
-    icon: "📖",
-    color: "border-green-500"
+    title: "3. Modèle Client-Serveur",
+    content: "Quand tu ouvres une page Web, ton navigateur joue le rôle de CLIENT. Il envoie une demande au SERVEUR qui héberge le site. Le serveur lui répond en envoyant les fichiers (HTML, CSS, images...). C'est ce principe fondamental qui fait fonctionner le Web.",
+    icon: "🔄",
+    color: "border-indigo-500",
+    hasLab: true
   },
   {
-    title: "4. Les Paquets",
-    content: "Une photo ou une vidéo est trop lourde pour être envoyée d'un coup. Internet la découpe en petits morceaux appelés 'paquets'. Ils voyagent séparément et sont reconstitués à l'arrivée. C'est comme envoyer un Lego en pièces détachées par la poste !",
-    icon: "📦",
-    color: "border-orange-500"
+    title: "4. L'URL : l'adresse d'une page Web",
+    content: "Chaque page possède une URL (Uniform Resource Locator). Elle permet d'identifier précisément une ressource sur le Web. Une URL se décompose généralement en : protocole (https://), nom de domaine (www.exemple.fr) et chemin (/page/).",
+    icon: "🔗",
+    color: "border-green-500",
+    hasLab2: true
+  },
+  {
+    title: "5. Navigateurs et Moteurs de Recherche",
+    content: "Le NAVIGATEUR (Chrome, Firefox, Edge...) permet d'afficher les pages Web. Le MOTEUR DE RECHERCHE (Google, Qwant, Ecosia...) permet de trouver des pages Web à partir de mots-clés. À ne pas confondre !",
+    icon: "🔍",
+    color: "border-violet-500"
+  },
+  {
+    title: "6. HTTP, HTTPS et Sécurité",
+    content: "HTTP signifie HyperText Transfer Protocol. Le 'S' de HTTPS signifie 'Secure' (sécurisé). Avec HTTPS, les échanges entre client et serveur sont chiffrés. Aujourd'hui, la grande majorité des sites passent obligatoirement en HTTPS.",
+    icon: "🔒",
+    color: "border-red-500"
   }
 ];
 
 const QUIZ_QUESTIONS = [
   {
-    q: "Comment les données traversent-elles majoritairement les océans ?",
-    options: ["Par satellite", "Par des câbles sous-marins", "Par les ondes radio"],
+    q: "Quelle est la bonne distinction entre Internet et Web ?",
+    options: ["Ils signifient exactement la même chose", "Internet est le réseau, le Web est un service qui l'utilise", "Le Web est le réseau, Internet est un navigateur"],
     correct: 1,
-    explanation: "99% du trafic internet mondial passe par des câbles de fibre optique posés au fond des océans."
+    explanation: "Internet est l'infrastructure mondiale. Le Web est l'une des applications fonctionnant grâce à Internet."
   },
   {
-    q: "À quoi sert le protocole IP ?",
-    options: ["À crypter les messages", "À donner une adresse unique à chaque appareil", "À accélérer la connexion"],
+    q: "Qui est à l'origine du World Wide Web ?",
+    options: ["Bill Gates", "Tim Berners-Lee", "Mark Zuckerberg"],
     correct: 1,
-    explanation: "L'adresse IP permet d'identifier la source et la destination de chaque paquet de données."
+    explanation: "Tim Berners-Lee a proposé le Web au CERN en 1989 pour faciliter le partage d'informations."
   },
   {
-    q: "Quel est le rôle du DNS ?",
-    options: ["Stocker tes photos", "Traduire un nom de domaine en adresse IP", "Découper les fichiers en paquets"],
+    q: "Dans le modèle client-serveur, qui envoie la demande pour afficher une page ?",
+    options: ["Le serveur", "Le routeur", "Le client (navigateur)"],
+    correct: 2,
+    explanation: "C'est ton navigateur qui fait la requête. Le serveur se contente de répondre à cette demande."
+  },
+  {
+    q: "Que permet le DNS dans le fonctionnement du Web ?",
+    options: ["De traduire un nom de domaine (ex: google.fr) en adresse IP", "D'accélérer ton WiFi", "De compresser les images"],
+    correct: 0,
+    explanation: "Sans DNS, il faudrait taper l'adresse IP à la place du nom de domaine à chaque fois."
+  },
+  {
+    q: "Pourquoi privilégier un site en HTTPS plutôt qu'en HTTP ?",
+    options: ["Il charge plus vite", "Les données échangées sont chiffrées et plus sécurisées", "Il consomme moins de données"],
     correct: 1,
-    explanation: "Le DNS évite d'avoir à retenir les suites de chiffres des adresses IP."
+    explanation: "Le 'S' signifie Secure. Il protège notamment les mots de passe et les données personnelles."
   }
 ];
 
-export default function InternetChapter() {
+export default function WebChapter() {
   const [mode, setMode] = useState<'cours' | 'quiz' | 'resultat'>('cours');
   const [step, setStep] = useState(0);
   const [quizIdx, setQuizIdx] = useState(0);
   const [score, setScore] = useState(0);
+  const [bonusXP, setBonusXP] = useState(0);
+  
+  // Lab 1 : Client/Serveur
+  const [lab1Answer, setLab1Answer] = useState<string | null>(null);
+  
+  // Lab 2 : Découpage URL
+  const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
@@ -76,84 +110,190 @@ export default function InternetChapter() {
       setQuizIdx(quizIdx + 1);
       setSelectedAnswer(null);
       setIsLocked(false);
-    } else setMode('resultat');
+    } else {
+      setMode('resultat');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
-      <nav className="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center">
+    <div className="min-h-screen bg-slate-50 text-slate-900 pb-12">
+      {/* HEADER */}
+      <nav className="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center shadow-sm">
         <Link href="/themes" className="text-blue-600 font-bold">← Quitter</Link>
-        <div className="bg-slate-100 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-slate-500">
-          Thème 1 : Internet
-        </div>
-        <div className="text-blue-600 font-black">XP: {score * 50}</div>
+        <div className="font-black text-xs uppercase tracking-widest text-slate-400">Thème 2 : Le Web</div>
+        <div className="text-blue-600 font-black">XP: {score * 100 + bonusXP}</div>
       </nav>
 
-      <div className="max-w-xl mx-auto px-6 py-12">
+      <div className="max-w-xl mx-auto px-6 py-8">
         {mode === 'cours' && (
-          <div className="space-y-8">
+          <div className="space-y-6">
+            {/* Progress Bar */}
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Progression</span>
+              <span className="text-xs font-black text-blue-600">{Math.round(((step + 1) / LESSON_STEPS.length) * 100)}%</span>
+            </div>
             <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
               <div className="bg-blue-600 h-full transition-all duration-500" style={{ width: `${((step + 1) / LESSON_STEPS.length) * 100}%` }}></div>
             </div>
-            <div className={`p-8 bg-white rounded-3xl border-b-8 shadow-sm ${LESSON_STEPS[step].color}`}>
+
+            <div className={`p-8 bg-white rounded-[2rem] border-b-[10px] shadow-lg transition-all ${LESSON_STEPS[step].color}`}>
               <div className="text-5xl mb-6">{LESSON_STEPS[step].icon}</div>
-              <h2 className="text-2xl font-black mb-4">{LESSON_STEPS[step].title}</h2>
-              <p className="text-lg text-slate-600 leading-relaxed italic italic">"{LESSON_STEPS[step].content}"</p>
+              <h2 className="text-2xl font-black mb-4 tracking-tight">{LESSON_STEPS[step].title}</h2>
+              <p className="text-lg text-slate-600 leading-relaxed font-medium mb-6">
+                {LESSON_STEPS[step].content}
+              </p>
+
+              {/* MINI-LAB 1 : Client / Serveur */}
+              {LESSON_STEPS[step].hasLab && (
+                <div className="bg-indigo-50 p-6 rounded-2xl border-2 border-indigo-100 mt-4">
+                  <h4 className="text-indigo-900 font-black text-sm mb-4 uppercase tracking-wider">🛠️ Mini-Lab : Client ou Serveur ?</h4>
+                  <p className="text-sm text-indigo-800 mb-4">Pour chaque situation, indique qui agit.</p>
+                  
+                  <div className="space-y-3">
+                    <div className="bg-white p-3 rounded-xl border border-indigo-100">
+                      <p className="text-sm font-bold mb-2">« Ton navigateur affiche la page Wikipédia »</p>
+                      <div className="flex gap-2">
+                        {['Client', 'Serveur'].map(val => (
+                          <button 
+                            key={val}
+                            onClick={() => {
+                              setLab1Answer(val);
+                              if(val === 'Client') setBonusXP(prev => prev === 0 ? 100 : prev);
+                            }}
+                            className={`px-3 py-1.5 text-sm rounded-lg font-bold transition-all ${lab1Answer === val ? (val === 'Client' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-slate-50 text-indigo-600 border border-indigo-100'}`}
+                          >
+                            {val}
+                          </button>
+                        ))}
+                      </div>
+                      {lab1Answer === 'Client' && <p className="text-[10px] text-green-600 font-black mt-2 uppercase tracking-widest">Exact ! Le navigateur est le client. +100 XP</p>}
+                    </div>
+
+                    <div className="bg-white p-3 rounded-xl border border-indigo-100">
+                      <p className="text-sm font-bold mb-2">« L'ordinateur de Wikipédia envoie les fichiers HTML »</p>
+                      <div className="flex gap-2">
+                        {['Client', 'Serveur'].map(val => (
+                          <button 
+                            key={val}
+                            onClick={() => {
+                              if(val === 'Serveur') setBonusXP(prev => prev < 200 ? 200 : prev);
+                              setLab1Answer('Serveur2');
+                            }}
+                            className={`px-3 py-1.5 text-sm rounded-lg font-bold transition-all ${lab1Answer === 'Serveur2' ? (val === 'Serveur' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-slate-50 text-indigo-600 border border-indigo-100'}`}
+                          >
+                            {val}
+                          </button>
+                        ))}
+                      </div>
+                      {lab1Answer === 'Serveur2' && <p className="text-[10px] text-green-600 font-black mt-2 uppercase tracking-widest">Exact ! C'est le serveur qui répond. +100 XP</p>}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* MINI-LAB 2 : Découpage URL */}
+              {LESSON_STEPS[step].hasLab2 && (
+                <div className="bg-indigo-50 p-6 rounded-2xl border-2 border-indigo-100 mt-4">
+                  <h4 className="text-indigo-900 font-black text-sm mb-4 uppercase tracking-wider">🛠️ Mini-Lab : Décomposer une URL</h4>
+                  <div className="bg-white p-4 rounded-xl border border-indigo-100 mb-4 font-mono text-sm break-all text-center">
+                    https://www.education.gouv.fr/snt/seconde
+                  </div>
+                  <p className="text-sm text-indigo-800 mb-3">Quel élément correspond au <span className="font-bold">chemin</span> ?</p>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {['https://', 'www.education.gouv.fr', '/snt/seconde'].map(val => (
+                      <button 
+                        key={val}
+                        onClick={() => {
+                          setLab2Answer(val);
+                          if(val === '/snt/seconde') setBonusXP(prev => prev < 300 ? 300 : prev);
+                        }}
+                        className={`px-3 py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all ${lab2Answer === val ? (val === '/snt/seconde' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-indigo-600 border border-indigo-100'}`}
+                      >
+                        {val}
+                      </button>
+                    ))}
+                  </div>
+                  {lab2Answer === '/snt/seconde' && <p className="text-[10px] text-green-600 font-black mt-2 text-center uppercase tracking-widest">Bravo ! +100 XP</p>}
+                </div>
+              )}
             </div>
-            <button onClick={nextStep} className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-lg">
+
+            <button onClick={nextStep} className="w-full py-5 bg-blue-600 text-white rounded-[2rem] font-black text-xl hover:bg-blue-700 shadow-[0_8px_0_rgb(30,64,175)] hover:translate-y-1 transition-all">
               {step === LESSON_STEPS.length - 1 ? "PASSER AU QUIZ ⚡️" : "SUIVANT →"}
             </button>
           </div>
         )}
 
+        {/* MODE QUIZ */}
         {mode === 'quiz' && (
-          <div className="space-y-8">
+          <div className="space-y-8 animate-in fade-in zoom-in duration-300">
             <div className="text-center">
-              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">Question {quizIdx + 1} / {QUIZ_QUESTIONS.length}</span>
-              <h2 className="text-2xl font-black mt-4">{QUIZ_QUESTIONS[quizIdx].q}</h2>
+              <span className="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest">
+                Question {quizIdx + 1} / {QUIZ_QUESTIONS.length}
+              </span>
+              <h2 className="text-2xl font-black mt-6 tracking-tight">{QUIZ_QUESTIONS[quizIdx].q}</h2>
             </div>
+
             <div className="grid gap-4">
               {QUIZ_QUESTIONS[quizIdx].options.map((opt, i) => {
-                let bgColor = "bg-white border-slate-200";
+                let statusClass = "bg-white border-slate-200 hover:border-indigo-400 hover:bg-indigo-50";
                 if (isLocked) {
-                  if (i === QUIZ_QUESTIONS[quizIdx].correct) bgColor = "bg-green-100 border-green-500 text-green-800";
-                  else if (i === selectedAnswer) bgColor = "bg-red-100 border-red-500 text-red-800 opacity-50";
-                  else bgColor = "bg-white border-slate-100 opacity-50";
+                  if (i === QUIZ_QUESTIONS[quizIdx].correct) statusClass = "bg-green-100 border-green-500 text-green-800 scale-[1.02] shadow-md";
+                  else if (i === selectedAnswer) statusClass = "bg-red-100 border-red-500 text-red-800 opacity-60";
+                  else statusClass = "bg-white border-slate-100 opacity-40";
                 }
                 return (
-                  <button key={i} disabled={isLocked} onClick={() => handleAnswer(i)} className={`p-5 rounded-2xl border-2 text-left font-bold transition-all ${bgColor}`}>
+                  <button key={i} disabled={isLocked} onClick={() => handleAnswer(i)} className={`p-5 rounded-2xl border-2 text-left font-bold text-lg transition-all duration-300 ${statusClass}`}>
                     {opt}
                   </button>
                 );
               })}
             </div>
+
             {isLocked && (
-              <div className="bg-white p-6 rounded-3xl border-2 border-indigo-50 shadow-sm animate-in fade-in slide-in-from-bottom-4">
-                <p className="text-slate-600 text-sm mb-4"><span className="font-bold text-indigo-600 uppercase mr-2 text-xs">Le savais-tu ?</span>{QUIZ_QUESTIONS[quizIdx].explanation}</p>
-                <button onClick={nextQuestion} className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold">Continuer</button>
+              <div className="bg-white p-6 rounded-[2rem] border-2 border-indigo-100 shadow-lg animate-in slide-in-from-bottom-8 duration-500">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xl">{selectedAnswer === QUIZ_QUESTIONS[quizIdx].correct ? '✅' : '❌'}</span>
+                  <span className="font-black text-indigo-600 uppercase text-xs tracking-widest">Explication</span>
+                </div>
+                <p className="text-slate-600 font-medium leading-relaxed mb-5">{QUIZ_QUESTIONS[quizIdx].explanation}</p>
+                <button onClick={nextQuestion} className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-black hover:bg-indigo-700">
+                  {quizIdx === QUIZ_QUESTIONS.length - 1 ? "VOIR MON RÉSULTAT" : "QUESTION SUIVANTE"}
+                </button>
               </div>
             )}
           </div>
         )}
 
+        {/* MODE RÉSULTAT */}
         {mode === 'resultat' && (
-          <div className="text-center space-y-8">
-            <div className="bg-white p-10 rounded-[3rem] shadow-xl border-t-8 border-blue-600">
-              <div className="text-7xl mb-6">🛰️</div>
-              <h2 className="text-4xl font-black mb-2">Connecté !</h2>
-              <p className="text-slate-500 mb-6 font-bold">Tu maîtrises les bases d&apos;Internet.</p>
-              <div className="flex justify-center gap-4 mb-8">
-                <div className="bg-slate-50 p-4 rounded-2xl border">
+          <div className="text-center space-y-8 animate-in zoom-in duration-500">
+            <div className="bg-white p-10 rounded-[3rem] shadow-2xl border-b-[12px] border-blue-600">
+              <div className="text-7xl mb-6">🚀</div>
+              <h2 className="text-4xl font-black mb-2 tracking-tighter">Mission réussie !</h2>
+              <p className="text-slate-500 font-black uppercase tracking-widest text-xs mb-8">Tu connais les fondements du Web</p>
+              
+              <div className="flex justify-center gap-5 my-8">
+                <div className="bg-slate-50 p-5 rounded-3xl border-2 border-slate-100">
                   <div className="text-2xl font-black text-blue-600">{score}/{QUIZ_QUESTIONS.length}</div>
-                  <div className="text-xs uppercase text-slate-400 font-bold tracking-widest">Score</div>
+                  <div className="text-[10px] uppercase text-slate-400 font-black tracking-[0.2em] mt-1">Bonnes réponses</div>
+                </div>
+                <div className="bg-slate-50 p-5 rounded-3xl border-2 border-slate-100">
+                  <div className="text-2xl font-black text-indigo-600">+{score * 100 + bonusXP}</div>
+                  <div className="text-[10px] uppercase text-slate-400 font-black tracking-[0.2em] mt-1">Total XP</div>
                 </div>
               </div>
-              <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl border border-blue-100">
-                <div className="text-blue-800 font-bold uppercase text-xs tracking-[0.2em] mb-2">Badge Débloqué</div>
-                <div className="text-2xl font-black text-blue-900 uppercase">Maître du Réseau</div>
+
+              <div className="p-6 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2rem] text-white relative overflow-hidden shadow-xl">
+                <div className="relative z-10 text-blue-200 font-black uppercase text-[10px] tracking-[0.3em] mb-2">Badge Débloqué</div>
+                <div className="relative z-10 text-2xl font-black tracking-tight uppercase">Explorateur du Web</div>
+                <div className="absolute -right-5 -bottom-5 text-8xl opacity-20 rotate-12">🧭</div>
               </div>
             </div>
-            <Link href="/themes" className="block w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-black transition-all">RETOUR AUX THÈMES</Link>
+
+            <Link href="/themes" className="block w-full py-5 bg-slate-900 text-white rounded-[2rem] font-black text-xl hover:bg-black transition-all shadow-xl">
+              RETOUR AUX THÈMES
+            </Link>
           </div>
         )}
       </div>
