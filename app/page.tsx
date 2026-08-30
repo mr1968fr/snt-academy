@@ -59,38 +59,38 @@ export default function Home() {
       </section>
 
       <section className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="text-3xl font-black text-center mb-12">Les 7 thèmes du programme</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            'Internet',
-            'Le Web',
-            'Les réseaux sociaux',
-            'Les données structurées',
-            'Localisation et cartographie',
-            'Objets connectés',
-            'Photographie numérique',
-          ].map((theme) => (
-            <div
-              key={theme}
-              className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm"
-            >
-              <h3 className="text-lg font-black mb-2">{theme}</h3>
-              <p className="text-sm text-slate-500">
-                Un chapitre court, des exemples concrets, un quiz à la fin.
-              </p>
-            </div>
-          ))}
-        </div>
+  <h2 className="text-3xl font-black text-center mb-12">Les 7 thèmes du programme</h2>
+  <div className="grid md:grid-cols-3 gap-6">
+  {[
+  { name: 'Internet', slug: 'internet' },
+  { name: 'Le Web', slug: 'web' },
+  { name: 'Les réseaux sociaux', slug: 'reseaux-sociaux' },
+  { name: 'Les données structurées', slug: 'donnees' },
+  { name: 'Localisation et cartographie', slug: 'localisation' },
+  { name: 'Objets connectés', slug: 'objetsconnectes' },
+  { name: 'Photographie numérique', slug: 'phot-numerique' },
+].map((theme) => (
+  <Link
+    key={theme.slug}
+    href={`/themes/${theme.slug}`}
+    className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all group"
+  >
+    <h3 className="text-lg font-black mb-2 group-hover:text-blue-600">{theme.name}</h3>
+    <p className="text-sm text-slate-500 text-left">
+      Un chapitre court, des exemples concrets, un quiz à la fin.
+    </p>
+  </Link>
+  </div>
 
-        <div className="text-center mt-12">
-          <Link
-            href="/themes"
-            className="inline-block px-8 py-4 bg-slate-900 text-white rounded-2xl font-black hover:bg-black transition"
-          >
-            Découvrir les thèmes
-          </Link>
-        </div>
-      </section>
+  <div className="text-center mt-12">
+    <Link
+      href="/themes"
+      className="inline-block px-8 py-4 bg-slate-900 text-white rounded-2xl font-black hover:bg-black transition"
+    >
+      Voir tout le catalogue
+    </Link>
+  </div>
+</section>
 
       <footer className="py-10 text-center text-slate-400 text-sm border-t">
         SNT Academy — La plateforme pensée par un prof.

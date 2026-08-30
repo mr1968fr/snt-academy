@@ -38,7 +38,7 @@ export default function Themes() {
       color: "bg-red-500"
     },
     {
-      id: "objets-connectés",
+      id: "objetsconnectes",
       title: "Objets Connectés",
       description: "Ce qui se passe vraiment dans les objets intelligents du quotidien.",
       icon: "⌚",
@@ -54,46 +54,51 @@ export default function Themes() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-6">
+    <div className="min-h-screen bg-slate-50 py-12 px-6 font-sans">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <Link href="/" className="text-blue-600 hover:underline mb-4 inline-block">← Retour à l'accueil</Link>
-          <h1 className="text-4xl font-bold mb-2">Les 7 thèmes du programme</h1>
-          <p className="text-slate-600 italic">Choisis un thème pour commencer ton aventure numérique.</p>
+          <Link href="/" className="text-blue-600 font-bold hover:underline mb-4 inline-block tracking-tight text-sm">
+            ← RETOUR À L'ACCUEIL
+          </Link>
+          <h1 className="text-4xl font-black mb-2 tracking-tighter text-slate-900">Les 7 thèmes du programme</h1>
+          <p className="text-slate-500 font-medium italic">Choisis un thème pour commencer ton aventure numérique.</p>
         </div>
 
         {/* Grille des thèmes */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {themes.map((theme) => (
-            <div key={theme.id} className="bg-white rounded-3xl p-6 border border-slate-200 hover:shadow-xl transition-all group cursor-pointer">
-              <div className={`w-14 h-14 ${theme.color} text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
+            <Link 
+                href={`/themes/${theme.id}`} 
+                key={theme.id} 
+                className="bg-white rounded-[2rem] p-8 border border-slate-200 hover:shadow-2xl transition-all group flex flex-col items-start text-left"
+            >
+              <div className={`w-16 h-16 ${theme.color} text-white rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-lg group-hover:rotate-6 transition-transform`}>
                 {theme.icon}
               </div>
-              <h3 className="text-xl font-bold mb-2">{theme.title}</h3>
-              <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+              <h3 className="text-xl font-black mb-3 text-slate-800 tracking-tight group-hover:text-blue-600 transition-colors">
+                {theme.title}
+              </h3>
+              <p className="text-slate-500 text-sm mb-6 leading-relaxed font-medium">
                 {theme.description}
               </p>
-              <Link 
-                href={`/themes/${theme.id}`}
-                className="inline-flex items-center text-blue-600 font-bold hover:gap-2 transition-all"
-              >
-                Commencer le chapitre <span>→</span>
-              </Link>
-            </div>
+              <span className="mt-auto px-5 py-2 bg-slate-50 text-blue-600 text-xs font-black uppercase rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all tracking-widest">
+                Commencer →
+              </span>
+            </Link>
           ))}
 
           {/* Bloc Programmation Python */}
-          <div className="bg-slate-900 rounded-3xl p-6 text-white border border-slate-800 hover:shadow-xl transition-all md:col-span-2 lg:col-span-1">
-            <div className="w-14 h-14 bg-yellow-500 text-slate-900 rounded-2xl flex items-center justify-center text-3xl mb-6">
+          <div className="bg-slate-900 rounded-[2rem] p-8 text-white border border-slate-800 shadow-xl md:col-span-2 lg:col-span-1 flex flex-col items-start">
+            <div className="w-16 h-16 bg-yellow-500 text-slate-900 rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-lg">
               🐍
             </div>
-            <h3 className="text-xl font-bold mb-2">Programmation Python</h3>
-            <p className="text-slate-400 text-sm mb-6">
+            <h3 className="text-xl font-black mb-3 tracking-tight">Programmation Python</h3>
+            <p className="text-slate-400 text-sm mb-6 font-medium leading-relaxed">
               Les bases indispensables : variables, boucles, fonctions.
             </p>
-            <button className="px-4 py-2 bg-white text-slate-900 rounded-xl font-bold hover:bg-yellow-500 transition-colors">
-              Voir les bases
+            <button className="mt-auto px-6 py-3 bg-yellow-500 text-slate-900 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-yellow-400 transition-colors">
+              Bientôt disponible
             </button>
           </div>
         </div>
