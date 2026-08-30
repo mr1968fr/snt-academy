@@ -1,117 +1,214 @@
-'use client'; // Obligatoire pour rendre le quiz interactif
+'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function ReseauxSociaux() {
-  const [currentStep, setCurrentStep] = useState('cours'); // 'cours' ou 'quiz'
+// --- DONNÉES DU COURS ---
+const LESSON_STEPS = [
+  {
+    title: "1. Ton Identité Numérique",
+    content: "Chaque like, chaque story et même tes recherches Google forment ton identité numérique. C'est ton 'moi' sur Internet. Attention : ton e-réputation peut te suivre toute ta vie, même pour ton futur job !",
+    icon: "👤",
+    color: "border-blue-500"
+  },
+  {
+    title: "2. Le Modèle Économique",
+    content: "Pourquoi TikTok ou Insta sont gratuits ? Parce que TU es le produit. Les réseaux vendent ton temps de cerveau et tes données à des publicitaires pour te montrer exactement ce qui va te faire cliquer.",
+    icon: "💰",
+    color: "border-yellow-500"
+  },
+  {
+    title: "3. Le Petit Monde",
+    content: "Savais-tu que tu es relié à n'importe qui sur Terre par seulement 6 personnes ? Sur les réseaux, ce chiffre tombe à 3 ou 4. C'est ce qu'on appelle la théorie du 'Petit Monde'. Tout va très vite !",
+    icon: "🌍",
+    color: "border-green-500"
+  },
+  {
+    title: "4. Cyberviolence & Loi",
+    content: "Le harcèlement en ligne n'est pas une blague, c'est un délit. La loi française punit sévèrement la cyberviolence. Si tu es témoin ou victime, le numéro à retenir est le 3018.",
+    icon: "⚖️",
+    color: "border-red-500"
+  }
+];
+
+const QUIZ_QUESTIONS = [
+  {
+    q: "Qu'est-ce que l'e-réputation ?",
+    options: ["Le nombre de tes abonnés", "L'image que les gens ont de toi en ligne", "Ton mot de passe"],
+    correct: 1,
+    explanation: "C'est la trace globale que tu laisses et comment elle est perçue par les autres (profs, employeurs...)."
+  },
+  {
+    q: "Si un service est gratuit, c'est souvent parce que :",
+    options: ["L'État paie tout", "Tu es le produit (tes données)", "C'est fait par des bénévoles"],
+    correct: 1,
+    explanation: "Tes données personnelles et ton attention sont revendues aux annonceurs."
+  },
+  {
+    q: "Sur les réseaux, combien de personnes nous séparent d'un inconnu ?",
+    options: ["Environ 3 ou 4", "Plus de 100", "Seulement 1"],
+    correct: 0,
+    explanation: "C'est l'expérience du Petit Monde : les réseaux sociaux réduisent la distance entre les humains."
+  }
+];
+
+export default function ReseauxSociauxV2() {
+  const [mode, setMode] = useState<'cours' | 'quiz' | 'resultat'>('cours');
+  const [step, setStep] = useState(0);
+  const [quizIdx, setQuizIdx] = useState(0);
   const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [isLocked, setIsLocked] = useState(false);
 
-  const questions = [
-    { q: "Qu'est-ce que l'identité numérique ?", a: "Toutes les traces que tu laisses en ligne", options: ["Seulement ta photo", "Toutes les traces que tu laisses en ligne", "Ton mot de passe"] },
-    { q: "Pourquoi les réseaux sont-ils gratuits ?", a: "Ils vendent ton attention et tes données", options: ["Parce qu'ils sont gentils", "Ils vendent ton attention et tes données", "L'État paie pour nous"] },
-    { q: "La cyberviolence est punie par la loi ?", a: "Oui, c'est dans le Code pénal", options: ["Non, c'est juste internet", "Oui, c'est dans le Code pénal", "Seulement si c'est sur TikTok"] }
-  ];
+  // --- LOGIQUE COURS ---
+  const nextStep = () => {
+    if (step < LESSON_STEPS.length - 1) {
+      setStep(step + 1);
+    } else {
+      setMode('quiz');
+    }
+  };
 
-  const handleAnswer = (isCorrect: boolean) => {
-    if (isCorrect) setScore(score + 1);
+  // --- LOGIQUE QUIZ ---
+  const handleAnswer = (idx: number) => {
+    if (isLocked) return;
+    setSelectedAnswer(idx);
+    setIsLocked(true);
+    if (idx === QUIZ_QUESTIONS[quizIdx].correct) {
+      setScore(score + 1);
+    }
+  };
+
+  const nextQuestion = () => {
+    if (quizIdx < QUIZ_QUESTIONS.length - 1) {
+      setQuizIdx(quizIdx + 1);
+      setSelectedAnswer(null);
+      setIsLocked(false);
+    } else {
+      setMode('resultat');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 pb-20">
-      {/* Barre de lecture fixe en haut */}
-      <nav className="sticky top-0 bg-white/80 backdrop-blur-md border-b p-4 flex justify-between items-center z-50">
-        <Link href="/themes" className="text-sm font-bold text-blue-600">← Retour aux thèmes</Link>
-        <div className="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full uppercase tracking-widest text-slate-500">
-          Thème 3 : Réseaux Sociaux
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+      {/* HEADER */}
+      <nav className="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center">
+        <Link href="/themes" className="text-blue-600 font-bold">← Quitter</Link>
+        <div className="bg-slate-100 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+          Réseaux Sociaux
         </div>
+        <div className="text-blue-600 font-black">XP: {score * 50}</div>
       </nav>
 
-      <div className="max-w-2xl mx-auto px-6 pt-12">
-        {currentStep === 'cours' ? (
-          <article className="prose prose-slate">
-            <h1 className="text-4xl font-black mb-8 leading-tight">
-              T'es le produit <br/>
-              <span className="text-blue-600">(même si c'est gratuit)</span>
-            </h1>
-
-            <div className="space-y-8 text-lg leading-relaxed">
-              <p className="font-bold text-slate-500 italic">
-                Salut. On va parler de ce que tu utilises tous les jours : Insta, TikTok, Snap... 
-                On va voir ce qui se cache vraiment derrière. Pas de blabla, on va droit au but. 🚀
-              </p>
-
-              <section className="bg-slate-50 p-6 rounded-3xl border-l-4 border-blue-500">
-                <h2 className="text-xl font-bold mb-4">1. Ton identité numérique</h2>
-                <p>Chaque like, chaque recherche, chaque story laisse une trace. C'est ton <b>e-réputation</b>. Un jour, un recruteur googlisera ton nom. Qu'est-ce qu'il verra ?</p>
-              </section>
-
-              <section>
-                <h2 className="text-xl font-bold mb-4">2. Pourquoi c'est gratuit ?</h2>
-                <div className="bg-yellow-100 p-4 rounded-xl text-yellow-900 font-bold mb-4 text-center">
-                  "Si c'est gratuit, c'est que tu es le produit."
-                </div>
-                <p>Les réseaux vendent ton attention à des annonceurs. Plus tu scrolles, plus ils gagnent.</p>
-              </section>
-
-              <section className="bg-red-50 p-6 rounded-3xl border-l-4 border-red-500">
-                <h2 className="text-xl font-bold mb-4">3. Cyberviolence</h2>
-                <p>Harcèlement, menaces, diffusion de photos... La loi est claire (Article 222-33-2-2). Ce n'est jamais "juste une blague".</p>
-              </section>
-
-              <div className="bg-blue-600 text-white p-8 rounded-3xl text-center">
-                <h3 className="text-2xl font-bold mb-4">Prêt pour le quiz ?</h3>
-                <p className="mb-6">Voyons si tu as bien suivi. Un badge est à la clé ! 🏆</p>
-                <button 
-                  onClick={() => setCurrentStep('quiz')}
-                  className="bg-white text-blue-600 px-8 py-3 rounded-full font-black hover:scale-105 transition-transform"
-                >
-                  LANCER LE QUIZ
-                </button>
-              </div>
+      <div className="max-w-xl mx-auto px-6 py-12">
+        
+        {/* --- MODE COURS --- */}
+        {mode === 'cours' && (
+          <div className="space-y-8">
+            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div 
+                className="bg-blue-600 h-full transition-all duration-500" 
+                style={{ width: `${((step + 1) / LESSON_STEPS.length) * 100}%` }}
+              ></div>
             </div>
-          </article>
-        ) : (
-          <div className="py-12">
-            {!showResult ? (
-              <div className="space-y-12 text-center">
-                <h2 className="text-3xl font-black">Question Time ! ⚡️</h2>
-                {questions.map((q, idx) => (
-                  <div key={idx} className="bg-slate-50 p-6 rounded-3xl">
-                    <p className="text-xl font-bold mb-4">{q.q}</p>
-                    <div className="grid gap-3">
-                      {q.options.map((opt) => (
-                        <button 
-                          key={opt}
-                          onClick={() => handleAnswer(opt === q.a)}
-                          className="p-4 bg-white border-2 border-slate-200 rounded-xl hover:border-blue-500 active:bg-blue-50 transition-all text-left"
-                        >
-                          {opt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                <button 
-                  onClick={() => setShowResult(true)}
-                  className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold"
-                >
-                  Voir mon score
-                </button>
-              </div>
-            ) : (
-              <div className="text-center py-20 bg-blue-50 rounded-3xl">
-                <h2 className="text-5xl mb-4">🎉</h2>
-                <h3 className="text-3xl font-black mb-2">Ton score : {score} / {questions.length}</h3>
-                <p className="text-slate-600 mb-8">
-                  {score === questions.length ? "Expert ! Tu as débloqué le badge Maître des Réseaux 🏆" : "Pas mal ! Relis encore un peu pour le 100%."}
+
+            <div className={`p-8 bg-white rounded-3xl border-b-8 shadow-sm transition-all ${LESSON_STEPS[step].color}`}>
+              <div className="text-5xl mb-6">{LESSON_STEPS[step].icon}</div>
+              <h2 className="text-2xl font-black mb-4">{LESSON_STEPS[step].title}</h2>
+              <p className="text-lg text-slate-600 leading-relaxed italic">
+                "{LESSON_STEPS[step].content}"
+              </p>
+            </div>
+
+            <button 
+              onClick={nextStep}
+              className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-xl hover:bg-blue-700 active:scale-95 transition-all shadow-lg"
+            >
+              {step === LESSON_STEPS.length - 1 ? "PASSER AU QUIZ ⚡️" : "SUIVANT →"}
+            </button>
+          </div>
+        )}
+
+        {/* --- MODE QUIZ --- */}
+        {mode === 'quiz' && (
+          <div className="space-y-8">
+            <div className="text-center">
+              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">
+                Question {quizIdx + 1} / {QUIZ_QUESTIONS.length}
+              </span>
+              <h2 className="text-2xl font-black mt-4">{QUIZ_QUESTIONS[quizIdx].q}</h2>
+            </div>
+
+            <div className="grid gap-4">
+              {QUIZ_QUESTIONS[quizIdx].options.map((opt, i) => {
+                let bgColor = "bg-white border-slate-200";
+                if (isLocked) {
+                  if (i === QUIZ_QUESTIONS[quizIdx].correct) bgColor = "bg-green-100 border-green-500 text-green-800";
+                  else if (i === selectedAnswer) bgColor = "bg-red-100 border-red-500 text-red-800 opacity-50";
+                  else bgColor = "bg-white border-slate-100 opacity-50";
+                }
+                return (
+                  <button
+                    key={i}
+                    disabled={isLocked}
+                    onClick={() => handleAnswer(i)}
+                    className={`p-5 rounded-2xl border-2 text-left font-bold transition-all ${bgColor} ${!isLocked && 'hover:border-indigo-400'}`}
+                  >
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+
+            {isLocked && (
+              <div className="bg-white p-6 rounded-3xl border-2 border-indigo-50 shadow-sm animate-in fade-in slide-in-from-bottom-4">
+                <p className="text-slate-600 text-sm mb-4">
+                  <span className="font-bold text-indigo-600 uppercase tracking-tighter mr-2">Le savais-tu ?</span>
+                  {QUIZ_QUESTIONS[quizIdx].explanation}
                 </p>
-                <Link href="/themes" className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold">
-                  Retour aux thèmes
-                </Link>
+                <button 
+                  onClick={nextQuestion}
+                  className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700"
+                >
+                  Continuer
+                </button>
               </div>
             )}
+          </div>
+        )}
+
+        {/* --- MODE RÉSULTAT --- */}
+        {mode === 'resultat' && (
+          <div className="text-center space-y-8">
+            <div className="bg-white p-10 rounded-[3rem] shadow-xl border-t-8 border-blue-600">
+              <div className="text-7xl mb-6">🏆</div>
+              <h2 className="text-4xl font-black mb-2">Bravo !</h2>
+              <p className="text-slate-500 mb-6 font-bold">Tu as terminé le chapitre.</p>
+              
+              <div className="flex justify-center gap-4 mb-8">
+                <div className="bg-slate-50 p-4 rounded-2xl border">
+                  <div className="text-2xl font-black text-blue-600">{score}/{QUIZ_QUESTIONS.length}</div>
+                  <div className="text-xs uppercase text-slate-400 font-bold tracking-widest">Score</div>
+                </div>
+                <div className="bg-slate-50 p-4 rounded-2xl border">
+                  <div className="text-2xl font-black text-indigo-600">+{score * 50}</div>
+                  <div className="text-xs uppercase text-slate-400 font-bold tracking-widest">Points XP</div>
+                </div>
+              </div>
+
+              <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl border border-blue-100 relative overflow-hidden group">
+                <div className="relative z-10 text-blue-800 font-bold uppercase text-xs tracking-[0.2em] mb-2">Badge Débloqué</div>
+                <div className="relative z-10 text-2xl font-black text-blue-900 uppercase">Expert Social Media</div>
+                <div className="absolute -right-4 -bottom-4 text-8xl opacity-10 grayscale group-hover:grayscale-0 transition-all">📱</div>
+              </div>
+            </div>
+
+            <Link 
+              href="/themes"
+              className="block w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-black transition-all"
+            >
+              RETOUR AUX THÈMES
+            </Link>
           </div>
         )}
       </div>
