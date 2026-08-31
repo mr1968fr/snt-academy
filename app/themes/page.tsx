@@ -146,13 +146,20 @@ export default function Home() {
             <p className="text-sm text-slate-500 font-medium leading-relaxed">Comprendre ta box, ton adresse IP et le partage de connexion.</p>
             <div className="mt-auto pt-6 text-indigo-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
           </Link>
-          cp ~/Downloads/web-page.tsx            app/themes/web/page.tsx
-cp ~/Downloads/donnees-page.tsx        app/themes/donnees/page.tsx
-cp ~/Downloads/objetsconnectes-page.tsx app/themes/objetsconnectes/page.tsx
-cp ~/Downloads/internet-page.tsx       app/themes/internet/page.tsx
-cp ~/Downloads/photo-numerique-page.tsx app/themes/photo-numerique/page.tsx
-mkdir -p app/themes/python
-cp ~/Downloads/python-page.tsx         app/themes/python/page.tsx
+/* PYTHON — bannière pleine largeur, même style que Fake News.
+   À coller AUX DEUX ENDROITS :
+   1) app/page.tsx      → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur…
+   2) app/themes/page.tsx → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur… */}
+
+          <Link href="/themes/python" className="p-8 bg-emerald-50 rounded-3xl border-2 border-emerald-100 hover:border-emerald-400 transition-all group shadow-sm flex flex-col lg:col-span-3">
+            <div className="flex items-center gap-6">
+              <div className="text-4xl">🐍</div>
+              <div>
+                <h3 className="text-xl font-black mb-1 group-hover:text-emerald-600 transition-colors">Initiation Python</h3>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">Variables, conditions, boucles et fonctions : tes premières lignes de code, prêtes pour l&apos;épreuve « Programmer » de Pix.</p>
+              </div>
+            </div>
+          </Link>
           {/* FAKE NEWS (Sur toute la largeur sur grand écran pour l'équilibre) */}
           <Link href="/themes/fake-news" className="p-8 bg-red-50 rounded-3xl border-2 border-red-100 hover:border-red-400 transition-all group shadow-sm flex flex-col lg:col-span-3">
             <div className="flex items-center gap-6">
