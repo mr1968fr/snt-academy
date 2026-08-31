@@ -4,44 +4,16 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const LESSON_STEPS = [
-  {
-    title: "1. C'est quoi un système embarqué ?",
-    content: "Contrairement à ton PC, un système embarqué est un ordinateur minuscule dédié à UNE seule tâche. Il est caché dans ton lave-linge, ton micro-ondes ou le moteur d'une voiture. Il doit être fiable et souvent très rapide.",
-    icon: "📟",
-    color: "border-gray-500"
-  },
-  {
-    title: "2. Capteurs et Actionneurs",
-    content: "C'est le corps de l'objet. Le CAPTEUR (yeux/oreilles) transforme une grandeur physique (température, lumière) en signal électrique. L'ACTIONNEUR (bras/moteur) transforme un signal électrique en action physique (allumer une LED, faire tourner un moteur).",
-    icon: "🔌",
-    color: "border-orange-500"
-  },
-  {
-    title: "3. Labo : Logique de contrôle",
-    content: "Au milieu, il y a le cerveau : le microcontrôleur. Il suit des instructions simples du type 'SI capteur > 20° ALORS allumer ventilo'. C'est le cœur de la programmation embarquée.",
-    icon: "🧠",
-    color: "border-blue-500",
-    hasLab: true
-  },
-  {
-    title: "4. L'IHM : L'interface",
-    content: "IHM signifie Interface Homme-Machine. C'est le moyen pour l'utilisateur de discuter avec la machine : un écran tactile, un bouton, ou même ta voix avec Alexa. Elle doit être intuitive pour ne pas faire d'erreurs.",
-    icon: "🖱️",
-    color: "border-green-500"
-  },
-  {
-    title: "5. Labo : Temps Réel et Sécurité",
-    content: "Dans une voiture autonome, si le capteur voit un obstacle, l'actionneur doit freiner en quelques millisecondes. C'est la contrainte de TEMPS RÉEL. Un bug ici peut être fatal.",
-    icon: "⚠️",
-    color: "border-red-500",
-    hasLab2: true
-  },
-  {
-    title: "6. L'Internet des Objets (IoT)",
-    content: "Quand ces objets se connectent à Internet, ils deviennent 'Smart'. Ta montre envoie ton rythme cardiaque sur le Cloud. C'est génial, mais attention à la sécurité : un objet connecté mal protégé peut devenir une porte d'entrée pour les hackers.",
-    icon: "⌚",
-    color: "border-indigo-500"
-  }
+  { title: "1. L'Informatique Embarquée", content: "C'est un ordinateur caché dans un objet (frigo, voiture, montre). Il est dédié à une seule tâche et doit être ultra-fiable.", icon: "📟", color: "border-gray-500" },
+  { title: "2. Capteurs vs Actionneurs", content: "Le capteur 'voit' (température, bouton). L'actionneur 'agit' (allumer, chauffer, rouler). Le programme fait le lien entre les deux.", icon: "🔌", color: "border-orange-500", hasLab: true },
+  { title: "3. L'Interface (IHM)", content: "Interface Homme-Machine. C'est l'écran, les boutons ou la voix qui te permettent de commander l'objet.", icon: "🖱️", color: "border-blue-500" },
+  { title: "4. Le Temps Réel", content: "Dans une voiture, freiner doit prendre 2 millisecondes, pas 2 secondes. Le temps réel est une contrainte de sécurité vitale.", icon: "⚠️", color: "border-red-500", hasLab2: true },
+  { title: "5. La sécurité IoT", content: "Si ton frigo est connecté mais mal protégé, un hacker peut s'en servir pour entrer dans ton réseau WiFi personnel.", icon: "🛡️", color: "border-indigo-500" },
+  { title: "🎤 Missions Exposés", isProject: true, projects: [
+      { topic: "La Domotique", desc: "La maison intelligente : confort ultime ou surveillance permanente ?", difficulty: "Débutant" },
+      { topic: "Piratage médical", desc: "Peut-on hacker un pacemaker ou une pompe à insuline connectée ? Enjeux éthiques.", difficulty: "Avancé" },
+      { topic: "Agriculture 2.0", desc: "Comment les capteurs permettent-ils d'économiser l'eau et les pesticides ?", difficulty: "Intermédiaire" }
+    ], icon: "🚀", color: "border-purple-600" }
 ];
 
 const QUIZ_QUESTIONS = [

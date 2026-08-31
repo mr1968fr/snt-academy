@@ -5,42 +5,47 @@ import Link from 'next/link';
 
 const LESSON_STEPS = [
   {
-    title: "1. C'est quoi un système embarqué ?",
-    content: "Contrairement à ton PC, un système embarqué est un ordinateur minuscule dédié à UNE seule tâche. Il est caché dans ton lave-linge, ton micro-ondes ou le moteur d'une voiture. Il doit être fiable et souvent très rapide.",
-    icon: "📟",
-    color: "border-gray-500"
-  },
-  {
-    title: "2. Capteurs et Actionneurs",
-    content: "C'est le corps de l'objet. Le CAPTEUR (yeux/oreilles) transforme une grandeur physique (température, lumière) en signal électrique. L'ACTIONNEUR (bras/moteur) transforme un signal électrique en action physique (allumer une LED, faire tourner un moteur).",
+    title: "1. Le Cloud n'existe pas",
+    content: "Internet est ultra-physique. 99% du trafic mondial passe par des câbles sous-marins en fibre optique. Si tu envoies un Snap aux USA, l'info traverse l'océan à la vitesse de la lumière sous 4000m d'eau.",
     icon: "🔌",
-    color: "border-orange-500"
+    color: "border-blue-500"
   },
   {
-    title: "3. Labo : Logique de contrôle",
-    content: "Au milieu, il y a le cerveau : le microcontrôleur. Il suit des instructions simples du type 'SI capteur > 20° ALORS allumer ventilo'. C'est le cœur de la programmation embarquée.",
-    icon: "🧠",
-    color: "border-blue-500",
+    title: "2. Adresse IP & DNS",
+    content: "Chaque machine a une adresse unique : l'adresse IP. Le DNS est l'annuaire qui traduit 'google.fr' en adresse IP chiffrée. C'est le répertoire de ton téléphone, mais pour la planète entière.",
+    icon: "🆔",
+    color: "border-indigo-500",
     hasLab: true
   },
   {
-    title: "4. L'IHM : L'interface",
-    content: "IHM signifie Interface Homme-Machine. C'est le moyen pour l'utilisateur de discuter avec la machine : un écran tactile, un bouton, ou même ta voix avec Alexa. Elle doit être intuitive pour ne pas faire d'erreurs.",
-    icon: "🖱️",
+    title: "3. Le Routage",
+    content: "Tes données sont découpées en PAQUETS. Ils ne prennent pas tous le même chemin : des ROUTEURS choisissent la route la plus rapide en temps réel. C'est ce qui rend Internet indestructible.",
+    icon: "🛣️",
+    color: "border-orange-500"
+  },
+  {
+    title: "4. Protocoles TCP/IP",
+    content: "TCP vérifie que tous les paquets sont bien arrivés et les remet dans l'ordre. IP s'occupe de l'adressage. C'est le langage universel qui permet à toutes les machines du monde de se comprendre.",
+    icon: "🌐",
     color: "border-green-500"
   },
   {
-    title: "5. Labo : Temps Réel et Sécurité",
-    content: "Dans une voiture autonome, si le capteur voit un obstacle, l'actionneur doit freiner en quelques millisecondes. C'est la contrainte de TEMPS RÉEL. Un bug ici peut être fatal.",
-    icon: "⚠️",
+    title: "5. Labo : Tracé de route",
+    content: "Grâce à la commande 'traceroute', on peut voir tous les routeurs par lesquels passe une donnée. C'est comme suivre un colis Amazon à chaque entrepôt !",
+    icon: "📍",
     color: "border-red-500",
     hasLab2: true
   },
   {
-    title: "6. L'Internet des Objets (IoT)",
-    content: "Quand ces objets se connectent à Internet, ils deviennent 'Smart'. Ta montre envoie ton rythme cardiaque sur le Cloud. C'est génial, mais attention à la sécurité : un objet connecté mal protégé peut devenir une porte d'entrée pour les hackers.",
-    icon: "⌚",
-    color: "border-indigo-500"
+    title: "🎤 Missions Exposés",
+    isProject: true,
+    projects: [
+      { topic: "Géopolitique des câbles", desc: "Pourquoi les câbles sous-marins sont-ils devenus des cibles militaires prioritaires ?", difficulty: "Avancé" },
+      { topic: "Internet et Écologie", desc: "Le coût environnemental caché de tes e-mails et du streaming vidéo 4K.", difficulty: "Débutant" },
+      { topic: "La neutralité du Net", desc: "Pourquoi tous les paquets doivent-ils être traités de la même façon par les opérateurs ?", difficulty: "Intermédiaire" }
+    ],
+    icon: "🚀",
+    color: "border-purple-600"
   }
 ];
 

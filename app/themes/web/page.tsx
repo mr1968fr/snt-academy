@@ -4,44 +4,16 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const LESSON_STEPS = [
-  {
-    title: "1. Internet ≠ Web",
-    content: "Beaucoup confondent les deux. Internet est le réseau physique mondial (câbles, routeurs...). Le Web est un SERVICE qui fonctionne SUR Internet. Il en existe d'autres : le mail (SMTP), le transfert de fichiers (FTP), etc. Le Web n'est donc qu'une application parmi d'autres.",
-    icon: "🌐",
-    color: "border-blue-500"
-  },
-  {
-    title: "2. L'histoire du Web",
-    content: "En 1989, Tim Berners-Lee, chercheur au CERN (Genève), propose un système hypertexte pour faciliter le partage d'informations entre scientifiques. Il invente alors le premier navigateur, le premier serveur Web et le langage HTML. Le World Wide Web est né.",
-    icon: "📜",
-    color: "border-amber-500"
-  },
-  {
-    title: "3. Modèle Client-Serveur",
-    content: "Quand tu ouvres une page Web, ton navigateur joue le rôle de CLIENT. Il envoie une demande au SERVEUR qui héberge le site. Le serveur lui répond en envoyant les fichiers (HTML, CSS, images...). C'est ce principe fondamental qui fait fonctionner le Web.",
-    icon: "🔄",
-    color: "border-indigo-500",
-    hasLab: true
-  },
-  {
-    title: "4. L'URL : l'adresse d'une page Web",
-    content: "Chaque page possède une URL (Uniform Resource Locator). Elle permet d'identifier précisément une ressource sur le Web. Une URL se décompose généralement en : protocole (https://), nom de domaine (www.exemple.fr) et chemin (/page/).",
-    icon: "🔗",
-    color: "border-green-500",
-    hasLab2: true
-  },
-  {
-    title: "5. Navigateurs et Moteurs de Recherche",
-    content: "Le NAVIGATEUR (Chrome, Firefox, Edge...) permet d'afficher les pages Web. Le MOTEUR DE RECHERCHE (Google, Qwant, Ecosia...) permet de trouver des pages Web à partir de mots-clés. À ne pas confondre !",
-    icon: "🔍",
-    color: "border-violet-500"
-  },
-  {
-    title: "6. HTTP, HTTPS et Sécurité",
-    content: "HTTP signifie HyperText Transfer Protocol. Le 'S' de HTTPS signifie 'Secure' (sécurisé). Avec HTTPS, les échanges entre client et serveur sont chiffrés. Aujourd'hui, la grande majorité des sites passent obligatoirement en HTTPS.",
-    icon: "🔒",
-    color: "border-red-500"
-  }
+  { title: "1. Web ≠ Internet", content: "Internet est le réseau de câbles. Le Web est un service qui tourne dessus, comme le Mail ou le FTP. Le Web n'est né qu'en 1989 !", icon: "🌐", color: "border-blue-500" },
+  { title: "2. Le CERN & Tim Berners-Lee", content: "Le Web a été inventé à Genève pour aider les scientifiques à partager des documents via des liens HYPERTEXTE. C'est la naissance du HTML.", icon: "📜", color: "border-amber-500" },
+  { title: "3. Client-Serveur", content: "Ton navigateur est le CLIENT. Il demande une page au SERVEUR. C'est une discussion permanente en langage HTTP.", icon: "🔄", color: "border-indigo-500", hasLab: true },
+  { title: "4. L'URL décortiquée", content: "HTTPS (protocole) + NOM DE DOMAINE + CHEMIN. Chaque page du monde a une adresse unique.", icon: "🔗", color: "border-green-500", hasLab2: true },
+  { title: "5. Cookies & Tracking", content: "Les cookies sont des petits fichiers déposés par les sites pour se souvenir de toi. Pratique pour rester connecté, mais dangereux pour ta vie privée.", icon: "🍪", color: "border-orange-500" },
+  { title: "🎤 Missions Exposés", isProject: true, projects: [
+      { topic: "Le Deep Web & Dark Web", desc: "Fantasmes vs Réalité : qu'est-ce qui se cache vraiment dans les zones non-indexées ?", difficulty: "Avancé" },
+      { topic: "L'histoire des navigateurs", desc: "De Netscape à Chrome : pourquoi certains ont gagné la guerre du Web ?", difficulty: "Débutant" },
+      { topic: "Accessibilité numérique", desc: "Comment le Web s'adapte-t-il aux personnes malvoyantes ou handicapées ?", difficulty: "Intermédiaire" }
+    ], icon: "🚀", color: "border-purple-600" }
 ];
 
 const QUIZ_QUESTIONS = [

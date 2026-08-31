@@ -4,45 +4,17 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const LESSON_STEPS = [
-  {
-    title: "1. De la lumière aux chiffres",
-    content: "Dans ton appareil, il y a un capteur composé de millions de PHOTOSITES. Chaque photosite capte la lumière et la transforme en un nombre. C'est la NUMÉRISATION. Une photo, c'est juste une grille de chiffres géante !",
-    icon: "📸",
-    color: "border-purple-500"
-  },
-  {
-    title: "2. Le Pixel : L'atome de l'image",
-    content: "Une image numérique est formée de PIXELS (Picture Elements). Si tu zoomes très fort, tu verras des petits carrés de couleur. La RÉSOLUTION (en DPI) définit la finesse de l'image : plus il y a de pixels, plus c'est net.",
-    icon: "⬛",
-    color: "border-blue-500"
-  },
-  {
-    title: "3. Labo : Calculer le poids",
-    content: "Chaque pixel est codé sur plusieurs bits. Plus il y a de pixels et de couleurs, plus le fichier est lourd. C'est pour ça qu'on utilise la COMPRESSION (comme le format JPEG) pour gagner de la place.",
-    icon: "⚖️",
-    color: "border-green-500",
-    hasLab: true
-  },
-  {
-    title: "4. Les Couleurs RVB",
-    content: "Ton écran mélange 3 couleurs primaires : Rouge, Vert et Bleu (RVB). En faisant varier l'intensité de chaque couleur (de 0 à 255), on peut créer plus de 16 millions de nuances différentes !",
-    icon: "🌈",
-    color: "border-pink-500"
-  },
-  {
-    title: "5. Labo : Les Métadonnées EXIF",
-    content: "Une photo contient des infos cachées appelées EXIF. Elles indiquent l'heure, le réglage de l'appareil et parfois ta position GPS. C'est très pratique pour classer ses souvenirs, mais attention à ta vie privée !",
-    icon: "🔍",
-    color: "border-indigo-500",
-    hasLab2: true
-  },
-  {
-    title: "6. Retouche et IA",
-    content: "Aujourd'hui, les algorithmes améliorent tes photos en temps réel : suppression du bruit, mode portrait, ou même ajout de ciel bleu via l'IA. La photo numérique n'est plus seulement une capture du réel, c'est une création logicielle.",
-    icon: "✨",
-    color: "border-amber-500"
-  }
-];
+    { title: "1. Le Photosite", content: "Le capteur de ton tel est une grille de millions de photosites. Ils captent la lumière et la transforment en électricité, puis en chiffres.", icon: "📸", color: "border-purple-500" },
+    { title: "2. Le Pixel", content: "Picture Element. C'est le plus petit carré de couleur de ton image. Plus il y en a, plus l'image est nette (Résolution).", icon: "⬛", color: "border-blue-500", hasLab: true },
+    { title: "3. La couleur RVB", content: "Rouge + Vert + Bleu. En mélangeant ces 3 couleurs de 0 à 255, on crée 16 millions de nuances sur ton écran.", icon: "🌈", color: "border-pink-500" },
+    { title: "4. Métadonnées EXIF", content: "Une photo contient ton GPS, l'heure, et le modèle de ton tel. Utile pour trier, mais dangereux pour ta vie privée.", icon: "🔍", color: "border-indigo-500", hasLab2: true },
+    { title: "5. Retouche et IA", content: "Aujourd'hui, l'IA 'invente' des pixels pour améliorer tes photos de nuit ou supprimer des objets. La photo n'est plus une preuve du réel.", icon: "✨", color: "border-amber-500" },
+    { title: "🎤 Missions Exposés", isProject: true, projects: [
+        { topic: "Les Deepfakes", desc: "Comment l'IA peut créer des vidéos truquées impossibles à distinguer du vrai ?", difficulty: "Avancé" },
+        { topic: "Droit à l'image", desc: "Quelles sont les règles pour publier la photo de quelqu'un sur les réseaux ?", difficulty: "Débutant" },
+        { topic: "Reconnaissance faciale", desc: "Sécurité ou fin de l'anonymat dans l'espace public ?", difficulty: "Intermédiaire" }
+      ], icon: "🚀", color: "border-purple-600" }
+  ];
 
 const QUIZ_QUESTIONS = [
   {
