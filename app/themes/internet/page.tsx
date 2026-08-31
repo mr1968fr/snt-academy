@@ -5,7 +5,7 @@ import Link from 'next/link';
 const LESSON_STEPS = [
   { title: "1. Le Cloud n'existe pas", content: "Internet est ultra-physique. 99% du trafic mondial passe par des câbles sous-marins en fibre optique. Si tu envoies un Snap aux USA, l'info traverse l'océan à la vitesse de la lumière sous 4000m d'eau.", icon: "🔌", color: "border-blue-500" },
   { title: "2. Adresse IP & DNS", content: "Chaque machine a une adresse unique : l'adresse IP. Le DNS est l'annuaire qui traduit 'google.fr' en adresse IP chiffrée. C'est le répertoire de ton téléphone, mais pour la planète entière.", icon: "🆔", color: "border-indigo-500", hasLab: true },
-  { title: "3. Le Routage", content: "Tes données sont découpées en PAQUETS. Ils ne prennent pas tous le même chemin : des ROUTEURS choisissent la route la plus rapide en temps réel. C'est ce qui rend Internet indestructible.", icon: "🛣️", color: "border-orange-500" },
+  { title: "3. Le Routage", content: "Tes données sont découpées en PAQUETS. Ils ne prennent pas tous le même chemin : des ROUTEURS choisissent la route la plus rapide en temps réel. C'est ce qui rend Internet indestructible. Autre idée puissante : le PAIR-À-PAIR (P2P), où chaque utilisateur est à la fois client ET serveur — plus de centre unique, chacun partage.", icon: "🛣️", color: "border-orange-500" },
   { title: "4. Protocoles TCP/IP", content: "TCP vérifie que tous les paquets sont bien arrivés et les remet dans l'ordre. IP s'occupe de l'adressage. C'est le langage universel qui permet à toutes les machines du monde de se comprendre.", icon: "🌐", color: "border-green-500" },
   { title: "5. Labo : Tracé de route", content: "Grâce à la commande 'traceroute', on peut voir tous les routeurs par lesquels passe une donnée. C'est comme suivre un colis Amazon à chaque entrepôt !", icon: "📍", color: "border-red-500", hasLab2: true },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
@@ -18,7 +18,9 @@ const LESSON_STEPS = [
 const QUIZ_QUESTIONS = [
   { q: "Où circulent la majorité des données mondiales ?", options: ["Par satellite", "Par câbles sous-marins", "Par les ondes WiFi"], correct: 1, explanation: "Les câbles transportent 99% du trafic." },
   { q: "Que signifie DNS ?", options: ["Data Network System", "Domain Name System", "Digital Node Service"], correct: 1, explanation: "C'est l'annuaire du Web." },
-  { q: "Un paquet IP contient :", options: ["Juste la donnée", "La donnée + adresse départ/arrivée", "Le mot de passe"], correct: 1, explanation: "Il faut une adresse pour que le routeur sache où l'envoyer." }
+  { q: "Un paquet IP contient :", options: ["Juste la donnée", "La donnée + adresse départ/arrivée", "Le mot de passe"], correct: 1, explanation: "Il faut une adresse pour que le routeur sache où l'envoyer." },
+  { q: "Dans le pair-à-pair (P2P), chaque utilisateur est :", options: ["Uniquement client", "À la fois client et serveur", "Uniquement serveur"], correct: 1, explanation: "Chacun télécharge ET partage : pas de serveur central, la charge se répartit entre tous." },
+  { q: "Si un paquet est perdu en route, TCP :", options: ["Le redemande et remet tout dans l'ordre", "L'oublie : la page sera abîmée", "Envoie automatiquement tout en double"], correct: 0, explanation: "TCP numérote les paquets, détecte les manquants et les redemande." },
 ];
 
 export default function InternetChapter() {

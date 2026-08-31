@@ -7,7 +7,8 @@ const LESSON_STEPS = [
   { title: "2. Le CERN & Tim Berners-Lee", content: "Le Web a été inventé à Genève pour aider les scientifiques à partager des documents via des liens HYPERTEXTE. C'est la naissance du HTML.", icon: "📜", color: "border-amber-500" },
   { title: "3. Client-Serveur", content: "Ton navigateur est le CLIENT. Il demande une page au SERVEUR. C'est une discussion permanente en langage HTTP.", icon: "🔄", color: "border-indigo-500", hasLab: true },
   { title: "4. L'URL décortiquée", content: "HTTPS (protocole) + NOM DE DOMAINE + CHEMIN. Chaque page du monde a une adresse unique.", icon: "🔗", color: "border-green-500", hasLab2: true },
-  { title: "5. Cookies & Tracking", content: "Les cookies sont des petits fichiers déposés par les sites pour se souvenir de toi. Pratique pour rester connecté, mais dangereux pour ta vie privée.", icon: "🍪", color: "border-orange-500" },
+  { title: "5. Moteurs de recherche : l'index et le vote", content: "Google ne fouille pas le web en direct : des robots (les crawlers) le parcourent en permanence pour construire un INDEX, une bibliothèque géante déjà triée. Ta recherche interroge cet index. Et le classement (PageRank) compte les liens comme des votes : plus une page est citée, plus elle remonte. C'est le référencement naturel — une page vers laquelle aucun lien ne pointe est invisible.", icon: "🧭", color: "border-cyan-500" },
+  { title: "6. Cookies & Tracking", content: "Les cookies sont des petits fichiers déposés par les sites pour se souvenir de toi. Pratique pour rester connecté, mais dangereux pour ta vie privée.", icon: "🍪", color: "border-orange-500" },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
       { topic: "Le Deep Web & Dark Web", desc: "Fantasmes vs Réalité : qu'est-ce qui se cache vraiment dans les zones non-indexées ?", difficulty: "Avancé" },
       { topic: "L'histoire des navigateurs", desc: "De Netscape à Chrome : pourquoi certains ont gagné la guerre du Web ?", difficulty: "Débutant" },
@@ -18,7 +19,9 @@ const LESSON_STEPS = [
 const QUIZ_QUESTIONS = [
   { q: "Qui a inventé le Web ?", options: ["Bill Gates", "Tim Berners-Lee", "Steve Jobs"], correct: 1, explanation: "C'est Tim Berners-Lee au CERN en 1989." },
   { q: "Que signifie le 'S' dans HTTPS ?", options: ["Simple", "Secure", "Speed"], correct: 1, explanation: "Le protocole est sécurisé (chiffré)." },
-  { q: "Lequel est un navigateur ?", options: ["Google", "Firefox", "Instagram"], correct: 1, explanation: "Firefox permet d'afficher les pages Web." }
+  { q: "Lequel est un navigateur ?", options: ["Google", "Firefox", "Instagram"], correct: 1, explanation: "Firefox permet d'afficher les pages Web." },
+  { q: "Quand tu lances une recherche, Google fouille…", options: ["Tout le web en direct", "Son index, construit à l'avance par des robots", "Uniquement les sites payants"], correct: 1, explanation: "Des crawlers parcourent le web en continu et remplissent un index géant : la recherche se fait dans cette bibliothèque déjà triée." },
+  { q: "Comment une page remonte-t-elle dans les résultats ?", options: ["Elle paie Google", "Elle reçoit beaucoup de liens pointant vers elle (des « votes »)", "Elle est la plus ancienne"], correct: 1, explanation: "C'est l'idée du PageRank : chaque lien est un vote. C'est le référencement naturel, non payant." },
 ];
 
 export default function WebChapter() {

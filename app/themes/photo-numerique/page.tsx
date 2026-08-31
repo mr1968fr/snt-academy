@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const LESSON_STEPS = [
   { title: "1. Le Photosite", content: "Le capteur de ton tel est une grille de millions de photosites. Ils captent la lumière et la transforment en électricité, puis en chiffres.", icon: "📸", color: "border-purple-500" },
-  { title: "2. Le Pixel", content: "Picture Element. C'est le plus petit carré de couleur de ton image. Plus il y en a, plus l'image est nette (Résolution).", icon: "⬛", color: "border-blue-500", hasLab: true },
+  { title: "2. Le Pixel", content: "Picture Element. C'est le plus petit carré de couleur de ton image. Plus il y en a, plus l'image est nette : c'est la DÉFINITION (largeur × hauteur, ex. 4032 × 3024 pour un smartphone). Le POIDS se calcule aussi : nombre de pixels × 3 octets (RVB) — d'où l'utilité de la compression.", icon: "⬛", color: "border-blue-500", hasLab: true },
   { title: "3. La couleur RVB", content: "Rouge + Vert + Bleu. En mélangeant ces 3 couleurs de 0 à 255, on crée 16 millions de nuances sur ton écran.", icon: "🌈", color: "border-pink-500" },
   { title: "4. Métadonnées EXIF", content: "Une photo contient ton GPS, l'heure, et le modèle de ton tel. Utile pour trier, mais dangereux pour ta vie privée.", icon: "🔍", color: "border-indigo-500", hasLab2: true },
   { title: "5. Retouche et IA", content: "Aujourd'hui, l'IA 'invente' des pixels pour améliorer tes photos de nuit ou supprimer des objets. La photo n'est plus une preuve du réel.", icon: "✨", color: "border-amber-500" },
@@ -18,7 +18,9 @@ const LESSON_STEPS = [
 const QUIZ_QUESTIONS = [
   { q: "Qu'est-ce qu'un pixel ?", options: ["Une lentille", "Un petit carré de couleur", "Une batterie"], correct: 1, explanation: "C'est l'élément de base d'une image." },
   { q: "Que signifie RVB ?", options: ["Rouge Vert Bleu", "Rayon Vidéo Basique", "Réseau Virtuel"], correct: 0, explanation: "Ce sont les 3 couleurs de base des écrans." },
-  { q: "Les données EXIF sont :", options: ["Des virus", "Des métadonnées de la photo", "Des filtres"], correct: 1, explanation: "Elles contiennent les infos techniques et GPS." }
+  { q: "Les données EXIF sont :", options: ["Des virus", "Des métadonnées de la photo", "Des filtres"], correct: 1, explanation: "Elles contiennent les infos techniques et GPS." },
+  { q: "La définition d'une image, c'est :", options: ["Le nombre de pixels (largeur × hauteur)", "Sa taille affichée à l'écran en cm", "Le nom de son fichier"], correct: 0, explanation: "1920 × 1080 : une définition d'environ 2 millions de pixels." },
+  { q: "Une image de 2000 × 1000 pixels en RVB (3 octets par pixel) pèse environ :", options: ["6 Mo", "2 Mo", "600 Ko"], correct: 0, explanation: "2 000 000 pixels × 3 octets = 6 millions d'octets ≈ 6 Mo — sans compression." },
 ];
 
 export default function PhotoChapter() {

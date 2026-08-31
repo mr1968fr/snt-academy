@@ -5,9 +5,10 @@ import Link from 'next/link';
 const LESSON_STEPS = [
   { title: "1. L'Informatique Embarquée", content: "C'est un ordinateur caché dans un objet (frigo, voiture, montre). Il est dédié à une seule tâche et doit être ultra-fiable.", icon: "📟", color: "border-gray-500" },
   { title: "2. Capteurs vs Actionneurs", content: "Le capteur 'voit' (température, bouton). L'actionneur 'agit' (allumer, chauffer, rouler). Le programme fait le lien entre les deux.", icon: "🔌", color: "border-orange-500", hasLab: true },
-  { title: "3. L'Interface (IHM)", content: "Interface Homme-Machine. C'est l'écran, les boutons ou la voix qui te permettent de commander l'objet.", icon: "🖱️", color: "border-blue-500" },
-  { title: "4. Le Temps Réel", content: "Dans une voiture, freiner doit prendre 2 millisecondes, pas 2 secondes. Le temps réel est une contrainte de sécurité vitale.", icon: "⚠️", color: "border-red-500", hasLab2: true },
-  { title: "5. La sécurité IoT", content: "Si ton frigo est connecté mais mal protégé, un hacker peut s'en servir pour entrer dans ton réseau WiFi personnel.", icon: "🛡️", color: "border-indigo-500" },
+  { title: "3. La carte programmable", content: "Au cœur de beaucoup d'objets connectés : le microcontrôleur (Arduino, micro:bit) — un mini-ordinateur sur une seule puce, avec processeur, mémoire et entrées/sorties. On le branche en USB et on le programme… en Python ! Capteur → programme → actionneur : toute l'électronique intelligente tient dans cette chaîne.", icon: "🔧", color: "border-lime-500" },
+  { title: "4. L'Interface (IHM)", content: "Interface Homme-Machine. C'est l'écran, les boutons ou la voix qui te permettent de commander l'objet.", icon: "🖱️", color: "border-blue-500" },
+  { title: "5. Le Temps Réel", content: "Dans une voiture, freiner doit prendre 2 millisecondes, pas 2 secondes. Le temps réel est une contrainte de sécurité vitale.", icon: "⚠️", color: "border-red-500", hasLab2: true },
+  { title: "6. La sécurité IoT", content: "Si ton frigo est connecté mais mal protégé, un hacker peut s'en servir pour entrer dans ton réseau WiFi personnel.", icon: "🛡️", color: "border-indigo-500" },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
       { topic: "La Domotique", desc: "La maison intelligente : confort ultime ou surveillance permanente ?", difficulty: "Débutant" },
       { topic: "Piratage médical", desc: "Peut-on hacker un pacemaker ou une pompe à insuline connectée ?", difficulty: "Avancé" },
@@ -18,7 +19,9 @@ const LESSON_STEPS = [
 const QUIZ_QUESTIONS = [
   { q: "Qu'est-ce qu'un actionneur ?", options: ["Un thermomètre", "Un moteur", "Un écran tactile"], correct: 1, explanation: "Un actionneur produit une action physique." },
   { q: "Que signifie IHM ?", options: ["Interface Homme-Machine", "Internet Haut Massive", "Informatique Hybride"], correct: 0, explanation: "C'est le moyen de discuter avec la machine." },
-  { q: "Un système embarqué est :", options: ["Polyvalent", "Dédié à une tâche précise", "Toujours très lourd"], correct: 1, explanation: "Il est optimisé pour une seule fonction." }
+  { q: "Un système embarqué est :", options: ["Polyvalent", "Dédié à une tâche précise", "Toujours très lourd"], correct: 1, explanation: "Il est optimisé pour une seule fonction." },
+  { q: "Un microcontrôleur (Arduino, micro:bit), c'est :", options: ["Un mini-ordinateur sur une puce : processeur, mémoire, entrées/sorties", "Un simple capteur de température", "Une antenne Wi-Fi renforcée"], correct: 0, explanation: "Tout tient sur une puce : c'est le cerveau programmable des objets connectés." },
+  { q: "« Allumer une LED quand il fait froid » nécessite :", options: ["Un capteur de température, un programme et un actionneur (la LED)", "Juste une LED branchée", "Une connexion Internet obligatoire"], correct: 0, explanation: "Capteur → programme → actionneur : la chaîne de base de tout objet connecté." },
 ];
 
 export default function IoTChapter() {

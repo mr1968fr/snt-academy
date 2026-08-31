@@ -24,19 +24,26 @@ const LESSON_STEPS = [
     color: "border-amber-500"
   },
   {
-    title: "4. Métadonnées : les données cachées",
+    title: "4. SQL : interroger une base",
+    content: "Le CSV atteint vite ses limites. Les pros rangent les données dans une base relationnelle : des tables reliées entre elles par des clés, interrogées avec SQL. Exemple : SELECT nom FROM eleves WHERE moyenne >= 15. C'est LE langage des données — testé par Pix, et tu le retrouveras dans toutes les études d'informatique.",
+    icon: "🗄️",
+    color: "border-emerald-500",
+    hasLab2: true
+  },
+  {
+    title: "5. Métadonnées : les données cachées",
     content: "Une photo n'est pas juste une image. Elle contient des métadonnées (EXIF) : l'heure, le lieu GPS, le modèle du téléphone... Ces données sur les données sont cruciales pour l'organisation... et la vie privée.",
     icon: "🔍",
     color: "border-indigo-500"
   },
   {
-    title: "5. Le Cloud et le stockage",
+    title: "6. Le Cloud et le stockage",
     content: "Tes données ne flottent pas dans un nuage. Elles sont stockées dans des DATACENTERS géants. Cela pose deux problèmes : la sécurité (qui peut y accéder ?) et l'écologie (ces centres consomment énormément d'électricité).",
     icon: "☁️",
     color: "border-sky-500"
   },
   {
-    title: "6. RGPD : La Loi te protège",
+    title: "7. RGPD : La Loi te protège",
     content: "Le RGPD est une loi européenne qui oblige les entreprises à protéger tes données personnelles. Tu as le droit de savoir ce qu'elles collectent et de demander la suppression de tes infos.",
     icon: "⚖️",
     color: "border-red-500"
@@ -94,6 +101,7 @@ export default function DonneesChapter() {
   const [score, setScore] = useState(0);
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
+  const [lab2Answer, setLab2Answer] = useState<string | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
@@ -167,6 +175,22 @@ export default function DonneesChapter() {
                   <div className="flex gap-2 justify-center">
                     {['Judo', 'Sport'].map(val => (
                       <button key={val} onClick={() => { setLab1Answer(val); if(val === 'Sport') setBonusXP(150); }} className={`px-4 py-2 rounded-xl font-bold transition-all ${lab1Answer === val ? (val === 'Sport' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-indigo-600 border border-indigo-200'}`}>{val}</button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {LESSON_STEPS[step].hasLab2 && (
+                <div className="bg-emerald-50 p-6 rounded-3xl border-2 border-emerald-100 mt-4 text-center">
+                  <h4 className="text-emerald-900 font-black text-sm mb-4 uppercase tracking-wider italic text-left">🧪 Lab : Prédis la requête</h4>
+                  <div className="bg-white p-3 rounded-xl font-mono text-xs mb-4 text-left">
+                    SELECT nom FROM eleves<br/>
+                    WHERE classe = &apos;2ndeA&apos;;
+                  </div>
+                  <p className="text-xs text-emerald-700 mb-4 font-bold italic">Que renvoie cette requête ?</p>
+                  <div className="flex gap-2 justify-center flex-wrap">
+                    {['Les noms de tous les élèves', 'Les noms des élèves de 2ndeA', 'La liste des classes'].map(val => (
+                      <button key={val} onClick={() => { setLab2Answer(val); if(val === 'Les noms des élèves de 2ndeA') setBonusXP(prev => prev + 150); }} className={`px-4 py-2 rounded-xl font-bold transition-all ${lab2Answer === val ? (val === 'Les noms des élèves de 2ndeA' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-emerald-600 border border-emerald-200'}`}>{val}</button>
                     ))}
                   </div>
                 </div>
