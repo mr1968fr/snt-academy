@@ -146,7 +146,7 @@ export default function Home() {
             <p className="text-sm text-slate-500 font-medium leading-relaxed">Comprendre ta box, ton adresse IP et le partage de connexion.</p>
             <div className="mt-auto pt-6 text-indigo-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
           </Link>
-/* PYTHON — bannière pleine largeur, même style que Fake News.
+{/* PYTHON — bannière pleine largeur, même style que Fake News.
    À coller AUX DEUX ENDROITS :
    1) app/page.tsx      → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur…
    2) app/themes/page.tsx → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur… */}
