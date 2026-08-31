@@ -3,11 +3,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const LESSON_STEPS = [
-  { title: "1. Le Photosite", content: "Le capteur de ton tel est une grille de millions de photosites. Ils captent la lumière et la transforment en électricité, puis en chiffres.", icon: "📸", color: "border-purple-500" },
-  { title: "2. Le Pixel", content: "Picture Element. C'est le plus petit carré de couleur de ton image. Plus il y en a, plus l'image est nette : c'est la DÉFINITION (largeur × hauteur, ex. 4032 × 3024 pour un smartphone). Le POIDS se calcule aussi : nombre de pixels × 3 octets (RVB) — d'où l'utilité de la compression.", icon: "⬛", color: "border-blue-500", hasLab: true },
-  { title: "3. La couleur RVB", content: "Rouge + Vert + Bleu. En mélangeant ces 3 couleurs de 0 à 255, on crée 16 millions de nuances sur ton écran.", icon: "🌈", color: "border-pink-500" },
-  { title: "4. Métadonnées EXIF", content: "Une photo contient ton GPS, l'heure, et le modèle de ton tel. Utile pour trier, mais dangereux pour ta vie privée.", icon: "🔍", color: "border-indigo-500", hasLab2: true },
-  { title: "5. Retouche et IA", content: "Aujourd'hui, l'IA 'invente' des pixels pour améliorer tes photos de nuit ou supprimer des objets. La photo n'est plus une preuve du réel.", icon: "✨", color: "border-amber-500" },
+  { title: "1. Le Photosite", content: "Le capteur de ton tel est une grille de millions de photosites. Ils captent la lumière et la transforment en électricité, puis en chiffres.", icon: "📸", color: "border-purple-500", details: [{"h": "Définition", "p": "Le capteur est une grille de photosites : chacun compte les photons reçus et les convertit en valeur électrique. Plus un photosite est grand, mieux il capte la lumière."}, {"h": "Exemple", "p": "Un capteur de 12 mégapixels à gros photosites fait souvent de meilleures photos de nuit qu'un capteur de 48 mégapixels minuscules."}, {"h": "À retenir", "p": "Dès la prise de vue, la lumière devient des nombres : la photo est déjà de l'information numérique."}, {"h": "Vocabulaire", "p": "capteur, photosite, pixel, exposition."}] },
+  { title: "2. Le Pixel", content: "Picture Element. C'est le plus petit carré de couleur de ton image. Plus il y en a, plus l'image est nette : c'est la DÉFINITION (largeur × hauteur, ex. 4032 × 3024 pour un smartphone). Le POIDS se calcule aussi : nombre de pixels × 3 octets (RVB) — d'où l'utilité de la compression.", icon: "⬛", color: "border-blue-500", hasLab: true, details: [{"h": "Définition", "p": "Le pixel est le plus petit point de l'image. La définition est le nombre de pixels : largeur × hauteur (ex. 4032 × 3024 ≈ 12 mégapixels)."}, {"h": "Exemple", "p": "Le poids se calcule : 2 millions de pixels × 3 octets (RVB) ≈ 6 Mo — d'où l'utilité de la compression JPEG."}, {"h": "À faire maintenant", "p": "Affiche les informations d'une photo de ton téléphone et retrouve sa définition."}, {"h": "À retenir", "p": "Définition (nombre de pixels), résolution (densité) et poids (octets) : trois mots souvent mélangés, trois choses différentes."}, {"h": "Vocabulaire", "p": "définition, résolution, poids, compression."}] },
+  { title: "3. La couleur RVB", content: "Rouge + Vert + Bleu. En mélangeant ces 3 couleurs de 0 à 255, on crée 16 millions de nuances sur ton écran.", icon: "🌈", color: "border-pink-500", details: [{"h": "Définition", "p": "Chaque pixel porte trois nombres — rouge, vert, bleu — de 0 à 255 : plus de 16 millions de combinaisons possibles."}, {"h": "Exemple", "p": "(255,0,0) est un rouge pur, (0,0,0) un noir, (255,255,255) un blanc. Le mélange est additif : on ajoute de la lumière, contrairement à la peinture."}, {"h": "À retenir", "p": "Une image n'est qu'un tableau de nombres : c'est pour cela qu'un ordinateur sait la manipuler."}, {"h": "Vocabulaire", "p": "RVB, canal, octet, synthèse additive."}] },
+  { title: "4. Métadonnées EXIF", content: "Une photo contient ton GPS, l'heure, et le modèle de ton tel. Utile pour trier, mais dangereux pour ta vie privée.", icon: "🔍", color: "border-indigo-500", hasLab2: true, details: [{"h": "Définition", "p": "Des données cachées dans le fichier photo : modèle d'appareil, réglages, date et heure, et parfois les coordonnées GPS de la prise de vue."}, {"h": "Exemple", "p": "Une photo publiée telle quelle peut révéler où elle a été prise : c'est pourquoi les grands réseaux effacent l'EXIF au téléversement."}, {"h": "À faire maintenant", "p": "Sur ton téléphone, affiche les détails d'une photo : retrouve l'appareil, la date, et vérifie si le lieu y figure."}, {"h": "À retenir", "p": "L'EXIF se lit — et se supprime avant de publier."}, {"h": "Vocabulaire", "p": "EXIF, métadonnée, géolocalisation."}] },
+  { title: "5. Retouche et IA", content: "Aujourd'hui, l'IA 'invente' des pixels pour améliorer tes photos de nuit ou supprimer des objets. La photo n'est plus une preuve du réel.", icon: "✨", color: "border-amber-500", details: [{"h": "Définition", "p": "Les logiciels transforment les pixels : corriger la lumière, supprimer un détail, ou générer de toutes pièces une scène qui n'existe pas grâce à l'IA."}, {"h": "Exemple", "p": "Les filtres « beauté » retouchent chaque portrait en direct ; des IA fabriquent des visages parfaitement crédibles... et totalement faux."}, {"h": "À retenir", "p": "Voir n'est plus croire : croiser les sources avant de partager — le pont direct avec le thème Fake News."}, {"h": "Vocabulaire", "p": "retouche, deepfake, image générée, vérification."}] },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
       { topic: "Les Deepfakes", desc: "Comment l'IA peut créer des vidéos truquées impossibles à distinguer du vrai ?", difficulty: "Avancé" },
       { topic: "Droit à l'image", desc: "Quelles sont les règles pour publier la photo de quelqu'un ?", difficulty: "Débutant" },
@@ -31,10 +31,11 @@ export default function PhotoChapter() {
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+  const [openLesson, setOpenLesson] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
-  const nextStep = () => { if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
+  const nextStep = () => { setOpenLesson(false); if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
   const handleAnswer = (idx: number) => { if (isLocked) return; setSelectedAnswer(idx); setIsLocked(true); if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(score + 1); };
   const nextQuestion = () => { if (quizIdx < QUIZ_QUESTIONS.length - 1) { setQuizIdx(quizIdx + 1); setSelectedAnswer(null); setIsLocked(false); } else setMode('resultat'); };
 
@@ -68,6 +69,23 @@ export default function PhotoChapter() {
                 </div>
               ) : (
                 <p className="text-lg text-slate-600 font-medium leading-relaxed mb-6 text-left">{LESSON_STEPS[step].content}</p>
+              )}
+              {LESSON_STEPS[step].details && (
+                <div className="mb-2 mt-[-12px]">
+                  <button onClick={() => setOpenLesson(!openLesson)} className="w-full py-3 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-700 font-black text-sm uppercase tracking-widest hover:bg-blue-100 transition-all">
+                    {openLesson ? '▲ Refermer le cours' : '📖 Lire le cours'}
+                  </button>
+                  {openLesson && (
+                    <div className="mt-3 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 space-y-4">
+                      {LESSON_STEPS[step].details!.map((b, i) => (
+                        <div key={i}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">{b.h}</div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{b.p}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
               {LESSON_STEPS[step].hasLab && (
                 <div className="bg-purple-50 p-6 rounded-3xl border-2 border-purple-100 mt-4 text-center italic">

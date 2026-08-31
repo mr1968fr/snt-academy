@@ -8,45 +8,52 @@ const LESSON_STEPS = [
     title: "1. C'est quoi une donnée ?",
     content: "Une donnée, c'est une information brute (un nom, un âge, une température). Quand on les organise pour qu'une machine puisse les traiter, on parle de données STRUCTURÉES. La base de tout, c'est le fichier CSV.",
     icon: "📄",
-    color: "border-blue-500"
+    color: "border-blue-500",
+    details: [{"h": "Définition", "p": "Une donnée est une valeur brute : nombre, texte, photo, mesure de capteur. Elle devient une information quand on l'interprète, puis une connaissance quand on l'analyse à grande échelle."}, {"h": "Exemple", "p": "« 16 » est une donnée. « Léa a 16 ans » est une information. « La moyenne d'âge de la classe est 15,8 ans » est une connaissance."}, {"h": "À retenir", "p": "Une donnée hors contexte ne veut rien dire : c'est le traitement qui lui donne son sens."}, {"h": "Vocabulaire", "p": "donnée, information, traitement, collecte."}]
   },
   {
     title: "2. Le format CSV",
     content: "CSV signifie 'Comma Separated Values' (valeurs séparées par des virgules). C'est un fichier texte tout simple. La première ligne contient les DESCRIPTEURS (les étiquettes) et les lignes suivantes sont les OBJETS (les données).",
     icon: "📝",
     color: "border-green-500",
-    hasLab: true
+    hasLab: true,
+    details: [{"h": "Définition", "p": "Comma Separated Values : un tableau enregistré en texte brut — une ligne par enregistrement, les valeurs séparées par des virgules (ou points-virgules en France). Tout tableur sait l'ouvrir."}, {"h": "Exemple", "p": "Nom,Age puis Dupont,15 : la première ligne est le descripteur, la suivante un enregistrement."}, {"h": "À faire maintenant", "p": "Ouvre un fichier CSV avec un éditeur de texte, puis avec un tableur : même contenu, deux lectures différentes."}, {"h": "À retenir", "p": "Le CSV est le format d'échange universel : léger, ouvert, lisible partout."}, {"h": "Vocabulaire", "p": "descripteur, enregistrement, séparateur."}]
   },
   {
     title: "3. Trier et Filtrer",
     content: "Avec des milliers de données, on ne peut rien lire à l'œil nu. On utilise des algorithmes pour TRIER (par ordre alphabétique ou numérique) ou FILTRER (ne garder que les données qui nous intéressent).",
     icon: "🧹",
-    color: "border-amber-500"
+    color: "border-amber-500",
+    details: [{"h": "Définition", "p": "Trier = réorganiser les lignes selon un critère (alphabétique, croissant...). Filtrer = ne garder que les lignes qui vérifient une condition."}, {"h": "Exemple", "p": "Sur 500 élèves : filtrer « classe = 2nde A » (une trentaine de lignes), puis trier par moyenne décroissante : le podium en deux clics."}, {"h": "À retenir", "p": "Le tableur fait en une seconde ce qu'un humain fait en une heure : c'est l'argument central du traitement de données."}, {"h": "Vocabulaire", "p": "critère, condition, tri croissant / décroissant."}]
   },
   {
     title: "4. SQL : interroger une base",
     content: "Le CSV atteint vite ses limites. Les pros rangent les données dans une base relationnelle : des tables reliées entre elles par des clés, interrogées avec SQL. Exemple : SELECT nom FROM eleves WHERE moyenne >= 15. C'est LE langage des données — testé par Pix, et tu le retrouveras dans toutes les études d'informatique.",
     icon: "🗄️",
     color: "border-emerald-500",
-    hasLab2: true
+    hasLab2: true,
+    details: [{"h": "Définition", "p": "SQL (Structured Query Language) interroge une base relationnelle : des tables dont les lignes sont des enregistrements et les colonnes des attributs, reliées entre elles par des clés."}, {"h": "Exemple", "p": "SELECT nom FROM eleves WHERE moyenne >= 15 renvoie uniquement la colonne nom des enregistrements qui vérifient la condition."}, {"h": "À retenir", "p": "SELECT (quelles colonnes) + FROM (quelle table) + WHERE (quelle condition) : la trame de presque toutes les requêtes — et un grand classique de Pix."}, {"h": "Vocabulaire", "p": "table, attribut, enregistrement, requête, clé."}]
   },
   {
     title: "5. Métadonnées : les données cachées",
     content: "Une photo n'est pas juste une image. Elle contient des métadonnées (EXIF) : l'heure, le lieu GPS, le modèle du téléphone... Ces données sur les données sont cruciales pour l'organisation... et la vie privée.",
     icon: "🔍",
-    color: "border-indigo-500"
+    color: "border-indigo-500",
+    details: [{"h": "Définition", "p": "Des données sur les données : date, auteur, lieu, format, appareil. Elles décrivent un document sans en être le contenu."}, {"h": "Exemple", "p": "Une photo contient l'heure et le GPS de la prise de vue : l'image est la donnée, l'EXIF est la métadonnée."}, {"h": "À retenir", "p": "Les métadonnées sont précieuses (retrouver un document) et dangereuses (localiser quelqu'un sans le savoir)."}, {"h": "Vocabulaire", "p": "métadonnée, EXIF, géolocalisation."}]
   },
   {
     title: "6. Le Cloud et le stockage",
     content: "Tes données ne flottent pas dans un nuage. Elles sont stockées dans des DATACENTERS géants. Cela pose deux problèmes : la sécurité (qui peut y accéder ?) et l'écologie (ces centres consomment énormément d'électricité).",
     icon: "☁️",
-    color: "border-sky-500"
+    color: "border-sky-500",
+    details: [{"h": "Définition", "p": "Stocker à distance sur les serveurs d'un fournisseur, accessibles par Internet, avec synchronisation automatique entre appareils et partage."}, {"h": "Exemple", "p": "La photo prise sur ton téléphone apparaît toute seule sur ton ordinateur : les deux appareils consultent la même copie distante."}, {"h": "À retenir", "p": "« Dans le cloud » veut dire « sur l'ordinateur de quelqu'un d'autre » : regarde qui héberge et dans quel pays avant d'y confier tes données."}, {"h": "Vocabulaire", "p": "cloud, synchronisation, hébergeur, datacenter."}]
   },
   {
     title: "7. RGPD : La Loi te protège",
     content: "Le RGPD est une loi européenne qui oblige les entreprises à protéger tes données personnelles. Tu as le droit de savoir ce qu'elles collectent et de demander la suppression de tes infos.",
     icon: "⚖️",
-    color: "border-red-500"
+    color: "border-red-500",
+    details: [{"h": "Définition", "p": "Le règlement général sur la protection des données (Europe, 2018) encadre les données personnelles : finalité déclarée, durée de conservation limitée, consentement, droit d'accès et droit à l'effacement."}, {"h": "Exemple", "p": "Un site doit t'expliquer quoi, pourquoi et combien de temps — et te permettre de faire supprimer tes données."}, {"h": "À retenir", "p": "Tes données t'appartiennent. Les entreprises qui trichent risquent des amendes pouvant atteindre plusieurs pour cent de leur chiffre d'affaires mondial."}, {"h": "Vocabulaire", "p": "donnée personnelle, consentement, droit à l'effacement."}]
   },
   {
     title: "🎤 Missions Exposés",
@@ -102,10 +109,11 @@ export default function DonneesChapter() {
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+  const [openLesson, setOpenLesson] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
-  const nextStep = () => {
+  const nextStep = () => { setOpenLesson(false);
     if (step < LESSON_STEPS.length - 1) setStep(step + 1);
     else setMode('quiz');
   };
@@ -165,6 +173,23 @@ export default function DonneesChapter() {
               )}
 
               {/* MINI LAB CSV (Conservé) */}
+              {LESSON_STEPS[step].details && (
+                <div className="mb-2 mt-[-12px]">
+                  <button onClick={() => setOpenLesson(!openLesson)} className="w-full py-3 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-700 font-black text-sm uppercase tracking-widest hover:bg-blue-100 transition-all">
+                    {openLesson ? '▲ Refermer le cours' : '📖 Lire le cours'}
+                  </button>
+                  {openLesson && (
+                    <div className="mt-3 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 space-y-4">
+                      {LESSON_STEPS[step].details!.map((b, i) => (
+                        <div key={i}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">{b.h}</div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{b.p}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
               {LESSON_STEPS[step].hasLab && (
                 <div className="bg-indigo-50 p-6 rounded-3xl border-2 border-indigo-100 mt-4 text-center">
                   <h4 className="text-indigo-900 font-black text-sm mb-4 uppercase tracking-wider italic text-left">🧪 Lab : Descripteur</h4>

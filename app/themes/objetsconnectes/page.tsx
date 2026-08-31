@@ -3,12 +3,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const LESSON_STEPS = [
-  { title: "1. L'Informatique Embarquée", content: "C'est un ordinateur caché dans un objet (frigo, voiture, montre). Il est dédié à une seule tâche et doit être ultra-fiable.", icon: "📟", color: "border-gray-500" },
-  { title: "2. Capteurs vs Actionneurs", content: "Le capteur 'voit' (température, bouton). L'actionneur 'agit' (allumer, chauffer, rouler). Le programme fait le lien entre les deux.", icon: "🔌", color: "border-orange-500", hasLab: true },
-  { title: "3. La carte programmable", content: "Au cœur de beaucoup d'objets connectés : le microcontrôleur (Arduino, micro:bit) — un mini-ordinateur sur une seule puce, avec processeur, mémoire et entrées/sorties. On le branche en USB et on le programme… en Python ! Capteur → programme → actionneur : toute l'électronique intelligente tient dans cette chaîne.", icon: "🔧", color: "border-lime-500" },
-  { title: "4. L'Interface (IHM)", content: "Interface Homme-Machine. C'est l'écran, les boutons ou la voix qui te permettent de commander l'objet.", icon: "🖱️", color: "border-blue-500" },
-  { title: "5. Le Temps Réel", content: "Dans une voiture, freiner doit prendre 2 millisecondes, pas 2 secondes. Le temps réel est une contrainte de sécurité vitale.", icon: "⚠️", color: "border-red-500", hasLab2: true },
-  { title: "6. La sécurité IoT", content: "Si ton frigo est connecté mais mal protégé, un hacker peut s'en servir pour entrer dans ton réseau WiFi personnel.", icon: "🛡️", color: "border-indigo-500" },
+  { title: "1. L'Informatique Embarquée", content: "C'est un ordinateur caché dans un objet (frigo, voiture, montre). Il est dédié à une seule tâche et doit être ultra-fiable.", icon: "📟", color: "border-gray-500", details: [{"h": "Définition", "p": "Un ordinateur caché dans un objet : voiture, machine à laver, montre, carte bancaire. Processeur, mémoire et programme intégrés, dédiés à une seule mission."}, {"h": "Exemple", "p": "Une voiture moderne embarque entre 50 et 100 calculateurs : moteur, freinage, éclairage, divertissement."}, {"h": "À retenir", "p": "Embarqué = contraint : peu d'énergie, peu de mémoire, mais une fiabilité exigée au maximum."}, {"h": "Vocabulaire", "p": "calculateur, embarqué, microprocesseur."}] },
+  { title: "2. Capteurs vs Actionneurs", content: "Le capteur 'voit' (température, bouton). L'actionneur 'agit' (allumer, chauffer, rouler). Le programme fait le lien entre les deux.", icon: "🔌", color: "border-orange-500", hasLab: true, details: [{"h": "Définition", "p": "Le capteur mesure le monde (température, lumière, appui, position). L'actionneur agit sur le monde (moteur, LED, résistance chauffante). Le programme fait le lien entre les deux."}, {"h": "Exemple", "p": "Un thermostat : capteur de température → programme (comparer à la consigne) → actionneur (la chaudière s'allume ou s'éteint)."}, {"h": "À faire maintenant", "p": "Chez toi, repère trois objets : quel est le capteur, quel est l'actionneur ?"}, {"h": "À retenir", "p": "La formule magique de tout objet connecté : capter → décider → agir, en boucle."}, {"h": "Vocabulaire", "p": "capteur, actionneur, consigne, boucle."}] },
+  { title: "3. La carte programmable", content: "Au cœur de beaucoup d'objets connectés : le microcontrôleur (Arduino, micro:bit) — un mini-ordinateur sur une seule puce, avec processeur, mémoire et entrées/sorties. On le branche en USB et on le programme… en Python ! Capteur → programme → actionneur : toute l'électronique intelligente tient dans cette chaîne.", icon: "🔧", color: "border-lime-500", details: [{"h": "Définition", "p": "Le microcontrôleur (Arduino, micro:bit) : processeur + mémoire + entrées/sorties sur une seule puce, que l'on programme par USB — souvent en Python."}, {"h": "Exemple", "p": "Sur une micro:bit, les capteurs de lumière et de mouvement sont intégrés : dix lignes de Python suffisent pour un premier objet qui réagit."}, {"h": "À retenir", "p": "C'est le passage de l'idée à l'objet réel : prototyper, pas simuler. Le pont direct avec le thème Python."}, {"h": "Vocabulaire", "p": "microcontrôleur, entrée/sortie, broche, prototype."}] },
+  { title: "4. L'Interface (IHM)", content: "Interface Homme-Machine. C'est l'écran, les boutons ou la voix qui te permettent de commander l'objet.", icon: "🖱️", color: "border-blue-500", details: [{"h": "Définition", "p": "L'interface homme-machine : boutons, écran, LED, son, application mobile — tout ce qui relie l'humain à la machine dans les deux sens."}, {"h": "Exemple", "p": "Un thermostat à écran tactile ou à simple molette : même fonction, interfaces différentes, usages différents."}, {"h": "À retenir", "p": "Une mauvaise interface rend un bon objet inutilisable : concevoir, c'est penser à celui qui utilise."}, {"h": "Vocabulaire", "p": "IHM, ergonomie, retour d'information."}] },
+  { title: "5. Le Temps Réel", content: "Dans une voiture, freiner doit prendre 2 millisecondes, pas 2 secondes. Le temps réel est une contrainte de sécurité vitale.", icon: "⚠️", color: "border-red-500", hasLab2: true, details: [{"h": "Définition", "p": "Un système temps réel garantit une réaction dans un délai maximal fixé. Pas « vite en moyenne » : toujours à temps."}, {"h": "Exemple", "p": "L'airbag se décide en quelques millisecondes : une seconde de retard et il ne sert plus à rien."}, {"h": "À retenir", "p": "Une appli qui rame agace ; un système temps réel qui rame est dangereux. La différence est la garantie du délai."}, {"h": "Vocabulaire", "p": "temps réel, latence, contrainte temporelle, criticité."}] },
+  { title: "6. La sécurité IoT", content: "Si ton frigo est connecté mais mal protégé, un hacker peut s'en servir pour entrer dans ton réseau WiFi personnel.", icon: "🛡️", color: "border-indigo-500", details: [{"h": "Définition", "p": "Chaque objet connecté est une porte d'entrée sur ton réseau : mots de passe d'usine jamais changés, mises à jour absentes, données qui partent en clair."}, {"h": "Exemple", "p": "En 2016, des milliers d'objets piratés (caméras, box) ont été réunis en armée zombie — un botnet — pour paralyser de grands sites."}, {"h": "À retenir", "p": "Changer les mots de passe par défaut et installer les mises à jour élimine l'essentiel du risque."}, {"h": "Vocabulaire", "p": "botnet, mise à jour, mot de passe par défaut, chiffrement."}] },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
       { topic: "La Domotique", desc: "La maison intelligente : confort ultime ou surveillance permanente ?", difficulty: "Débutant" },
       { topic: "Piratage médical", desc: "Peut-on hacker un pacemaker ou une pompe à insuline connectée ?", difficulty: "Avancé" },
@@ -32,10 +32,11 @@ export default function IoTChapter() {
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+  const [openLesson, setOpenLesson] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
-  const nextStep = () => { if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
+  const nextStep = () => { setOpenLesson(false); if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
   const handleAnswer = (idx: number) => { if (isLocked) return; setSelectedAnswer(idx); setIsLocked(true); if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(score + 1); };
   const nextQuestion = () => { if (quizIdx < QUIZ_QUESTIONS.length - 1) { setQuizIdx(quizIdx + 1); setSelectedAnswer(null); setIsLocked(false); } else setMode('resultat'); };
 
@@ -69,6 +70,23 @@ export default function IoTChapter() {
                 </div>
               ) : (
                 <p className="text-lg text-slate-600 font-medium leading-relaxed mb-6 text-left">{LESSON_STEPS[step].content}</p>
+              )}
+              {LESSON_STEPS[step].details && (
+                <div className="mb-2 mt-[-12px]">
+                  <button onClick={() => setOpenLesson(!openLesson)} className="w-full py-3 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-700 font-black text-sm uppercase tracking-widest hover:bg-blue-100 transition-all">
+                    {openLesson ? '▲ Refermer le cours' : '📖 Lire le cours'}
+                  </button>
+                  {openLesson && (
+                    <div className="mt-3 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 space-y-4">
+                      {LESSON_STEPS[step].details!.map((b, i) => (
+                        <div key={i}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">{b.h}</div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{b.p}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
               {LESSON_STEPS[step].hasLab && (
                 <div className="bg-orange-50 p-6 rounded-3xl border-2 border-orange-100 mt-4 text-center italic">

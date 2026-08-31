@@ -3,12 +3,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const LESSON_STEPS = [
-  { title: "1. Web ≠ Internet", content: "Internet est le réseau de câbles. Le Web est un service qui tourne dessus, comme le Mail ou le FTP. Le Web n'est né qu'en 1989 !", icon: "🌐", color: "border-blue-500" },
-  { title: "2. Le CERN & Tim Berners-Lee", content: "Le Web a été inventé à Genève pour aider les scientifiques à partager des documents via des liens HYPERTEXTE. C'est la naissance du HTML.", icon: "📜", color: "border-amber-500" },
-  { title: "3. Client-Serveur", content: "Ton navigateur est le CLIENT. Il demande une page au SERVEUR. C'est une discussion permanente en langage HTTP.", icon: "🔄", color: "border-indigo-500", hasLab: true },
-  { title: "4. L'URL décortiquée", content: "HTTPS (protocole) + NOM DE DOMAINE + CHEMIN. Chaque page du monde a une adresse unique.", icon: "🔗", color: "border-green-500", hasLab2: true },
-  { title: "5. Moteurs de recherche : l'index et le vote", content: "Google ne fouille pas le web en direct : des robots (les crawlers) le parcourent en permanence pour construire un INDEX, une bibliothèque géante déjà triée. Ta recherche interroge cet index. Et le classement (PageRank) compte les liens comme des votes : plus une page est citée, plus elle remonte. C'est le référencement naturel — une page vers laquelle aucun lien ne pointe est invisible.", icon: "🧭", color: "border-cyan-500" },
-  { title: "6. Cookies & Tracking", content: "Les cookies sont des petits fichiers déposés par les sites pour se souvenir de toi. Pratique pour rester connecté, mais dangereux pour ta vie privée.", icon: "🍪", color: "border-orange-500" },
+  { title: "1. Web ≠ Internet", content: "Internet est le réseau de câbles. Le Web est un service qui tourne dessus, comme le Mail ou le FTP. Le Web n'est né qu'en 1989 !", icon: "🌐", color: "border-blue-500", details: [{"h": "Définition", "p": "Internet est le réseau des réseaux : l'infrastructure mondiale, née dans les années 1970 autour de TCP/IP. Le Web n'est qu'UN service d'Internet : des pages reliées par des liens, transportées par HTTP. D'autres services existent : e-mail, visioconférence, jeux en ligne, pair-à-pair."}, {"h": "Exemple", "p": "Tu peux envoyer un e-mail ou visiochater SANS utiliser le Web : ces services circulent sur Internet sans être le Web."}, {"h": "À retenir", "p": "L'erreur classique : confondre les deux. Retiens l'image : le Web vit SUR Internet, comme la poste roule sur les routes."}, {"h": "Vocabulaire", "p": "réseau, service, HTTP, lien hypertexte."}] },
+  { title: "2. Le CERN & Tim Berners-Lee", content: "Le Web a été inventé à Genève pour aider les scientifiques à partager des documents via des liens HYPERTEXTE. C'est la naissance du HTML.", icon: "📜", color: "border-amber-500", details: [{"h": "Définition", "p": "Le Web est inventé en 1989 au CERN (Genève) par Tim Berners-Lee, avec trois briques : HTML pour écrire les pages, HTTP pour les transporter, URL pour les adresser. L'ensemble est offert au domaine public en 1993."}, {"h": "Exemple", "p": "Le tout premier site web (info.cern.ch) expliquait simplement... ce qu'est le Web."}, {"h": "À retenir", "p": "Personne ne possède le Web : ni entreprise, ni État. C'est son principe fondateur."}, {"h": "Vocabulaire", "p": "HTML, HTTP, URL, domaine public."}] },
+  { title: "3. Client-Serveur", content: "Ton navigateur est le CLIENT. Il demande une page au SERVEUR. C'est une discussion permanente en langage HTTP.", icon: "🔄", color: "border-indigo-500", hasLab: true, details: [{"h": "Définition", "p": "L'architecture du Web : le client (ton navigateur) envoie une requête, le serveur répond en envoyant la page. C'est TOUJOURS le client qui initie l'échange."}, {"h": "Exemple", "p": "Taper une URL, c'est envoyer une requête HTTP GET ; le serveur renvoie le fichier HTML et ton navigateur l'affiche."}, {"h": "À retenir", "p": "Ton navigateur est un client, pas un serveur : il ne répond jamais aux requêtes du monde entier."}, {"h": "Vocabulaire", "p": "requête, réponse, navigateur, hébergeur."}] },
+  { title: "4. L'URL décortiquée", content: "HTTPS (protocole) + NOM DE DOMAINE + CHEMIN. Chaque page du monde a une adresse unique.", icon: "🔗", color: "border-green-500", hasLab2: true, details: [{"h": "Définition", "p": "Une URL se lit en 3 morceaux : protocole (https://) + nom de domaine (le serveur) + chemin (la ressource précise demandée)."}, {"h": "Exemple", "p": "Comme une adresse postale : le protocole est le mode de transport, le domaine est la ville, le chemin est la rue et le numéro."}, {"h": "À retenir", "p": "Le S de HTTPS signifie chiffré : personne ne peut lire tes données en route. Ne tape jamais de mot de passe sur un site en http simple."}, {"h": "Vocabulaire", "p": "URL, protocole, nom de domaine, chemin, chiffrement."}] },
+  { title: "5. Moteurs de recherche : l'index et le vote", content: "Google ne fouille pas le web en direct : des robots (les crawlers) le parcourent en permanence pour construire un INDEX, une bibliothèque géante déjà triée. Ta recherche interroge cet index. Et le classement (PageRank) compte les liens comme des votes : plus une page est citée, plus elle remonte. C'est le référencement naturel — une page vers laquelle aucun lien ne pointe est invisible.", icon: "🧭", color: "border-cyan-500", details: [{"h": "Définition", "p": "Un moteur ne fouille pas le web en direct : des robots (crawlers) le parcourent en suivant les liens et construisent un index géant. Ta requête interroge cet index ; le classement (PageRank) compte les liens comme des votes."}, {"h": "Exemple", "p": "Une page citée par 500 sites apparaît devant une page plus ancienne mais ignorée de tous : la popularité prime."}, {"h": "À faire maintenant", "p": "Cherche « seconde SNT » sur deux moteurs différents et compare les 5 premiers résultats : pourquoi ne sont-ils pas identiques ?"}, {"h": "À retenir", "p": "Moteur de recherche ≠ navigateur ≠ page d'accueil : trois choses souvent confondues. Le référencement naturel est gratuit ; les places publicitaires, elles, se paient."}, {"h": "Vocabulaire", "p": "crawler, index, PageRank, référencement."}] },
+  { title: "6. Cookies & Tracking", content: "Les cookies sont des petits fichiers déposés par les sites pour se souvenir de toi. Pratique pour rester connecté, mais dangereux pour ta vie privée.", icon: "🍪", color: "border-orange-500", details: [{"h": "Définition", "p": "Un cookie est un petit fichier qu'un site dépose dans ton navigateur pour se souvenir de toi : garder ta session, ton panier... ou te suivre de site en site à des fins publicitaires."}, {"h": "Exemple", "p": "Un article regardé un soir réapparaît en publicité partout le lendemain : un cookie tiers t'a reconnu."}, {"h": "À retenir", "p": "Depuis le RGPD, ton consentement est obligatoire, et refuser les cookies tiers est toujours possible."}, {"h": "Vocabulaire", "p": "cookie, cookie tiers, traceur, consentement."}] },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
       { topic: "Le Deep Web & Dark Web", desc: "Fantasmes vs Réalité : qu'est-ce qui se cache vraiment dans les zones non-indexées ?", difficulty: "Avancé" },
       { topic: "L'histoire des navigateurs", desc: "De Netscape à Chrome : pourquoi certains ont gagné la guerre du Web ?", difficulty: "Débutant" },
@@ -32,10 +32,11 @@ export default function WebChapter() {
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+  const [openLesson, setOpenLesson] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
-  const nextStep = () => { if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
+  const nextStep = () => { setOpenLesson(false); if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
   const handleAnswer = (idx: number) => { if (isLocked) return; setSelectedAnswer(idx); setIsLocked(true); if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(score + 1); };
   const nextQuestion = () => { if (quizIdx < QUIZ_QUESTIONS.length - 1) { setQuizIdx(quizIdx + 1); setSelectedAnswer(null); setIsLocked(false); } else setMode('resultat'); };
 
@@ -69,6 +70,23 @@ export default function WebChapter() {
                 </div>
               ) : (
                 <p className="text-lg text-slate-600 font-medium leading-relaxed mb-6">{LESSON_STEPS[step].content}</p>
+              )}
+              {LESSON_STEPS[step].details && (
+                <div className="mb-2 mt-[-12px]">
+                  <button onClick={() => setOpenLesson(!openLesson)} className="w-full py-3 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-700 font-black text-sm uppercase tracking-widest hover:bg-blue-100 transition-all">
+                    {openLesson ? '▲ Refermer le cours' : '📖 Lire le cours'}
+                  </button>
+                  {openLesson && (
+                    <div className="mt-3 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 space-y-4">
+                      {LESSON_STEPS[step].details!.map((b, i) => (
+                        <div key={i}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">{b.h}</div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{b.p}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
               {LESSON_STEPS[step].hasLab && (
                 <div className="bg-blue-50 p-6 rounded-3xl border-2 border-blue-100 mt-4 text-center italic">

@@ -8,39 +8,45 @@ const LESSON_STEPS = [
     title: "1. L'Expérience du Petit Monde",
     content: "En 1967, Stanley Milgram a montré que deux inconnus étaient reliés par seulement 6 intermédiaires. Aujourd'hui, avec les réseaux sociaux, ce chiffre est tombé à 3,5 ! C'est ce qu'on appelle le phénomène du 'Petit Monde'.",
     icon: "🌍",
-    color: "border-amber-500"
+    color: "border-amber-500",
+    details: [{"h": "Définition", "p": "L'expérience de Milgram (1967) : deux personnes au hasard sont reliées par une chaîne d'environ 6 intermédiaires — le « monde petit ». Les réseaux numériques l'ont vérifié à l'échelle : sur les grands réseaux, la distance moyenne tombe à 3 ou 4."}, {"h": "Exemple", "p": "Un message passé de proche en proche atteint une personne inconnue à l'autre bout du monde en quelques relais seulement."}, {"h": "À retenir", "p": "Le monde est petit grâce aux « ponts » : ces personnes qui relient des communautés différentes."}, {"h": "Vocabulaire", "p": "degré de séparation, relais, pont."}]
   },
   {
     title: "2. Les Graphes : Le langage des réseaux",
     content: "Pour étudier un réseau, on utilise les Graphes. Un compte = un SOMMET. Une relation = une ARÊTE. Si le lien ne marche que dans un sens (ex: tu suis une star), c'est un graphe ORIENTÉ.",
     icon: "📐",
     color: "border-blue-500",
-    hasLab: true // Labo sur les sommets/arêtes
+    hasLab: true, // Labo sur les sommets/arêtes,
+    details: [{"h": "Définition", "p": "Un réseau se modélise par un graphe : des sommets (les personnes) reliés par des arêtes (les relations). Ce modèle permet de calculer distances, influences et communautés."}, {"h": "Exemple", "p": "En dessinant « qui suit qui », les influenceurs apparaissent : ce sont les sommets reliés au plus grand nombre."}, {"h": "À retenir", "p": "Le graphe est LE langage des réseaux : réseaux sociaux, web, cartes de métro — tout se dessine en sommets et arêtes."}, {"h": "Vocabulaire", "p": "sommet, arête, voisin, distance."}]
   },
   {
     title: "3. Labo : Calculer une Distance",
     content: "La 'Distance' entre deux sommets, c'est le nombre minimum d'arêtes pour les relier. L'écartement d'un sommet est sa distance maximale vers les autres. Le centre du graphe est le sommet avec l'écartement le plus petit.",
     icon: "🔬",
     color: "border-indigo-500",
-    hasLab2: true // Labo sur le calcul de distance
+    hasLab2: true, // Labo sur le calcul de distance,
+    details: [{"h": "Définition", "p": "La distance entre deux sommets d'un graphe est le nombre d'arêtes du plus court chemin qui les relie."}, {"h": "Exemple", "p": "Toi → un ami → une célébrité qu'il suit : distance 2. Avec un parfait inconnu, on trouve souvent 4 à 6."}, {"h": "À faire maintenant", "p": "Essaie d'estimer ta distance avec une célébrité en cherchant tes amis communs : combien de relais ?"}, {"h": "À retenir", "p": "Ces distances se calculent automatiquement, même sur des réseaux à des milliards de sommets."}, {"h": "Vocabulaire", "p": "plus court chemin, distance, degré."}]
   },
   {
     title: "4. Ton Identité Numérique",
     content: "Il y a ce que tu montres (profil) et ce que tu laisses sans le vouloir (cookies, temps de vue, géolocalisation). Tout cela forme ton Identité Numérique. Ton e-réputation, c'est ce que Google dit de toi.",
     icon: "🔍",
-    color: "border-pink-500"
+    color: "border-pink-500",
+    details: [{"h": "Définition", "p": "Tout ce qui est associé à ton nom en ligne : profils, publications, photos, commentaires. Elle a deux faces : la trace active (ce que tu publies) et la trace passive (ce que les autres publient sur toi)."}, {"h": "Exemple", "p": "Un recruteur tape ton nom dans un moteur : la première page de résultats EST ton identité numérique à ses yeux."}, {"h": "À faire maintenant", "p": "Cherche ton propre nom dans un moteur de recherche et observe la première page de résultats : c'est ce que le monde voit."}, {"h": "À retenir", "p": "Sur Internet, « effacer » ne veut pas dire disparaître : captures d'écran et copies existent toujours."}, {"h": "Vocabulaire", "p": "e-réputation, trace active, trace passive."}]
   },
   {
     title: "5. Bulle de Filtres & Algorithmes",
     content: "L'algorithme veut que tu restes sur l'appli. Il te montre donc uniquement ce que tu aimes déjà. C'est la 'Bulle de filtres'. Elle t'empêche de voir des avis différents et peut favoriser les Fake News.",
     icon: "🧼",
-    color: "border-yellow-500"
+    color: "border-yellow-500",
+    details: [{"h": "Définition", "p": "Les réseaux trient ce qu'ils te montrent selon tes clics passés : ton fil devient une version du monde qui te ressemble et te conforte. C'est la bulle de filtres."}, {"h": "Exemple", "p": "Deux personnes voient deux fils d'actualité totalement différents sur le même événement, chacun alimenté par ses propres goûts."}, {"h": "À retenir", "p": "Ce que tu vois n'est pas LE fil, c'est TON fil : un algorithme a choisi pour toi. Diversifier ses sources est la parade."}, {"h": "Vocabulaire", "p": "algorithme de recommandation, bulle de filtres, engagement."}]
   },
   {
     title: "6. Cyberviolence : Ce que dit la Loi",
     content: "Le cyberharcèlement (insultes répétées, menaces, revenge porn) est puni par le Code Pénal, même sous pseudo. Le respect s'applique aussi derrière un écran. Le numéro à retenir : 3018.",
     icon: "⚖️",
-    color: "border-red-500"
+    color: "border-red-500",
+    details: [{"h": "Définition", "p": "Harcèlement en ligne, menaces, diffusion d'images intimes sans accord, usurpation d'identité : tous sont des délits punis par la loi, avec des peines aggravées quand ils visent un mineur."}, {"h": "Exemple", "p": "Le cyberharcèlement « en meute » est spécifiquement puni : participer à une vague de messages hostiles est un délit, même « pour rire »."}, {"h": "À retenir", "p": "La bonne réaction : capturer les preuves (captures d'écran), ne pas répondre, parler à un adulte de confiance et signaler — le 3018 est le numéro dédié. Et vérifie régulièrement tes paramètres de confidentialité."}, {"h": "Vocabulaire", "p": "cyberharcèlement, preuve, signalement, paramètres de confidentialité."}]
   },
   {
     title: "🎤 Missions Exposés",
@@ -96,10 +102,11 @@ export default function ReseauxSociauxV4() {
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+  const [openLesson, setOpenLesson] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
-  const nextStep = () => { if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
+  const nextStep = () => { setOpenLesson(false); if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
   const handleAnswer = (idx: number) => { if (isLocked) return; setSelectedAnswer(idx); setIsLocked(true); if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(score + 1); };
   const nextQuestion = () => { if (quizIdx < QUIZ_QUESTIONS.length - 1) { setQuizIdx(quizIdx + 1); setSelectedAnswer(null); setIsLocked(false); } else setMode('resultat'); };
 
@@ -139,6 +146,23 @@ export default function ReseauxSociauxV4() {
                 <p className="text-lg text-slate-600 font-medium leading-relaxed mb-6 text-left font-bold">{LESSON_STEPS[step].content}</p>
               )}
 
+              {LESSON_STEPS[step].details && (
+                <div className="mb-2 mt-[-12px]">
+                  <button onClick={() => setOpenLesson(!openLesson)} className="w-full py-3 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-700 font-black text-sm uppercase tracking-widest hover:bg-blue-100 transition-all">
+                    {openLesson ? '▲ Refermer le cours' : '📖 Lire le cours'}
+                  </button>
+                  {openLesson && (
+                    <div className="mt-3 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 space-y-4">
+                      {LESSON_STEPS[step].details!.map((b, i) => (
+                        <div key={i}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">{b.h}</div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{b.p}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
               {LESSON_STEPS[step].hasLab && (
                 <div className="bg-blue-50 p-6 rounded-3xl border-2 border-blue-100 mt-4 text-center italic">
                   <h4 className="text-blue-900 font-black text-sm mb-4 uppercase tracking-widest italic text-left tracking-widest">🧪 LAB : Sommet ou Arête ?</h4>

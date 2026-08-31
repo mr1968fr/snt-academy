@@ -8,39 +8,45 @@ const LESSON_STEPS = [
     title: "1. Le ciel t'écoute",
     content: "Le système GPS (USA) ou Galileo (Europe) utilise une constellation de satellites qui envoient leur position et l'heure exacte en permanence. Ton téléphone ne discute pas avec eux, il capte juste leur signal comme une radio.",
     icon: "🛰️",
-    color: "border-blue-500"
+    color: "border-blue-500",
+    details: [{"h": "Définition", "p": "Le GPS — et son homologue européen Galileo — repose sur des dizaines de satellites qui émettent en continu leur position et l'heure. Ton téléphone reçoit ces signaux et calcule sa propre position."}, {"h": "Exemple", "p": "En extérieur, ton téléphone capte 8 à 12 satellites : c'est le croisement de leurs signaux qui le situe."}, {"h": "À retenir", "p": "En GPS pur, ton téléphone reçoit sans émettre : ce sont ensuite les applications qui décident d'envoyer ta position — et à qui."}, {"h": "Vocabulaire", "p": "satellite, récepteur, GPS, Galileo."}]
   },
   {
     title: "2. La Trilatération",
     content: "Pour connaître ta position, ton récepteur doit capter au moins 4 satellites. En calculant le temps que met le signal pour arriver, il déduit ta position au mètre près. C'est de la géométrie pure dans l'espace !",
     icon: "📐",
-    color: "border-indigo-500"
+    color: "border-indigo-500",
+    details: [{"h": "Définition", "p": "Chaque satellite annonce « je suis à telle distance de toi », ce qui dessine une sphère autour de toi. Trois sphères se coupent en un point ; une quatrième corrige l'imprécision de l'horloge."}, {"h": "Exemple", "p": "Comme si trois amis te disaient « je suis à 2 km, 3 km et 5 km de toi » : tu peux en déduire exactement où tu te trouves."}, {"h": "À retenir", "p": "C'est un croisement de distances, pas un marqueur posé sur toi. On dit trilatération, pas triangulation."}, {"h": "Vocabulaire", "p": "sphère, trilatération, précision."}]
   },
   {
     title: "3. Latitude et Longitude",
     content: "On se repère avec deux coordonnées : la LATITUDE (Nord/Sud par rapport à l'Équateur) et la LONGITUDE (Est/Ouest par rapport au méridien de Greenwich). C'est le langage universel des marins et des pilotes.",
     icon: "🗺️",
     color: "border-green-500",
-    hasLab: true
+    hasLab: true,
+    details: [{"h": "Définition", "p": "Deux nombres suffisent pour désigner tout point de la Terre : la latitude (position nord/sud, 0° à l'équateur, 90° au pôle) et la longitude (est/ouest, 0° au méridien de Greenwich)."}, {"h": "Exemple", "p": "Paris est environ à 48,85° N et 2,35° E. Un écart de 0,0001° représente à peu près 10 mètres."}, {"h": "À retenir", "p": "Latitude et longitude : deux coordonnées, et n'importe quelle application sait où tu es."}, {"h": "Vocabulaire", "p": "latitude, longitude, équateur, méridien."}]
   },
   {
     title: "4. Couches d'information",
     content: "Une carte numérique (comme Google Maps ou OSM) superpose des COUCHES. Une couche pour le relief, une pour les routes, une pour les bouchons. On peut les activer ou les masquer selon nos besoins.",
     icon: "📍",
-    color: "border-orange-500"
+    color: "border-orange-500",
+    details: [{"h": "Définition", "p": "Une carte numérique superpose des couches thématiques (routes, transports, commerces, travaux) sur un fond de carte. Tu affiches celles qui t'intéressent."}, {"h": "Exemple", "p": "Couche vélo + couche incidents : le serveur combine les deux et calcule ton itinéraire en évitant les perturbations."}, {"h": "À retenir", "p": "C'est le principe des SIG (systèmes d'information géographique), utilisés par les collectivités pour décider : écoles, bus, réseaux d'eau."}, {"h": "Vocabulaire", "p": "couche, fond de carte, SIG."}]
   },
   {
     title: "5. L'algorithme de Dijkstra",
     content: "Pour calculer ton itinéraire, ton téléphone utilise des algorithmes de graphes. Il cherche le chemin le plus court entre deux points. Dijkstra est le plus célèbre pour trouver la route la plus rapide.",
     icon: "🏎️",
     color: "border-red-500",
-    hasLab2: true
+    hasLab2: true,
+    details: [{"h": "Définition", "p": "Un algorithme qui calcule le plus court chemin entre deux sommets d'un graphe pondéré (par la distance, le temps, le coût). Il explore les sommets par ordre croissant d'éloignement depuis le départ."}, {"h": "Exemple", "p": "C'est lui (ou ses variantes) que ton GPS interroge pour proposer l'itinéraire le plus rapide — recalculé à chaque déviation."}, {"h": "À retenir", "p": "Même avec des millions de routes, il répond en une fraction de seconde : la puissance des algorithmes de graphes."}, {"h": "Vocabulaire", "p": "graphe pondéré, plus court chemin, poids."}]
   },
   {
     title: "6. Vie privée : Le tracking",
     content: "La géolocalisation est une donnée sensible. Si une appli te suit H24, elle connaît ton domicile, ton école et tes amis. Il faut toujours vérifier quelles applications ont le droit d'accéder à ta position.",
     icon: "🔒",
-    color: "border-slate-800"
+    color: "border-slate-800",
+    details: [{"h": "Définition", "p": "Tes déplacements sont des données très recherchées : applications, publicitaires, assurances les collectent, parfois en permanence."}, {"h": "Exemple", "p": "Une appli météo qui réclame ta position « en permanence » n'a besoin que de « pendant l'utilisation » : la demande est disproportionnée."}, {"h": "À faire maintenant", "p": "Ouvre les réglages de ton téléphone, liste les applis qui accèdent à ta position et passes-les en « pendant l'utilisation »."}, {"h": "À retenir", "p": "Règle simple : chaque accès à la localisation doit avoir une raison précise. Sinon, on coupe."}, {"h": "Vocabulaire", "p": "tracking, autorisation de localisation, données de déplacement."}]
   },
   {
     title: "🎤 Missions Exposés",
@@ -96,10 +102,11 @@ export default function LocalisationChapter() {
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+  const [openLesson, setOpenLesson] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
-  const nextStep = () => {
+  const nextStep = () => { setOpenLesson(false);
     if (step < LESSON_STEPS.length - 1) setStep(step + 1);
     else setMode('quiz');
   };
@@ -149,6 +156,23 @@ export default function LocalisationChapter() {
                 </p>
               )}
 
+              {LESSON_STEPS[step].details && (
+                <div className="mb-2 mt-[-12px]">
+                  <button onClick={() => setOpenLesson(!openLesson)} className="w-full py-3 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-700 font-black text-sm uppercase tracking-widest hover:bg-blue-100 transition-all">
+                    {openLesson ? '▲ Refermer le cours' : '📖 Lire le cours'}
+                  </button>
+                  {openLesson && (
+                    <div className="mt-3 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 space-y-4">
+                      {LESSON_STEPS[step].details!.map((b, i) => (
+                        <div key={i}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">{b.h}</div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{b.p}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
               {LESSON_STEPS[step].hasLab && (
                 <div className="bg-blue-50 p-6 rounded-3xl border-2 border-blue-100 mt-4 text-center italic font-medium">
                   <h4 className="text-blue-900 font-black text-sm mb-4 uppercase tracking-widest">🧪 MISSION : Latitude</h4>
