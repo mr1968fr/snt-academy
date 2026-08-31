@@ -20,11 +20,11 @@ export default function Home() {
 
       {/* HEADER / HERO */}
       <header className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-6 leading-tight">
-          SNT, enfin <span className="text-blue-600 italic text-left">clair</span> et{' '}
-          <span className="text-indigo-600 italic text-left">motivant</span>.
+        <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-6 leading-tight text-left">
+          SNT, enfin <span className="text-blue-600 italic">clair</span> et{' '}
+          <span className="text-indigo-600 italic">motivant</span>.
         </h1>
-        <p className="text-lg text-slate-600 mb-10 font-medium">
+        <p className="text-lg text-slate-600 mb-10 font-medium text-left">
           Des chapitres courts, un ton qui parle aux élèves de seconde, un quiz à la fin
           de chaque thème, et un suivi simple pour les professeurs.
         </p>
@@ -43,10 +43,6 @@ export default function Home() {
             Je suis professeur — Voir la démo
           </Link>
         </div>
-
-        <p className="mt-8 text-sm text-slate-400 italic font-medium">
-          Créé par un enseignant de SNT, pour les professeurs et les élèves de SNT.
-        </p>
       </header>
 
       {/* SECTION ARGUMENTAIRE */}
@@ -61,8 +57,8 @@ export default function Home() {
         </div>
       </section>
 
-           {/* SECTION GRILLE DES THÈMES */}
-           <section className="max-w-6xl mx-auto px-6 py-20">
+      {/* SECTION GRILLE DES THÈMES SNT */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
         <h2 className="text-3xl font-black text-center mb-12 tracking-tight uppercase tracking-widest text-slate-400 text-sm">Les 7 thèmes du programme</h2>
         
         <div className="grid md:grid-cols-3 gap-6">
@@ -93,46 +89,67 @@ export default function Home() {
           ))}
         </div>
 
-        {/* SECTION BONUS : OUTILS BUREAUTIQUES */}
+        {/* SECTION BONUS : SAVOIR-FAIRE MINIMUM */}
         <h2 className="text-3xl font-black text-center mb-12 mt-24 tracking-tight uppercase tracking-widest text-slate-400 text-sm">
-          Bonus : Maîtrise tes outils
+          Bonus : Tes outils de survie numérique
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          <Link
-            href="/themes/word"
-            className="p-8 bg-blue-50 rounded-3xl border-2 border-blue-100 shadow-sm hover:shadow-xl hover:border-blue-400 transition-all group flex flex-col"
-          >
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* WORD */}
+          <Link href="/themes/word" className="p-8 bg-blue-50 rounded-3xl border-2 border-blue-100 hover:border-blue-400 transition-all group shadow-sm">
             <div className="text-4xl mb-4">📄</div>
-            <h3 className="text-xl font-black mb-3 group-hover:text-blue-600 transition-colors tracking-tight text-left">
-              Traitement de texte
-            </h3>
-            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">
-              Styles, sommaire automatique, sauts de page : rédige des rapports impeccables sur Word.
-            </p>
-            <div className="mt-6 text-blue-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-              Commencer →
-            </div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-blue-600">Traitement de texte</h3>
+            <p className="text-sm text-slate-500 font-medium">Styles, sommaire automatique et mise en page pro sur Word.</p>
           </Link>
 
-          <Link
-            href="/themes/excel"
-            className="p-8 bg-green-50 rounded-3xl border-2 border-green-100 shadow-sm hover:shadow-xl hover:border-green-400 transition-all group flex flex-col"
-          >
+          {/* EXCEL */}
+          <Link href="/themes/excel" className="p-8 bg-green-50 rounded-3xl border-2 border-green-100 hover:border-green-400 transition-all group shadow-sm">
             <div className="text-4xl mb-4">📊</div>
-            <h3 className="text-xl font-black mb-3 group-hover:text-green-600 transition-colors tracking-tight text-left">
-              Tableur &amp; Calculs
-            </h3>
-            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">
-              Formules, fonctions SOMME et MOYENNE, graphiques : fais travailler Excel à ta place.
-            </p>
-            <div className="mt-6 text-green-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-              Commencer →
+            <h3 className="text-xl font-black mb-2 group-hover:text-green-600">Tableur & Données</h3>
+            <p className="text-sm text-slate-500 font-medium">Maîtrise les formules, les fonctions et les graphiques Excel.</p>
+          </Link>
+
+          {/* CANVA */}
+          <Link href="/themes/canva" className="p-8 bg-cyan-50 rounded-3xl border-2 border-cyan-100 hover:border-cyan-400 transition-all group shadow-sm">
+            <div className="text-4xl mb-4">🎨</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-cyan-600">Design & Visuels</h3>
+            <p className="text-sm text-slate-500 font-medium">Crée des présentations et des affiches qui claquent avec Canva.</p>
+          </Link>
+
+          {/* EMAIL */}
+          <Link href="/themes/email" className="p-8 bg-orange-50 rounded-3xl border-2 border-orange-100 hover:border-orange-400 transition-all group shadow-sm">
+            <div className="text-4xl mb-4">📧</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-orange-600">E-mails & Pro</h3>
+            <p className="text-sm text-slate-500 font-medium">Apprends à écrire à un prof et à éviter le phishing (arnaques).</p>
+          </Link>
+
+          {/* SMARTPHONE */}
+          <Link href="/themes/smartphone" className="p-8 bg-pink-50 rounded-3xl border-2 border-pink-100 hover:border-pink-400 transition-all group shadow-sm">
+            <div className="text-4xl mb-4">📱</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-pink-600">Ton Smartphone</h3>
+            <p className="text-sm text-slate-500 font-medium">Sécurité, stockage et vie privée : deviens le boss de ton tel.</p>
+          </Link>
+
+          {/* RESEAU */}
+          <Link href="/themes/reseau" className="p-8 bg-indigo-50 rounded-3xl border-2 border-indigo-100 hover:border-indigo-400 transition-all group shadow-sm">
+            <div className="text-4xl mb-4">🌐</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-indigo-600">Réseau & Wi-Fi</h3>
+            <p className="text-sm text-slate-500 font-medium">Comprendre ta box, ton adresse IP et ton débit internet.</p>
+          </Link>
+
+          {/* FAKE NEWS (Sur une ligne seule ou centrée si besoin) */}
+          <Link href="/themes/fake-news" className="p-8 bg-red-50 rounded-3xl border-2 border-red-100 hover:border-red-400 transition-all group shadow-sm lg:col-span-3">
+            <div className="flex items-center gap-6">
+              <div className="text-4xl">🔍</div>
+              <div>
+                <h3 className="text-xl font-black mb-1 group-hover:text-red-600">Vérifier l&apos;information (Fake News)</h3>
+                <p className="text-sm text-slate-500 font-medium">Recherche d&apos;image inversée et techniques pour débusquer les mensonges du web.</p>
+              </div>
             </div>
           </Link>
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center mt-20">
           <Link
             href="/themes"
             className="inline-block px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-black hover:bg-black transition shadow-xl"
@@ -142,8 +159,8 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-12 text-center text-slate-400 text-sm border-t font-bold tracking-widest">
-        © SNT ACADEMY — LA PLATEFORME PENSÉE PAR UN PROF.
+      <footer className="py-12 text-center text-slate-400 text-sm border-t font-bold tracking-widest uppercase">
+        © SNT ACADEMY — La plateforme pensée par un prof.
       </footer>
     </div>
   );

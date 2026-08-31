@@ -93,58 +93,73 @@ export default function Home() {
           ))}
         </div>
 
-        {/* SECTION BONUS : VIE NUMÉRIQUE ET OUTILS */}
+        {/* SECTION BONUS : COMPÉTENCES INDISPENSABLES */}
         <h2 className="text-3xl font-black text-center mb-12 mt-24 tracking-tight uppercase tracking-widest text-slate-400 text-sm">
-          Bonus : Compétences Indispensables
+          Bonus : Compétences de survie numérique
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* WORD */}
-          <Link
-            href="/themes/word"
-            className="p-8 bg-blue-50 rounded-3xl border-2 border-blue-100 shadow-sm hover:shadow-xl hover:border-blue-400 transition-all group flex flex-col"
-          >
+          <Link href="/themes/word" className="p-8 bg-blue-50 rounded-3xl border-2 border-blue-100 hover:border-blue-400 transition-all group shadow-sm flex flex-col">
             <div className="text-4xl mb-4">📄</div>
-            <h3 className="text-xl font-black mb-3 group-hover:text-blue-600 transition-colors tracking-tight text-left">Traitement de texte</h3>
-            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">Styles, sommaire et mise en page : rédige des rapports impeccables.</p>
-            <div className="mt-6 text-blue-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Commencer →</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-blue-600">Traitement de texte</h3>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed">Styles et sommaire automatique : rédige des rapports impeccables.</p>
+            <div className="mt-auto pt-6 text-blue-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
           </Link>
 
           {/* EXCEL */}
-          <Link
-            href="/themes/excel"
-            className="p-8 bg-green-50 rounded-3xl border-2 border-green-100 shadow-sm hover:shadow-xl hover:border-green-400 transition-all group flex flex-col"
-          >
+          <Link href="/themes/excel" className="p-8 bg-green-50 rounded-3xl border-2 border-green-100 hover:border-green-400 transition-all group shadow-sm flex flex-col">
             <div className="text-4xl mb-4">📊</div>
-            <h3 className="text-xl font-black mb-3 group-hover:text-green-600 transition-colors tracking-tight text-left">Tableur & Calculs</h3>
-            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">Formules et graphiques : fais travailler l&apos;ordinateur à ta place.</p>
-            <div className="mt-6 text-green-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Commencer →</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-green-600">Tableur & Calculs</h3>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed">Formules et graphiques : fais travailler Excel à ta place.</p>
+            <div className="mt-auto pt-6 text-green-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
           </Link>
 
-          {/* E-MAIL (NOUVEAU) */}
-          <Link
-            href="/themes/email"
-            className="p-8 bg-orange-50 rounded-3xl border-2 border-orange-100 shadow-sm hover:shadow-xl hover:border-orange-400 transition-all group flex flex-col"
-          >
+          {/* CANVA */}
+          <Link href="/themes/canva" className="p-8 bg-cyan-50 rounded-3xl border-2 border-cyan-100 hover:border-cyan-400 transition-all group shadow-sm flex flex-col">
+            <div className="text-4xl mb-4">🎨</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-cyan-600">Design & Visuels</h3>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed">Maîtrise Canva pour des exposés magnifiques qui impressionnent.</p>
+            <div className="mt-auto pt-6 text-cyan-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
+          </Link>
+
+          {/* E-MAIL */}
+          <Link href="/themes/email" className="p-8 bg-orange-50 rounded-3xl border-2 border-orange-100 hover:border-orange-400 transition-all group shadow-sm flex flex-col">
             <div className="text-4xl mb-4">📧</div>
-            <h3 className="text-xl font-black mb-3 group-hover:text-orange-600 transition-colors tracking-tight text-left">E-mails & Communication</h3>
-            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">Écrire à un prof, joindre un fichier et repérer les arnaques (phishing).</p>
-            <div className="mt-6 text-orange-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Commencer →</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-orange-600">E-mails & Communication</h3>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed">Écrire à un prof, joindre un fichier et repérer les arnaques.</p>
+            <div className="mt-auto pt-6 text-orange-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
           </Link>
 
-          {/* SMARTPHONE (NOUVEAU) */}
-          <Link
-            href="/themes/smartphone"
-            className="p-8 bg-pink-50 rounded-3xl border-2 border-pink-100 shadow-sm hover:shadow-xl hover:border-pink-400 transition-all group flex flex-col"
-          >
+          {/* SMARTPHONE */}
+          <Link href="/themes/smartphone" className="p-8 bg-pink-50 rounded-3xl border-2 border-pink-100 hover:border-pink-400 transition-all group shadow-sm flex flex-col">
             <div className="text-4xl mb-4">📱</div>
-            <h3 className="text-xl font-black mb-3 group-hover:text-pink-600 transition-colors tracking-tight text-left">Maîtrise ton Smartphone</h3>
-            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">Gérer son stockage, ses mots de passe et protéger sa vie privée.</p>
-            <div className="mt-6 text-pink-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Commencer →</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-pink-600">Ton Smartphone</h3>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed">Gérer son stockage, ses mots de passe et sa vie privée.</p>
+            <div className="mt-auto pt-6 text-pink-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
+          </Link>
+
+          {/* RESEAU */}
+          <Link href="/themes/reseau" className="p-8 bg-indigo-50 rounded-3xl border-2 border-indigo-100 hover:border-indigo-400 transition-all group shadow-sm flex flex-col">
+            <div className="text-4xl mb-4">🌐</div>
+            <h3 className="text-xl font-black mb-2 group-hover:text-indigo-600">Réseaux & Wi-Fi</h3>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed">Comprendre ta box, ton adresse IP et le partage de connexion.</p>
+            <div className="mt-auto pt-6 text-indigo-600 text-xs font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">Apprendre →</div>
+          </Link>
+
+          {/* FAKE NEWS (Sur toute la largeur sur grand écran pour l'équilibre) */}
+          <Link href="/themes/fake-news" className="p-8 bg-red-50 rounded-3xl border-2 border-red-100 hover:border-red-400 transition-all group shadow-sm flex flex-col lg:col-span-3">
+            <div className="flex items-center gap-6">
+              <div className="text-4xl">🔍</div>
+              <div>
+                <h3 className="text-xl font-black mb-1 group-hover:text-red-600 transition-colors">Vérifier l&apos;information (Fake News)</h3>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">Repérer les images trafiquées et les mensonges sur le web.</p>
+              </div>
+            </div>
           </Link>
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center mt-20">
           <Link
             href="/themes"
             className="inline-block px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-black hover:bg-black transition shadow-xl"
@@ -154,8 +169,8 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-12 text-center text-slate-400 text-sm border-t font-bold tracking-widest">
-        © SNT ACADEMY — LA PLATEFORME PENSÉE PAR UN PROF.
+      <footer className="py-12 text-center text-slate-400 text-sm border-t font-bold tracking-widest uppercase">
+        © SNT ACADEMY — La plateforme pensée par un prof.
       </footer>
     </div>
   );
