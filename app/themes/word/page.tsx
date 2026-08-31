@@ -7,7 +7,7 @@ const LESSON_STEPS = [
   { title: "2. Le Sommaire Automatique", content: "Si tu as bien utilisé les styles, Word peut générer ta table des matières en 1 clic. Plus besoin de taper les numéros de page à la main : si tu ajoutes du texte, le sommaire se met à jour tout seul !", icon: "📖", color: "border-indigo-500", hasLab: true },
   { title: "3. Les Sauts de Page", content: "N'appuie jamais 15 fois sur 'Entrée' pour passer à la page suivante. Utilise 'Saut de page' (Ctrl + Entrée). Ainsi, même si tu ajoutes du texte au-dessus, ton nouveau chapitre restera bien calé en haut de sa page.", icon: "📑", color: "border-blue-400" },
   { title: "4. Habillage d'image", content: "Par défaut, une image bloque le texte. En changeant l'habillage (ex: 'Carré' ou 'Devant le texte'), tu peux la déplacer librement où tu veux sur la page sans tout décaler.", icon: "🖼️", color: "border-cyan-500" },
-  { title: "5. Raccourcis d'efficacité", content: "Gagne un temps fou avec les basiques : Ctrl+C (copier), Ctrl+V (coller), Ctrl+Z (annuler l'erreur) et Ctrl+S (sauvegarder tout le temps !).", icon: "⌨️", color: "border-slate-700", hasLab2: true },
+  { title: "5. Raccourcis d'efficacité", content: "Gagne un temps fou avec les basiques : Ctrl+C (copier), Ctrl+V (coller), Ctrl+Z (annuler l'erreur) et Ctrl+S (sauvegarder tout le temps !).", icon: "⌨️", color: "border-slate-700" },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
       { topic: "L'évolution de l'écriture", desc: "De la plume à Word : comment les outils ont changé notre façon de penser et d'écrire ?", difficulty: "Débutant" },
       { topic: "Le format PDF", desc: "Pourquoi est-il devenu le standard mondial pour partager des documents ?", difficulty: "Intermédiaire" }
@@ -27,12 +27,27 @@ export default function WordChapter() {
   const [score, setScore] = useState(0);
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
-  const [lab2Answer, setLab2Answer] = useState<string | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
   const nextStep = () => { if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
-  const handleAnswer = (idx: number) => { if (isLocked) return; setSelectedAnswer(idx); setIsLocked(true); if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(score + 1); };
+  
+  const handleAnswer = (idx: number) => { 
+    if (isLocked) return; 
+    setSelectedAnswer(idx); 
+    setIsLocked(true); 
+    if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(score + 1); 
+  };
+
+  const nextQuiz = () => {
+    if (quizIdx < QUIZ_QUESTIONS.length - 1) {
+      setQuizIdx(quizIdx + 1);
+      setSelectedAnswer(null);
+      setIsLocked(false);
+    } else {
+      setMode('resultat');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-12 font-sans">
@@ -41,13 +56,14 @@ export default function WordChapter() {
         <div className="font-black text-xs uppercase tracking-widest text-slate-400">Initiation Word</div>
         <div className="text-blue-600 font-black">XP: {score * 100 + bonusXP}</div>
       </nav>
+
       <div className="max-w-xl mx-auto px-6 py-8">
         {mode === 'cours' && (
           <div className="space-y-6">
             <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                 <div className="bg-blue-600 h-full transition-all duration-500" style={{ width: `${((step + 1) / LESSON_STEPS.length) * 100}%` }}></div>
             </div>
-            <div className={`p-8 bg-white rounded-[2rem] border-b-[10px] shadow-xl transition-all ${LESSON_STEPS[step].color}`}>
+            <div className={`p-8 bg-white rounded-[2rem] border-b-[10px] shadow-xl transition-all border-2 ${LESSON_STEPS[step].color}`}>
               <div className="text-5xl mb-6">{LESSON_STEPS[step].icon}</div>
               <h2 className="text-3xl font-black mb-6 tracking-tight">{LESSON_STEPS[step].title}</h2>
               {LESSON_STEPS[step].isProject ? (
@@ -74,12 +90,51 @@ export default function WordChapter() {
                 </div>
               )}
             </div>
-            <button onClick={nextStep} className="w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl shadow-[0_8px_0_rgb(30,64,175)]">
+            <button onClick={nextStep} className="w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl shadow-[0_8px_0_rgb(30,64,175)] active:shadow-none active:translate-y-1 transition-all">
               {step === LESSON_STEPS.length - 1 ? "QUIZ ⚡️" : "SUIVANT →"}
             </button>
           </div>
         )}
-        {/* ... (Quiz & Resultat identiques aux thèmes précédents) ... */}
+
+        {mode === 'quiz' && (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-black text-center mb-8">Défi Rapide ⚡️</h2>
+            <div className="bg-white p-8 rounded-[2rem] shadow-xl border-2 border-slate-200">
+              <p className="text-xl font-bold mb-6">{QUIZ_QUESTIONS[quizIdx].q}</p>
+              <div className="space-y-3">
+                {QUIZ_QUESTIONS[quizIdx].options.map((opt, i) => (
+                  <button key={i} onClick={() => handleAnswer(i)} className={`w-full p-4 rounded-2xl text-left font-bold border-2 transition-all ${selectedAnswer === i ? (i === QUIZ_QUESTIONS[quizIdx].correct ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700') : 'border-slate-100 hover:border-blue-300'}`}>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+              {isLocked && (
+                <div className="mt-6 p-4 bg-slate-50 rounded-xl border-l-4 border-blue-500 text-sm">
+                  {QUIZ_QUESTIONS[quizIdx].explanation}
+                </div>
+              )}
+            </div>
+            {isLocked && (
+              <button onClick={nextQuiz} className="w-full py-6 bg-slate-900 text-white rounded-[2rem] font-black text-xl">
+                {quizIdx === QUIZ_QUESTIONS.length - 1 ? "VOIR LE RÉSULTAT" : "CONTINUER"}
+              </button>
+            )}
+          </div>
+        )}
+
+        {mode === 'resultat' && (
+          <div className="text-center space-y-8 py-12">
+            <div className="text-8xl">🏆</div>
+            <h2 className="text-4xl font-black">Module Terminé !</h2>
+            <div className="bg-white p-8 rounded-[2rem] shadow-xl inline-block w-full">
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-sm mb-2">Ton Score</p>
+              <div className="text-6xl font-black text-blue-600">{score * 100 + bonusXP} XP</div>
+            </div>
+            <Link href="/themes" className="block w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl">
+              RETOUR AU CATALOGUE
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
