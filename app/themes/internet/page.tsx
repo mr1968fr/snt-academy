@@ -3,11 +3,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const LESSON_STEPS = [
-  { title: "1. Le Cloud n'existe pas", content: "Internet est ultra-physique. 99% du trafic mondial passe par des câbles sous-marins en fibre optique. Si tu envoies un Snap aux USA, l'info traverse l'océan à la vitesse de la lumière sous 4000m d'eau.", icon: "🔌", color: "border-blue-500" },
-  { title: "2. Adresse IP & DNS", content: "Chaque machine a une adresse unique : l'adresse IP. Le DNS est l'annuaire qui traduit 'google.fr' en adresse IP chiffrée. C'est le répertoire de ton téléphone, mais pour la planète entière.", icon: "🆔", color: "border-indigo-500", hasLab: true },
-  { title: "3. Le Routage", content: "Tes données sont découpées en PAQUETS. Ils ne prennent pas tous le même chemin : des ROUTEURS choisissent la route la plus rapide en temps réel. C'est ce qui rend Internet indestructible. Autre idée puissante : le PAIR-À-PAIR (P2P), où chaque utilisateur est à la fois client ET serveur — plus de centre unique, chacun partage.", icon: "🛣️", color: "border-orange-500" },
-  { title: "4. Protocoles TCP/IP", content: "TCP vérifie que tous les paquets sont bien arrivés et les remet dans l'ordre. IP s'occupe de l'adressage. C'est le langage universel qui permet à toutes les machines du monde de se comprendre.", icon: "🌐", color: "border-green-500" },
-  { title: "5. Labo : Tracé de route", content: "Grâce à la commande 'traceroute', on peut voir tous les routeurs par lesquels passe une donnée. C'est comme suivre un colis Amazon à chaque entrepôt !", icon: "📍", color: "border-red-500", hasLab2: true },
+  { title: "1. Le Cloud n'existe pas", content: "Internet est ultra-physique. 99% du trafic mondial passe par des câbles sous-marins en fibre optique. Si tu envoies un Snap aux USA, l'info traverse l'océan à la vitesse de la lumière sous 4000m d'eau.", icon: "🔌", color: "border-blue-500", details: [{"h": "Définition", "p": "Internet est l'interconnexion de millions de réseaux à l'échelle planétaire. Son support principal : la fibre optique, dont des câbles sous-marins posés au fond des océans — plus de 450 câbles, pour environ 1,4 million de km de fibre."}, {"h": "Exemple", "p": "La photo envoyée à un service hébergé aux États-Unis traverse l'Atlantique dans un câble de quelques centimètres d'épaisseur, par plus de 4 000 m de profondeur, en quelques millisecondes."}, {"h": "À retenir", "p": "Le « nuage » est un argument marketing : tes données vivent dans des machines bien réelles, rangées dans des entrepôts climatisés appelés datacenters."}, {"h": "Vocabulaire", "p": "fibre optique, datacenter, débit."}] },
+  { title: "2. Adresse IP & DNS", content: "Chaque machine a une adresse unique : l'adresse IP. Le DNS est l'annuaire qui traduit 'google.fr' en adresse IP chiffrée. C'est le répertoire de ton téléphone, mais pour la planète entière.", icon: "🆔", color: "border-indigo-500", hasLab: true, details: [{"h": "Définition", "p": "Chaque machine connectée possède une adresse IP : son identifiant sur le réseau (ex. 172.217.18.195 en IPv4). Le DNS (Domain Name System) est l'annuaire mondial qui traduit un nom de domaine en adresse IP."}, {"h": "Exemple", "p": "Tu tapes www.google.fr : ta machine demande à un serveur DNS « quelle est l'IP de ce nom ? », reçoit la réponse en quelques millisecondes, et seulement ensuite contacte le serveur Google."}, {"h": "À retenir", "p": "Sans DNS, il faudrait mémoriser des suites de chiffres. Et face à la pénurie d'adresses IPv4, l'IPv6 (adresses bien plus longues) prend peu à peu le relais."}, {"h": "Vocabulaire", "p": "adresse IP, nom de domaine, résolution, IPv4 / IPv6."}] },
+  { title: "3. Le Routage", content: "Tes données sont découpées en PAQUETS. Ils ne prennent pas tous le même chemin : des ROUTEURS choisissent la route la plus rapide en temps réel. C'est ce qui rend Internet indestructible. Autre idée puissante : le PAIR-À-PAIR (P2P), où chaque utilisateur est à la fois client ET serveur — plus de centre unique, chacun partage.", icon: "🛣️", color: "border-orange-500", details: [{"h": "Définition", "p": "La commutation de paquets : ton message est découpé en paquets indépendants ; chaque paquet porte l'adresse de destination ; des routeurs choisissent la meilleure route disponible à chaque instant."}, {"h": "Exemple", "p": "Une photo de 2 Mo part en environ 2 000 paquets, qui peuvent emprunter des routes différentes et arriver dans le désordre — le protocole TCP les remet dans l'ordre à l'arrivée."}, {"h": "À retenir", "p": "C'est ce qui rend Internet résistant : si un routeur tombe, les paquets passent par un autre chemin. Et avec le pair-à-pair (P2P), chaque utilisateur est à la fois client et serveur : il n'y a plus de centre unique."}, {"h": "Vocabulaire", "p": "paquet, routeur, commutation de paquets, pair."}] },
+  { title: "4. Protocoles TCP/IP", content: "TCP vérifie que tous les paquets sont bien arrivés et les remet dans l'ordre. IP s'occupe de l'adressage. C'est le langage universel qui permet à toutes les machines du monde de se comprendre.", icon: "🌐", color: "border-green-500", details: [{"h": "Définition", "p": "Un protocole est un langage commun aux machines. IP s'occupe de l'adressage et de l'acheminement ; TCP garantit que tous les paquets arrivent et les remet dans le bon ordre."}, {"h": "Exemple", "p": "Comme envoyer un livre en découpant les pages : TCP numérote chaque page, vérifie à l'arrivée qu'elles y sont toutes et redemande celles qui manquent."}, {"h": "À retenir", "p": "TCP/IP est le langage universel d'Internet : deux machines quelconques peuvent communiquer, quelle que soit leur marque ou leur système d'exploitation."}, {"h": "Vocabulaire", "p": "protocole, TCP, IP, accusé de réception."}] },
+  { title: "5. Labo : Tracé de route", content: "Grâce à la commande 'traceroute', on peut voir tous les routeurs par lesquels passe une donnée. C'est comme suivre un colis Amazon à chaque entrepôt !", icon: "📍", color: "border-red-500", hasLab2: true, details: [{"h": "Définition", "p": "traceroute (tracert sur Windows) est une commande qui affiche la liste des routeurs traversés par tes paquets, avec la durée de chaque saut."}, {"h": "À faire maintenant", "p": "Sur Mac : ouvre le Terminal et tape traceroute www.google.fr (sur Windows : cmd puis tracert www.google.fr). Compte les sauts : tu verras d'abord ta box, puis le réseau de ton opérateur, puis les grands axes internationaux."}, {"h": "À retenir", "p": "La route n'est jamais fixe : refais la commande demain, la liste des routeurs aura changé."}, {"h": "Vocabulaire", "p": "saut, latence, routeur."}] },
   { title: "🎤 Missions Exposés", isProject: true, projects: [
       { topic: "Géopolitique des câbles", desc: "Pourquoi les câbles sous-marins sont-ils devenus des cibles militaires prioritaires ?", difficulty: "Avancé" },
       { topic: "Internet et Écologie", desc: "Le coût environnemental caché de tes e-mails et du streaming vidéo 4K.", difficulty: "Débutant" },
@@ -20,7 +20,7 @@ const QUIZ_QUESTIONS = [
   { q: "Que signifie DNS ?", options: ["Data Network System", "Domain Name System", "Digital Node Service"], correct: 1, explanation: "C'est l'annuaire du Web." },
   { q: "Un paquet IP contient :", options: ["Juste la donnée", "La donnée + adresse départ/arrivée", "Le mot de passe"], correct: 1, explanation: "Il faut une adresse pour que le routeur sache où l'envoyer." },
   { q: "Dans le pair-à-pair (P2P), chaque utilisateur est :", options: ["Uniquement client", "À la fois client et serveur", "Uniquement serveur"], correct: 1, explanation: "Chacun télécharge ET partage : pas de serveur central, la charge se répartit entre tous." },
-  { q: "Si un paquet est perdu en route, TCP :", options: ["Le redemande et remet tout dans l'ordre", "L'oublie : la page sera abîmée", "Envoie automatiquement tout en double"], correct: 0, explanation: "TCP numérote les paquets, détecte les manquants et les redemande." },
+  { q: "Si un paquet est perdu en route, TCP :", options: ["Le redemande et remet tout dans l'ordre", "L'oublie : la page sera abîmée", "Envoie automatiquement tout en double"], correct: 0, explanation: "TCP numérote les paquets, détecte les manquants et les redemande." }
 ];
 
 export default function InternetChapter() {
@@ -31,10 +31,11 @@ export default function InternetChapter() {
   const [bonusXP, setBonusXP] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
+  const [openLesson, setOpenLesson] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
 
-  const nextStep = () => { if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
+  const nextStep = () => { setOpenLesson(false); if (step < LESSON_STEPS.length - 1) setStep(step + 1); else setMode('quiz'); };
   const handleAnswer = (idx: number) => { if (isLocked) return; setSelectedAnswer(idx); setIsLocked(true); if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(score + 1); };
   const nextQuestion = () => { if (quizIdx < QUIZ_QUESTIONS.length - 1) { setQuizIdx(quizIdx + 1); setSelectedAnswer(null); setIsLocked(false); } else setMode('resultat'); };
 
@@ -68,6 +69,23 @@ export default function InternetChapter() {
                 </div>
               ) : (
                 <p className="text-lg text-slate-600 font-medium leading-relaxed mb-6">{LESSON_STEPS[step].content}</p>
+              )}
+              {LESSON_STEPS[step].details && (
+                <div className="mb-2 mt-[-12px]">
+                  <button onClick={() => setOpenLesson(!openLesson)} className="w-full py-3 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-700 font-black text-sm uppercase tracking-widest hover:bg-blue-100 transition-all">
+                    {openLesson ? '▲ Refermer le cours' : '📖 Lire le cours'}
+                  </button>
+                  {openLesson && (
+                    <div className="mt-3 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 space-y-4">
+                      {LESSON_STEPS[step].details!.map((b, i) => (
+                        <div key={i}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">{b.h}</div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{b.p}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
               {LESSON_STEPS[step].hasLab && (
                 <div className="bg-blue-50 p-6 rounded-3xl border-2 border-blue-100 mt-4 text-center italic">
