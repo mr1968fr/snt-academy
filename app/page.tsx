@@ -136,7 +136,20 @@ export default function Home() {
             <h3 className="text-xl font-black mb-2 group-hover:text-indigo-600">Réseau & Wi-Fi</h3>
             <p className="text-sm text-slate-500 font-medium">Comprendre ta box, ton adresse IP et ton débit internet.</p>
           </Link>
+{/* PYTHON — bannière pleine largeur, même style que Fake News.
+   À coller AUX DEUX ENDROITS :
+   1) app/page.tsx      → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur…
+   2) app/themes/page.tsx → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur… */}
 
+<Link href="/themes/python" className="p-8 bg-emerald-50 rounded-3xl border-2 border-emerald-100 hover:border-emerald-400 transition-all group shadow-sm flex flex-col lg:col-span-3">
+            <div className="flex items-center gap-6">
+              <div className="text-4xl">🐍</div>
+              <div>
+                <h3 className="text-xl font-black mb-1 group-hover:text-emerald-600 transition-colors">Initiation Python</h3>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">Variables, conditions, boucles et fonctions : tes premières lignes de code, prêtes pour l&apos;épreuve « Programmer » de Pix.</p>
+              </div>
+            </div>
+          </Link>
           {/* FAKE NEWS (Sur une ligne seule ou centrée si besoin) */}
           <Link href="/themes/fake-news" className="p-8 bg-red-50 rounded-3xl border-2 border-red-100 hover:border-red-400 transition-all group shadow-sm lg:col-span-3">
             <div className="flex items-center gap-6">
