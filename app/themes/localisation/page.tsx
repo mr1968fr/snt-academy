@@ -5,75 +5,86 @@ import Link from 'next/link';
 
 const LESSON_STEPS = [
   {
-    title: "1. Comment ton tel sait où tu es ?",
-    content: "Ton smartphone ne 'discute' pas avec les satellites, il les ÉCOUTE. Le système GPS (USA) ou Galileo (Europe) utilise une constellation de satellites qui envoient leur position et l'heure exacte en permanence.",
+    title: "1. Le ciel t'écoute",
+    content: "Le système GPS (USA) ou Galileo (Europe) utilise une constellation de satellites qui envoient leur position et l'heure exacte en permanence. Ton téléphone ne discute pas avec eux, il capte juste leur signal comme une radio.",
     icon: "🛰️",
     color: "border-blue-500"
   },
   {
     title: "2. La Trilatération",
-    content: "Pour connaître ta position exacte, ton récepteur doit capter le signal d'au moins 4 satellites. En calculant le temps que met le signal pour arriver, il déduit sa distance par rapport à chaque satellite. Le croisement des sphères donne ta position au mètre près !",
+    content: "Pour connaître ta position, ton récepteur doit capter au moins 4 satellites. En calculant le temps que met le signal pour arriver, il déduit ta position au mètre près. C'est de la géométrie pure dans l'espace !",
     icon: "📐",
     color: "border-indigo-500"
   },
   {
-    title: "3. Labo : Latitude et Longitude",
-    content: "Sur Terre, on se repère avec deux coordonnées : la LATITUDE (Nord/Sud par rapport à l'Équateur) et la LONGITUDE (Est/Ouest par rapport au méridien de Greenwich).",
+    title: "3. Latitude et Longitude",
+    content: "On se repère avec deux coordonnées : la LATITUDE (Nord/Sud par rapport à l'Équateur) et la LONGITUDE (Est/Ouest par rapport au méridien de Greenwich). C'est le langage universel des marins et des pilotes.",
     icon: "🗺️",
     color: "border-green-500",
     hasLab: true
   },
   {
-    title: "4. Les cartes numériques",
-    content: "Contrairement aux cartes papier, une carte numérique est composée de COUCHES (Layer). On peut superposer les routes, les bâtiments, le relief et le trafic en temps réel. Le format le plus connu est OpenStreetMap (OSM).",
+    title: "4. Couches d'information",
+    content: "Une carte numérique (comme Google Maps ou OSM) superpose des COUCHES. Une couche pour le relief, une pour les routes, une pour les bouchons. On peut les activer ou les masquer selon nos besoins.",
     icon: "📍",
     color: "border-orange-500"
   },
   {
-    title: "5. Labo : Calcul d'itinéraire",
-    content: "Pour te guider, les algorithmes (comme celui de Dijkstra) calculent le chemin le plus court dans un graphe où les carrefours sont des sommets et les rues des arêtes. Ils prennent en compte le sens unique et les bouchons !",
+    title: "5. L'algorithme de Dijkstra",
+    content: "Pour calculer ton itinéraire, ton téléphone utilise des algorithmes de graphes. Il cherche le chemin le plus court entre deux points. Dijkstra est le plus célèbre pour trouver la route la plus rapide.",
     icon: "🏎️",
     color: "border-red-500",
     hasLab2: true
   },
   {
-    title: "6. Ta vie privée en jeu",
-    content: "La géolocalisation est une donnée ultra-sensible. Si une appli connaît ta position H24, elle connaît tes habitudes, tes amis et ton lieu de travail. Vérifie toujours les autorisations dans tes réglages !",
+    title: "6. Vie privée : Le tracking",
+    content: "La géolocalisation est une donnée sensible. Si une appli te suit H24, elle connaît ton domicile, ton école et tes amis. Il faut toujours vérifier quelles applications ont le droit d'accéder à ta position.",
     icon: "🔒",
     color: "border-slate-800"
+  },
+  {
+    title: "🎤 Missions Exposés",
+    isProject: true,
+    projects: [
+      { topic: "Galileo vs GPS", desc: "Pourquoi l'Europe a-t-elle créé son propre système de satellites plutôt que d'utiliser celui des USA ?", difficulty: "Intermédiaire" },
+      { topic: "L'éthique de la voiture autonome", desc: "En cas d'accident inévitable, comment l'algorithme doit-il choisir qui sauver ?", difficulty: "Avancé" },
+      { topic: "Géolocalisation et Sport", desc: "Comment les montres connectées et le GPS ont transformé l'entraînement des athlètes ?", difficulty: "Débutant" }
+    ],
+    icon: "🚀",
+    color: "border-purple-600"
   }
 ];
 
 const QUIZ_QUESTIONS = [
   {
-    q: "Combien de satellites minimum faut-il pour une position précise ?",
-    options: ["1 seul", "2 satellites", "4 satellites"],
+    q: "Combien de satellites faut-il pour une position 3D précise ?",
+    options: ["1 satellite", "2 satellites", "4 satellites"],
     correct: 2,
-    explanation: "Il en faut 3 pour la position 2D et un 4ème pour l'altitude et la synchronisation temporelle."
+    explanation: "Il en faut 3 pour la position et un 4ème pour la synchronisation temporelle."
   },
   {
-    q: "Quel est le nom du système de positionnement européen ?",
-    options: ["GPS", "Galileo", "Glonass"],
+    q: "Quelle est la coordonnée 0 de la latitude ?",
+    options: ["Le méridien de Greenwich", "L'Équateur", "Le Pôle Nord"],
     correct: 1,
-    explanation: "Galileo est le système européen, plus précis et civil que le GPS américain."
+    explanation: "L'Équateur sépare la Terre en deux hémisphères (Nord et Sud)."
   },
   {
-    q: "La ligne imaginaire qui sépare le Nord du Sud s'appelle :",
-    options: ["Le Méridien", "L'Équateur", "Le Tropique"],
+    q: "Que signifie le terme 'Trilatération' ?",
+    options: ["Un calcul de vitesse", "Une méthode pour trouver une position via 3 distances", "Un type de satellite"],
     correct: 1,
-    explanation: "L'Équateur est la ligne de latitude 0°."
+    explanation: "C'est la méthode géométrique utilisée par le GPS."
   },
   {
-    q: "Qu'est-ce qu'une couche (layer) sur une carte numérique ?",
-    options: ["Une protection d'écran", "Un niveau d'information spécifique (ex: routes)", "Une couleur de fond"],
+    q: "Quel format de carte est collaboratif et libre ?",
+    options: ["Google Maps", "Apple Maps", "OpenStreetMap (OSM)"],
+    correct: 2,
+    explanation: "OSM est le 'Wikipédia' de la cartographie numérique."
+  },
+  {
+    q: "Quel est le risque principal du tracking GPS ?",
+    options: ["Il décharge la batterie", "Il permet de connaître tes habitudes de vie privées", "Il rend les photos floues"],
     correct: 1,
-    explanation: "Les cartes numériques superposent différentes couches de données."
-  },
-  {
-    q: "Quel algorithme est célèbre pour le calcul d'itinéraire ?",
-    options: ["Dijkstra", "Instagram", "Python"],
-    correct: 0,
-    explanation: "L'algorithme de Dijkstra trouve le chemin le plus court dans un graphe."
+    explanation: "La géolocalisation permanente est une intrusion majeure dans la vie privée."
   }
 ];
 
@@ -104,82 +115,84 @@ export default function LocalisationChapter() {
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-12 font-sans">
       <nav className="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center shadow-sm">
         <Link href="/themes" className="text-blue-600 font-bold">← Quitter</Link>
-        <div className="font-black text-xs uppercase tracking-widest text-slate-400">Localisation & Mobilité</div>
-        <div className="text-blue-600 font-black italic">XP: {score * 100 + bonusXP}</div>
+        <div className="font-black text-xs uppercase tracking-widest text-slate-400">Thème 5 : Localisation</div>
+        <div className="text-blue-600 font-black tracking-tighter">XP: {score * 100 + bonusXP}</div>
       </nav>
 
       <div className="max-w-xl mx-auto px-6 py-8">
         {mode === 'cours' && (
           <div className="space-y-6">
-            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden shadow-inner">
+            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
               <div className="bg-blue-600 h-full transition-all duration-500" style={{ width: `${((step + 1) / LESSON_STEPS.length) * 100}%` }}></div>
             </div>
+
             <div className={`p-8 bg-white rounded-[2.5rem] border-b-[10px] shadow-xl transition-all ${LESSON_STEPS[step].color}`}>
-              <div className="text-5xl mb-6">{LESSON_STEPS[step].icon}</div>
-              <h2 className="text-3xl font-black mb-4 tracking-tight leading-tight">{LESSON_STEPS[step].title}</h2>
-              <p className="text-lg text-slate-600 leading-relaxed font-medium mb-6">{LESSON_STEPS[step].content}</p>
+              <div className="text-6xl mb-6">{LESSON_STEPS[step].icon}</div>
+              <h2 className="text-3xl font-black mb-6 tracking-tight leading-tight">{LESSON_STEPS[step].title}</h2>
+              
+              {LESSON_STEPS[step].isProject ? (
+                <div className="space-y-4">
+                  <p className="text-slate-500 font-bold mb-4 italic">Choisis ton sujet de recherche :</p>
+                  {LESSON_STEPS[step].projects?.map((proj, i) => (
+                    <div key={i} className="bg-slate-50 border-2 border-purple-100 p-5 rounded-[2rem] hover:border-purple-400 transition-all group cursor-default">
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-black text-purple-600 uppercase text-xs tracking-tight">{proj.topic}</h4>
+                        <span className="text-[10px] bg-purple-100 text-purple-700 px-2 py-1 rounded-md font-black">{proj.difficulty}</span>
+                      </div>
+                      <p className="text-sm text-slate-600 leading-relaxed font-medium">{proj.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-lg text-slate-600 font-medium leading-relaxed mb-6">
+                  {LESSON_STEPS[step].content}
+                </p>
+              )}
 
               {LESSON_STEPS[step].hasLab && (
-                <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 mt-4 text-center">
-                  <h4 className="text-blue-900 font-black text-sm mb-4 uppercase tracking-widest text-left italic">🧪 MISSION : Cible le Nord</h4>
-                  <div className="bg-white p-4 rounded-xl border border-blue-100 font-mono text-sm mb-4">
-                    Position : 48.8584° N, 2.2945° E
-                  </div>
-                  <p className="text-xs text-blue-700 mb-4 font-bold">Cette coordonnée est-elle au Nord ou au Sud de l'Équateur ?</p>
+                <div className="bg-blue-50 p-6 rounded-3xl border-2 border-blue-100 mt-4 text-center italic font-medium">
+                  <h4 className="text-blue-900 font-black text-sm mb-4 uppercase tracking-widest">🧪 MISSION : Latitude</h4>
+                  <p className="text-xs text-blue-700 mb-4 font-bold">Position : 48° Nord. Où te situes-tu ?</p>
                   <div className="flex gap-2 justify-center">
-                    {['NORD', 'SUD'].map(val => (
-                      <button 
-                        key={val} 
-                        onClick={() => { setLab1Answer(val); if(val === 'NORD') setBonusXP(150); }}
-                        className={`px-6 py-2 rounded-xl font-bold transition-all ${lab1Answer === val ? (val === 'NORD' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-blue-600 border border-blue-200'}`}
-                      >
-                        {val}
-                      </button>
+                    {['Hémisphère Nord', 'Hémisphère Sud'].map(val => (
+                      <button key={val} onClick={() => { setLab1Answer(val); if(val === 'Hémisphère Nord') setBonusXP(150); }} className={`px-4 py-2 rounded-xl font-bold transition-all ${lab1Answer === val ? (val === 'Hémisphère Nord' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-blue-600 border border-blue-200'}`}>{val}</button>
                     ))}
                   </div>
                 </div>
               )}
 
               {LESSON_STEPS[step].hasLab2 && (
-                <div className="bg-red-50 p-6 rounded-2xl border-2 border-red-100 mt-4 text-center">
-                  <h4 className="text-red-900 font-black text-sm mb-4 uppercase tracking-widest">🧪 MISSION : Chemin le plus court</h4>
-                  <svg viewBox="0 0 200 100" className="bg-white rounded-xl mb-4 p-2">
-                    <circle cx="20" cy="50" r="5" fill="blue"/> <text x="15" y="40" fontSize="8">A</text>
-                    <line x1="25" y1="50" x2="100" y2="20" stroke="red" strokeWidth="2" strokeDasharray="4"/> <text x="60" y="30" fontSize="8" fill="red">10 min</text>
-                    <line x1="25" y1="50" x2="100" y2="80" stroke="green" strokeWidth="2"/> <text x="60" y="75" fontSize="8" fill="green">4 min</text>
-                    <circle cx="100" cy="20" r="5" fill="slate"/>
-                    <circle cx="100" cy="80" r="5" fill="slate"/>
-                    <line x1="105" y1="20" x2="175" y2="50" stroke="red" strokeWidth="2" strokeDasharray="4"/>
-                    <line x1="105" y1="80" x2="175" y2="50" stroke="green" strokeWidth="2"/>
-                    <circle cx="180" cy="50" r="5" fill="blue"/> <text x="175" y="40" fontSize="8">B</text>
-                  </svg>
-                  <p className="text-xs font-bold text-red-800 mb-4 italic">Quel chemin choisir pour aller de A vers B ?</p>
+                <div className="bg-red-50 p-6 rounded-3xl border-2 border-red-100 mt-4 text-center italic font-medium">
+                  <h4 className="text-red-900 font-black text-sm mb-4 uppercase tracking-widest">🧪 MISSION : Dijkstra</h4>
+                  <p className="text-xs text-red-700 mb-4 font-bold italic">Route A : 10km (bouchons) / Route B : 15km (vide)</p>
                   <div className="flex gap-2 justify-center">
-                    {['ROUGE', 'VERT'].map(val => (
-                      <button key={val} onClick={() => { setLab2Answer(val); if(val === 'VERT') setBonusXP(prev => prev < 300 ? 300 : prev); }} className={`px-6 py-2 rounded-xl font-bold transition-all ${lab2Answer === val ? (val === 'VERT' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-red-600 border border-red-200'}`}>{val}</button>
+                    {['Route A', 'Route B'].map(val => (
+                      <button key={val} onClick={() => { setLab2Answer(val); if(val === 'Route B') setBonusXP(prev => prev < 300 ? 300 : prev); }} className={`px-4 py-2 rounded-xl font-bold transition-all ${lab2Answer === val ? (val === 'Route B' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-white text-red-600 border border-red-200'}`}>{val}</button>
                     ))}
                   </div>
+                  {lab2Answer === 'Route B' && <p className="text-[10px] text-green-600 font-black mt-3 uppercase tracking-widest italic">Bravo ! Le plus court n'est pas toujours le plus rapide. +150 XP</p>}
                 </div>
               )}
             </div>
-            <button onClick={nextStep} className="w-full py-5 bg-blue-600 text-white rounded-[2rem] font-black text-xl hover:bg-blue-700 shadow-[0_8px_0_rgb(30,64,175)] active:translate-y-1 transition-all">
-              {step === LESSON_STEPS.length - 1 ? "QUIZ FINAL ⚡️" : "SUIVANT →"}
+
+            <button onClick={nextStep} className="w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl shadow-[0_8px_0_rgb(30,64,175)] hover:translate-y-1 transition-all">
+              {step === LESSON_STEPS.length - 1 ? "PASSER AU DÉFI QUIZ ⚡️" : "SUIVANT →"}
             </button>
           </div>
         )}
 
-        {/* QUIZ & RESULTATS (Format Standard V4) */}
+        {/* --- QUIZ & RÉSULTATS (Format V4 Standard) --- */}
         {mode === 'quiz' && (
             <div className="space-y-6">
                 <div className="text-center">
-                    <h2 className="text-2xl font-black mb-8 italic tracking-tighter">"{QUIZ_QUESTIONS[quizIdx].q}"</h2>
-                    <div className="grid gap-3">
+                    <h2 className="text-2xl font-black mb-8 tracking-tighter italic">"{QUIZ_QUESTIONS[quizIdx].q}"</h2>
+                    <div className="grid gap-4">
                         {QUIZ_QUESTIONS[quizIdx].options.map((opt, i) => (
-                            <button key={i} disabled={isLocked} onClick={() => handleAnswer(i)} className={`p-6 rounded-[1.5rem] border-2 font-bold text-left transition-all ${isLocked ? (i === QUIZ_QUESTIONS[quizIdx].correct ? 'bg-green-100 border-green-500 text-green-800 shadow-md' : 'bg-white opacity-40') : 'bg-white border-slate-200 hover:border-blue-500'}`}>{opt}</button>
+                            <button key={i} disabled={isLocked} onClick={() => handleAnswer(i)} className={`p-6 rounded-[2rem] border-2 font-bold text-left transition-all ${isLocked ? (i === QUIZ_QUESTIONS[quizIdx].correct ? 'bg-green-100 border-green-500 text-green-800 shadow-md' : 'bg-white opacity-40') : 'bg-white border-slate-200 hover:border-blue-500'}`}>{opt}</button>
                         ))}
                     </div>
                     {isLocked && (
-                        <div className="mt-6 p-6 bg-indigo-50 rounded-2xl border-2 border-indigo-100 animate-in slide-in-from-bottom-4">
+                        <div className="mt-6 p-6 bg-indigo-50 rounded-[2rem] border-2 border-indigo-100 animate-in slide-in-from-bottom-4 shadow-sm">
                             <p className="text-sm text-indigo-900 font-medium mb-4">{QUIZ_QUESTIONS[quizIdx].explanation}</p>
                             <button onClick={() => { if(quizIdx < QUIZ_QUESTIONS.length - 1) { setQuizIdx(quizIdx + 1); setSelectedAnswer(null); setIsLocked(false); } else setMode('resultat'); }} className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold">Continuer</button>
                         </div>
@@ -191,12 +204,12 @@ export default function LocalisationChapter() {
         {mode === 'resultat' && (
             <div className="text-center space-y-8 animate-in zoom-in duration-500">
                 <div className="bg-white p-12 rounded-[3.5rem] shadow-2xl border-b-[16px] border-blue-600">
-                    <div className="text-7xl mb-6">🛰️</div>
-                    <h2 className="text-4xl font-black mb-2 tracking-tighter italic text-blue-600 uppercase">Géolocalisé !</h2>
-                    <div className="text-6xl font-black my-8 italic">{score * 100 + bonusXP} <span className="text-2xl text-slate-400 font-black">XP</span></div>
-                    <div className="p-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] text-white shadow-xl relative overflow-hidden">
-                        <div className="relative z-10 text-blue-200 font-black uppercase text-[10px] tracking-[0.3em] mb-3 uppercase font-black">Grade débloqué</div>
-                        <div className="relative z-10 text-2xl font-black tracking-tight uppercase leading-none">Cartographe Expert</div>
+                    <div className="text-8xl mb-6">📍</div>
+                    <h2 className="text-4xl font-black text-blue-600 italic tracking-tighter uppercase">Localisé !</h2>
+                    <div className="text-6xl font-black my-8">{score * 100 + bonusXP} <span className="text-2xl text-slate-400">XP</span></div>
+                    <div className="p-8 bg-slate-900 rounded-[2.5rem] text-white">
+                        <div className="text-[10px] font-black uppercase text-blue-400 mb-2">Grade atteint</div>
+                        <div className="text-2xl font-black italic uppercase leading-none italic tracking-widest">Guide Suprême</div>
                     </div>
                 </div>
                 <Link href="/themes" className="block w-full py-6 bg-slate-900 text-white rounded-[2rem] font-black text-xl shadow-xl hover:bg-black transition-all">RETOUR AU CATALOGUE</Link>
