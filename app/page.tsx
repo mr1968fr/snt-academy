@@ -61,8 +61,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION GRILLE DES THÈMES */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
+           {/* SECTION GRILLE DES THÈMES */}
+           <section className="max-w-6xl mx-auto px-6 py-20">
         <h2 className="text-3xl font-black text-center mb-12 tracking-tight uppercase tracking-widest text-slate-400 text-sm">Les 7 thèmes du programme</h2>
         
         <div className="grid md:grid-cols-3 gap-6">
@@ -91,6 +91,45 @@ export default function Home() {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* SECTION BONUS : OUTILS BUREAUTIQUES */}
+        <h2 className="text-3xl font-black text-center mb-12 mt-24 tracking-tight uppercase tracking-widest text-slate-400 text-sm">
+          Bonus : Maîtrise tes outils
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <Link
+            href="/themes/word"
+            className="p-8 bg-blue-50 rounded-3xl border-2 border-blue-100 shadow-sm hover:shadow-xl hover:border-blue-400 transition-all group flex flex-col"
+          >
+            <div className="text-4xl mb-4">📄</div>
+            <h3 className="text-xl font-black mb-3 group-hover:text-blue-600 transition-colors tracking-tight text-left">
+              Traitement de texte
+            </h3>
+            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">
+              Styles, sommaire automatique, sauts de page : rédige des rapports impeccables sur Word.
+            </p>
+            <div className="mt-6 text-blue-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+              Commencer →
+            </div>
+          </Link>
+
+          <Link
+            href="/themes/excel"
+            className="p-8 bg-green-50 rounded-3xl border-2 border-green-100 shadow-sm hover:shadow-xl hover:border-green-400 transition-all group flex flex-col"
+          >
+            <div className="text-4xl mb-4">📊</div>
+            <h3 className="text-xl font-black mb-3 group-hover:text-green-600 transition-colors tracking-tight text-left">
+              Tableur &amp; Calculs
+            </h3>
+            <p className="text-sm text-slate-500 text-left font-medium leading-relaxed">
+              Formules, fonctions SOMME et MOYENNE, graphiques : fais travailler Excel à ta place.
+            </p>
+            <div className="mt-6 text-green-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+              Commencer →
+            </div>
+          </Link>
         </div>
 
         <div className="text-center mt-16">
