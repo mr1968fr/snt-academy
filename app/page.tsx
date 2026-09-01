@@ -40,7 +40,7 @@ export default function Home() {
             href="/professeur/dashboard"
             className="px-8 py-4 bg-white border-2 border-slate-200 rounded-2xl font-black hover:bg-slate-100 transition shadow-sm"
           >
-            Je suis professeur — Voir la démo
+            Je suis professeur — Espace classe
           </Link>
         </div>
       </header>

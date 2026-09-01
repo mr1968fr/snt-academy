@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const ETAPES = [
   { n: '1', titre: 'Importe ta classe', texte: "Dans l'Espace Prof : saisis tes élèves, colle ta liste, ou importe ton CSV Pronote (Nom;Prénom). Jusqu'à 40 élèves, 2 minutes chrono." },
-  { n: '2', titre: 'Envoie le lien aux élèves', texte: 'Aucune inscription, aucun mot de passe : ils ouvrent le site sur téléphone ou en salle info et choisissent le thème du jour.' },
+  { n: '2', titre: 'Envoie le lien aux élèves', texte: "Aucune inscription, aucun mot de passe : ils ouvrent le site sur téléphone, PC de salle info ou Chromebook du lycée, et choisissent le thème du jour." },
   { n: '3', titre: 'Coche et exporte', texte: "En fin de séance, chaque élève te dit son score. Tu coches le thème validé, tu notes l'XP — et tu exportes le tableau en CSV quand tu veux." },
 ];
 
@@ -22,6 +22,7 @@ const FAQ = [
   { q: 'Ça marche sur téléphone ?', r: "Oui, c'est même pensé pour : accroches courtes, panneaux de cours dépliables, quiz au doigt. Parfait pour 5 minutes de fin d'heure ou des révisions dans le bus." },
   { q: 'Où sont stockées les données ?', r: "Nulle part sur un serveur. Le suivi de classe vit uniquement dans le navigateur de l'enseignant (export CSV pour sauvegarder). Aucune donnée personnelle élève n'est collectée." },
   { q: 'Quel usage pour la certification Pix ?', r: "Révisions ciblées : chaque quiz reprend le format et les pièges types de l'épreuve. Le thème Python couvre l'épreuve « Programmer », SQL et les données structurées sont dans le thème Données." },
+  { q: 'Et sur les PC du lycée ou les Chromebooks ?', r: "Oui : tout tourne dans le navigateur (Chrome inclus), rien à installer. Deux précautions : si l'accès internet de l'établissement est filtré, fais autoriser l'adresse du site par avance ; et ouvre le site une fois quelques minutes avant la séance — la première connexion de la journée peut prendre jusqu'à une minute." },
 ];
 
 export default function GuideProf() {
