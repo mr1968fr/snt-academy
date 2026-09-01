@@ -31,7 +31,7 @@ export default function Home() {
 
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <Link
-            href="/themes"
+            href="/commencer"
             className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 transition shadow-[0_5px_0_rgb(30,64,175)] active:translate-y-1"
           >
             Je suis élève — Commencer
