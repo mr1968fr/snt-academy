@@ -53,7 +53,7 @@ export default function Tarifs() {
             Déploiement pour tous les enseignants de SNT du lycée, facturation établissement
             (bon de commande ou mandat), support dédié et sensibilisation à la certification Pix.
           </p>
-          <a href="mailto:contact@snt-academy.fr?subject=Offre%20%C3%A9tablissement" className="inline-block px-6 py-3 bg-slate-900 text-white rounded-2xl font-black hover:bg-black transition-all">
+          <a href="mathschamplain@?gmail.com?subject=Offre%20%C3%A9tablissement" className="inline-block px-6 py-3 bg-slate-900 text-white rounded-2xl font-black hover:bg-black transition-all">
             Demander une présentation
           </a>
         </div>
