@@ -30,8 +30,9 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col md:flex-row gap-4 justify-center">
+          {/* CORRECTION ICI : href="#themes-section" pour descendre dans la page */}
           <Link
-            href="/themes"
+            href="#themes-section"
             className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 transition shadow-[0_5px_0_rgb(30,64,175)] active:translate-y-1"
           >
             Je suis élève — Commencer
@@ -57,8 +58,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION GRILLE DES THÈMES SNT */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
+      {/* SECTION GRILLE DES THÈMES SNT (AJOUT DE L'ID themes-section) */}
+      <section id="themes-section" className="max-w-6xl mx-auto px-6 py-20 scroll-mt-20">
         <h2 className="text-3xl font-black text-center mb-12 tracking-tight uppercase tracking-widest text-slate-400 text-sm">Les 7 thèmes du programme</h2>
         
         <div className="grid md:grid-cols-3 gap-6">
@@ -89,7 +90,7 @@ export default function Home() {
           ))}
         </div>
 
-        {/* SECTION BONUS : SAVOIR-FAIRE MINIMUM */}
+        {/* SECTION BONUS */}
         <h2 className="text-3xl font-black text-center mb-12 mt-24 tracking-tight uppercase tracking-widest text-slate-400 text-sm">
           Bonus : Tes outils de survie numérique
         </h2>
@@ -136,21 +137,19 @@ export default function Home() {
             <h3 className="text-xl font-black mb-2 group-hover:text-indigo-600">Réseau & Wi-Fi</h3>
             <p className="text-sm text-slate-500 font-medium">Comprendre ta box, ton adresse IP et ton débit internet.</p>
           </Link>
-          {/* PYTHON — bannière pleine largeur, même style que Fake News.
-   À coller AUX DEUX ENDROITS :
-   1) app/page.tsx      → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur…
-   2) app/themes/page.tsx → juste avant la ligne  {/* FAKE NEWS (Sur toute la largeur… */}
 
+          {/* PYTHON */}
           <Link href="/themes/python" className="p-8 bg-emerald-50 rounded-3xl border-2 border-emerald-100 hover:border-emerald-400 transition-all group shadow-sm flex flex-col lg:col-span-3">
             <div className="flex items-center gap-6">
               <div className="text-4xl">🐍</div>
               <div>
                 <h3 className="text-xl font-black mb-1 group-hover:text-emerald-600 transition-colors">Initiation Python</h3>
-                <p className="text-sm text-slate-500 font-medium leading-relaxed">Variables, conditions, boucles et fonctions : tes premières lignes de code, prêtes pour l&apos;épreuve « Programmer » de Pix.</p>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">Variables, conditions, boucles et fonctions : tes premières lignes de code.</p>
               </div>
             </div>
           </Link>
-          {/* FAKE NEWS (Sur une ligne seule ou centrée si besoin) */}
+
+          {/* FAKE NEWS */}
           <Link href="/themes/fake-news" className="p-8 bg-red-50 rounded-3xl border-2 border-red-100 hover:border-red-400 transition-all group shadow-sm lg:col-span-3">
             <div className="flex items-center gap-6">
               <div className="text-4xl">🔍</div>
