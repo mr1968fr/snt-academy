@@ -1,24 +1,33 @@
 'use client';
+
 import { useState } from 'react';
 import Link from 'next/link';
 
-/* ---------- Types ---------- */
+/* =========================================================
+TYPES
+========================================================= */
+
 type ModeSession = '20min' | '1h' | '1h30';
-type Detail = { h: string; p: string };
+
+type Detail = {
+  h: string;
+  p: string;
+};
+
 type Project = {
   topic: string;
   desc: string;
   livrable: string;
   difficulty: string;
   duration: string;
-  /** Lien externe optionnel (ex. Submarine Cable Map) */
   externalUrl?: string;
   externalLabel?: string;
 };
+
 type Step = {
+  number?: string;
   title: string;
-  icon: string;
-  color: string;
+  subtitle?: string;
   content?: string;
   details?: Detail[];
   hasLab?: boolean;
@@ -27,8 +36,12 @@ type Step = {
   intro?: string;
   projects?: Project[];
   exposes?: string[];
-  deep?: { label: string; text: string }[];
+  deep?: {
+    label: string;
+    text: string;
+  }[];
 };
+
 type Question = {
   q: string;
   options: string[];
@@ -36,274 +49,369 @@ type Question = {
   explanation: string;
 };
 
-/* ---------- Labs (interactifs + XP) ---------- */
-const LAB_XP = 150;
+/* =========================================================
+LABORATOIRES — points liés à un effort cognitif (pas du pure jeu)
+========================================================= */
+
+const LAB_POINTS = 150;
+const QUIZ_POINTS = 100;
+
 const LAB1_OPTIONS = ['8.8.8.8', 'google.fr'];
 const LAB1_CORRECT = 'google.fr';
 const LAB1_FEEDBACK =
-  "google.fr est un nom de domaine ; 8.8.8.8 est une adresse IP (celle d'un serveur DNS de Google).";
+  "google.fr est un nom de domaine. 8.8.8.8 est une adresse IP : celle d'un serveur DNS.";
+
 const LAB2_OPTIONS = ["Ils s'arrêtent", 'Ils changent de route'];
 const LAB2_CORRECT = 'Ils changent de route';
 const LAB2_FEEDBACK =
-  "Les routeurs recalculent une autre route en temps réel : c'est ce qui rend Internet résistant aux pannes.";
+  "Les routeurs peuvent calculer une autre route. C'est l'une des raisons pour lesquelles Internet peut continuer à fonctionner malgré certaines pannes.";
 
-/* ---------- Cours ---------- */
+/* =========================================================
+CONTENU DU PARCOURS
+========================================================= */
+
 const LESSON_STEPS: Step[] = [
   {
-    title: "1. Le Cloud n'existe pas",
-    icon: '🔌',
-    color: 'border-blue-500',
+    number: '01',
+    title: "Le Cloud n'existe pas",
+    subtitle: "L'infrastructure physique d'Internet",
     content:
-      "Internet est ultra-physique. 99 % du trafic intercontinental passe par des câbles sous-marins en fibre optique. Si tu envoies un Snap aux USA, l'info traverse l'océan à la vitesse de la lumière sous 4 000 m d'eau.",
+      "Internet n'est pas un nuage. Derrière chaque message, chaque vidéo et chaque photo se trouve une infrastructure physique gigantesque : câbles, fibres optiques, serveurs et datacenters.",
     details: [
       {
-        h: 'Définition',
-        p: "Internet est l'interconnexion de millions de réseaux à l'échelle planétaire. Son support principal : la fibre optique, dont des câbles sous-marins posés au fond des océans — plus de 500 câbles, pour environ 1,4 million de km de fibre.",
+        h: 'Comprendre',
+        p: "Internet est l'interconnexion de millions de réseaux à l'échelle mondiale. Son infrastructure repose principalement sur des fibres optiques, dont de nombreux câbles sous-marins qui relient les continents.",
       },
       {
-        h: 'Exemple',
-        p: "La photo envoyée à un service hébergé aux États-Unis traverse l'Atlantique dans un câble de quelques centimètres d'épaisseur, par plus de 4 000 m de profondeur, en quelques millisecondes.",
+        h: 'Observer',
+        p: "Lorsqu'une donnée doit traverser l'Atlantique, elle peut circuler dans un câble posé au fond de l'océan. Ces câbles constituent l'une des infrastructures essentielles de la société numérique.",
       },
       {
         h: 'À retenir',
-        p: "Le « nuage » est un argument marketing : tes données vivent dans des machines bien réelles, rangées dans des entrepôts climatisés appelés datacenters.",
+        p: "Le terme « Cloud » peut donner l'impression que les données sont immatérielles. En réalité, elles sont stockées et traitées dans des machines bien réelles, regroupées dans des datacenters.",
       },
-      { h: 'Vocabulaire', p: 'fibre optique, datacenter, débit.' },
+      {
+        h: 'Vocabulaire',
+        p: 'fibre optique • câble sous-marin • datacenter • débit',
+      },
     ],
     deep: [
       {
-        label: 'Pour débattre (1h+)',
-        text: "Le 'Cloud' est un argument marketing. Où sont vraiment tes données ? Dans quels pays ? Qui possède ces câbles ?",
+        label: 'Question pour aller plus loin',
+        text: 'Où sont réellement stockées vos données ? Dans quels pays ? Qui possède les grandes infrastructures qui permettent à Internet de fonctionner ?',
       },
       {
-        label: 'Recherche élève (1h30)',
-        text: 'Ouvre la carte des câbles sous-marins et identifie 3 pays par lesquels passe un message France-USA.',
+        label: 'Investigation',
+        text: 'Ouvrez une carte des câbles sous-marins et identifiez les infrastructures permettant de relier la France aux États-Unis.',
       },
     ],
   },
   {
-    title: '2. Adresse IP & DNS',
-    icon: '🆔',
-    color: 'border-indigo-500',
+    number: '02',
+    title: 'Identifier une machine',
+    subtitle: 'Adresse IP et système DNS',
     hasLab: true,
     content:
-      "Chaque machine a une adresse unique : l'adresse IP. Le DNS est l'annuaire qui traduit « google.fr » en une suite de chiffres : l'adresse IP. C'est le répertoire de ton téléphone, mais pour la planète entière.",
+      "Pour communiquer, les machines doivent pouvoir s'identifier. L'adresse IP joue ce rôle. Le DNS permet ensuite de traduire les noms que nous utilisons en adresses compréhensibles par les machines.",
     details: [
       {
-        h: 'Définition',
-        p: "Chaque machine connectée possède une adresse IP : son identifiant sur le réseau (ex. 172.217.18.195 en IPv4). Le DNS (Domain Name System) est l'annuaire mondial qui traduit un nom de domaine en adresse IP.",
+        h: 'Comprendre',
+        p: "Chaque machine connectée à Internet possède une adresse IP. Cette adresse permet de l'identifier sur le réseau.",
+      },
+      {
+        h: 'Le rôle du DNS',
+        p: "Le DNS, Domain Name System, fonctionne comme un annuaire. Il associe un nom de domaine compréhensible par l'utilisateur à une adresse IP utilisable par les machines.",
       },
       {
         h: 'Exemple',
-        p: "Tu tapes www.google.fr : ta machine demande à un serveur DNS « quelle est l'IP de ce nom ? », reçoit la réponse en quelques millisecondes, et seulement ensuite contacte le serveur Google.",
+        p: "Lorsque vous tapez www.google.fr, votre ordinateur interroge un serveur DNS afin d'obtenir l'adresse IP correspondant à ce nom.",
       },
       {
         h: 'À retenir',
-        p: "Sans DNS, il faudrait mémoriser des suites de chiffres. Et face à la pénurie d'adresses IPv4, l'IPv6 (adresses bien plus longues) prend peu à peu le relais.",
+        p: "L'utilisateur retient des noms comme google.fr. Les machines, elles, communiquent grâce aux adresses IP.",
       },
-      { h: 'Vocabulaire', p: 'adresse IP, nom de domaine, résolution, IPv4 / IPv6.' },
+      {
+        h: 'Vocabulaire',
+        p: 'adresse IP • nom de domaine • DNS • résolution • IPv4 • IPv6',
+      },
     ],
     deep: [
       {
-        label: 'Pour débattre (1h+)',
-        text: "Pourquoi la pénurie d'IPv4 impose l'IPv6 ? Pourquoi certains pays veulent contrôler leur DNS national ?",
+        label: 'Question pour aller plus loin',
+        text: "Pourquoi le nombre d'adresses IPv4 disponibles est-il limité ? Pourquoi Internet doit-il progressivement utiliser IPv6 ?",
       },
       {
-        label: 'Recherche élève (1h30)',
-        text: "Trouver le nombre d'adresses IPv6 possibles et expliquer en 3 lignes pourquoi c'est 'infini'.",
+        label: 'Investigation',
+        text: "Recherchez combien d'adresses différentes IPv6 permet théoriquement de créer et expliquez pourquoi ce nombre est extrêmement supérieur à celui d'IPv4.",
       },
     ],
   },
   {
-    title: '3. Le Routage & le P2P',
-    icon: '🛣️',
-    color: 'border-orange-500',
+    number: '03',
+    title: "Faire circuler l'information",
+    subtitle: 'Paquets, routeurs et pair-à-pair',
     content:
-      "Tes données sont découpées en PAQUETS. Ils ne prennent pas tous le même chemin : des ROUTEURS choisissent la route la plus rapide en temps réel. C'est ce qui rend Internet indestructible. Autre idée puissante : le PAIR-À-PAIR (P2P), où chaque utilisateur est à la fois client ET serveur — plus de centre unique, chacun partage.",
+      "Les informations qui circulent sur Internet sont découpées en paquets. Ces paquets traversent différents routeurs qui choisissent les chemins disponibles pour atteindre leur destination.",
     details: [
       {
-        h: 'Définition',
-        p: "La commutation de paquets : ton message est découpé en paquets indépendants ; chaque paquet porte l'adresse de destination ; des routeurs choisissent la meilleure route disponible à chaque instant.",
+        h: 'Comprendre',
+        p: "Un message n'est généralement pas envoyé d'un seul bloc. Il est découpé en petits paquets capables de circuler indépendamment sur le réseau.",
+      },
+      {
+        h: 'Le rôle des routeurs',
+        p: "Les routeurs analysent les informations nécessaires à l'acheminement et choisissent une route permettant aux paquets de poursuivre leur trajet.",
       },
       {
         h: 'Exemple',
-        p: "Une photo de 2 Mo part en environ 2 000 paquets, qui peuvent emprunter des routes différentes et arriver dans le désordre — le protocole TCP les remet dans l'ordre à l'arrivée.",
+        p: "Une photographie peut être découpée en un grand nombre de paquets. Ces paquets peuvent emprunter différents chemins avant d'être reconstitués à destination.",
       },
       {
         h: 'À retenir',
-        p: "C'est ce qui rend Internet résistant : si un routeur tombe, les paquets passent par un autre chemin. Et avec le pair-à-pair (P2P), chaque utilisateur est à la fois client et serveur : il n'y a plus de centre unique.",
+        p: "L'organisation en réseau permet d'éviter qu'une panne locale bloque nécessairement l'ensemble des communications.",
       },
-      { h: 'Vocabulaire', p: 'paquet, routeur, commutation de paquets, pair.' },
+      {
+        h: 'Le pair-à-pair',
+        p: 'Dans un réseau pair-à-pair, chaque participant peut jouer simultanément le rôle de client et de serveur.',
+      },
+      {
+        h: 'Vocabulaire',
+        p: 'paquet • routeur • routage • commutation de paquets • pair-à-pair',
+      },
     ],
     deep: [
       {
-        label: 'Pour débattre (1h+)',
-        text: 'Le P2P supprime le centre unique : avantage (pas d’intermédiaire) ou risque (contenus illégaux plus difficiles à bloquer) ?',
+        label: 'Question pour aller plus loin',
+        text: "Un réseau pair-à-pair présente-t-il davantage d'avantages ou de risques qu'une organisation reposant sur un serveur central ?",
       },
       {
-        label: 'Exposé (1h30)',
-        text: "Préparer une présentation 10 min : 'Comment le P2P change la notion de propriété des données ?'",
+        label: 'Exposé',
+        text: 'Préparez une courte présentation expliquant comment le pair-à-pair modifie la répartition des données et des responsabilités entre utilisateurs.',
       },
     ],
   },
   {
-    title: '4. Protocoles TCP/IP',
-    icon: '🌐',
-    color: 'border-green-500',
+    number: '04',
+    title: 'Les règles de communication',
+    subtitle: 'Comprendre les protocoles TCP/IP',
     content:
-      "TCP vérifie que tous les paquets sont bien arrivés et les remet dans l'ordre. IP s'occupe de l'adressage. C'est le langage universel qui permet à toutes les machines du monde de se comprendre.",
+      'Pour que des machines très différentes puissent communiquer, elles doivent respecter des règles communes : les protocoles. TCP et IP constituent une partie essentielle de ces règles.',
     details: [
       {
-        h: 'Définition',
-        p: "Un protocole est un langage commun aux machines. IP s'occupe de l'adressage et de l'acheminement ; TCP garantit que tous les paquets arrivent et les remet dans le bon ordre.",
+        h: 'Comprendre',
+        p: 'Un protocole définit un ensemble de règles permettant à des machines de communiquer.',
       },
       {
-        h: 'Exemple',
-        p: "Comme envoyer un livre en découpant les pages : TCP numérote chaque page, vérifie à l'arrivée qu'elles y sont toutes et redemande celles qui manquent.",
+        h: 'IP',
+        p: "Le protocole IP participe à l'adressage et à l'acheminement des paquets sur le réseau.",
+      },
+      {
+        h: 'TCP',
+        p: "TCP permet notamment de vérifier que les données nécessaires sont bien arrivées et de gérer leur ordre.",
+      },
+      {
+        h: 'Une analogie',
+        p: "Imaginez un livre dont les pages seraient envoyées séparément. TCP aide à vérifier qu'elles sont toutes présentes et à les remettre dans le bon ordre.",
       },
       {
         h: 'À retenir',
-        p: "TCP/IP est le langage universel d'Internet : deux machines quelconques peuvent communiquer, quelle que soit leur marque ou leur système d'exploitation.",
+        p: 'Les protocoles permettent à des machines de marques et de systèmes différents de communiquer entre elles.',
       },
-      { h: 'Vocabulaire', p: 'protocole, TCP, IP, accusé de réception.' },
+      {
+        h: 'Vocabulaire',
+        p: 'protocole • TCP • IP • paquet • accusé de réception',
+      },
     ],
     deep: [
       {
-        label: 'Pour débattre (1h+)',
-        text: "Pourquoi TCP/IP est-il 'neutre' ? Peut-il servir à censurer ou au contraire à contourner la censure ?",
+        label: 'Question pour aller plus loin',
+        text: "Pourquoi est-il important que les protocoles fondamentaux d'Internet soient communs à l'ensemble des réseaux ?",
       },
       {
-        label: 'Recherche élève (1h30)',
-        text: 'Comparer TCP/IP avec le protocole postal (lettre recommandée avec AR) : 3 points communs, 3 différences.',
+        label: 'Investigation',
+        text: "Comparez le fonctionnement de TCP à celui d'un envoi postal avec accusé de réception.",
       },
     ],
   },
   {
-    title: '5. Labo : Tracé de route',
-    icon: '📍',
-    color: 'border-red-500',
+    number: '05',
+    title: 'Observer Internet en action',
+    subtitle: "Tracer le trajet d'une information",
     hasLab2: true,
     content:
-      "Grâce à la commande « traceroute », on peut voir tous les routeurs par lesquels passe une donnée. C'est comme suivre un colis Amazon à chaque entrepôt !",
+      "Il est possible d'observer une partie du trajet suivi par les paquets grâce à des outils comme traceroute ou tracert.",
     details: [
       {
-        h: 'Définition',
-        p: 'traceroute (tracert sur Windows) est une commande qui affiche la liste des routeurs traversés par tes paquets, avec la durée de chaque saut.',
+        h: "L'outil",
+        p: "La commande traceroute, appelée tracert sous Windows, permet d'afficher une succession de routeurs traversés lors de la communication avec une destination.",
       },
       {
-        h: 'À faire maintenant',
-        p: "Sur Mac : ouvre le Terminal et tape traceroute www.google.fr (sur Windows : cmd puis tracert www.google.fr). Compte les sauts : tu verras d'abord ta box, puis le réseau de ton opérateur, puis les grands axes internationaux. Si le Terminal est bloqué au lycée, demande au prof l'adresse d'un traceroute en ligne : le résultat se lit pareil.",
+        h: 'Expérience',
+        p: 'Sur Mac ou Linux, ouvrez le Terminal et utilisez : traceroute www.google.fr. Sous Windows, utilisez la commande tracert.',
+      },
+      {
+        h: 'Observer',
+        p: "Chaque ligne correspond généralement à une étape du trajet. On peut notamment observer le nombre de sauts et le temps nécessaire pour atteindre différents équipements.",
       },
       {
         h: 'À retenir',
-        p: "La route n'est jamais fixe : refais la commande demain, la liste des routeurs aura changé.",
+        p: "La route suivie par les données n'est pas nécessairement fixe. Elle peut évoluer selon l'état du réseau.",
       },
-      { h: 'Vocabulaire', p: 'saut, latence, routeur.' },
+      {
+        h: 'Vocabulaire',
+        p: 'traceroute • saut • latence • routeur',
+      },
     ],
     deep: [
       {
-        label: 'Pour débattre (1h+)',
-        text: 'Si un câble sous-marin est coupé, le routeur doit-il attendre ou changer de route ? Quel est le coût d’un détour ?',
+        label: 'Question pour aller plus loin',
+        text: "Que peut-il se passer lorsqu'une infrastructure importante du réseau devient indisponible ? Pourquoi les routes alternatives peuvent-elles être plus longues ?",
       },
       {
-        label: 'Exposé (1h30)',
-        text: 'Cartographier la route de ton message : dessiner le chemin du terminal jusqu’à Google, avec les pays traversés.',
+        label: 'Investigation',
+        text: 'Réalisez plusieurs traceroute vers différentes destinations et comparez le nombre de sauts et les temps observés.',
       },
     ],
   },
   {
-    title: '🎯 Mission en classe',
-    icon: '🚀',
-    color: 'border-purple-600',
+    number: 'MISSION',
+    title: 'Investigation finale',
+    subtitle: 'Mettre vos connaissances en pratique',
     isProject: true,
     intro:
-      'Choisis UNE mission — 15 à 20 min, seul ou en binôme. À la fin, tu montres ton livrable au professeur.',
+      'Choisissez une mission. Travaillez seul ou en binôme. Votre objectif : produire un résultat clair que vous pourrez présenter.',
     projects: [
       {
-        topic: 'La carte des câbles',
-        desc: 'Trouve un câble qui part de France vers un autre continent (indice : regarde ce qui part de Vendée, de Bretagne ou de Marseille).',
+        topic: 'Les câbles sous-marins',
+        desc: 'Identifiez une infrastructure reliant la France à un autre continent.',
         externalUrl: 'https://www.submarinecablemap.com',
-        externalLabel: 'submarinecablemap.com',
+        externalLabel: 'Explorer la carte mondiale des câbles',
         livrable:
-          "Nom du câble, longueur, année de mise en service, pays reliés — et une phrase : que se passe-t-il s'il est coupé ?",
-        difficulty: 'Débutant',
+          "Nom du câble, longueur, date de mise en service, territoires reliés et analyse des conséquences possibles d'une coupure.",
+        difficulty: 'Découverte',
         duration: '15 min',
       },
       {
-        topic: "Ta route jusqu'au Japon",
-        desc: "Dans le Terminal (ou un traceroute en ligne si le lycée le bloque — le professeur donne l'adresse), trace la route vers www.google.fr, puis vers un site japonais : www.nhk.or.jp.",
+        topic: 'Suivre une route',
+        desc: 'Comparez le trajet vers une destination proche et vers une destination située dans une autre région du monde.',
         livrable:
-          'Pour chaque route : nombre de sauts, plus grand temps affiché (en ms), pays reconnus dans les noms des routeurs. Une phrase : pourquoi le Japon est-il plus long ?',
-        difficulty: 'Intermédiaire',
+          'Nombre de sauts, temps maximum observé, éléments géographiques identifiables et explication de vos observations.',
+        difficulty: 'Exploration',
         duration: '15 min',
       },
       {
-        topic: 'Débat : la neutralité du Net',
-        desc: 'Ton opérateur a-t-il le droit de ralentir Netflix pour pousser son propre service vidéo ? Prépare les deux camps.',
+        topic: 'La neutralité du Net',
+        desc: "Un fournisseur d'accès doit-il pouvoir privilégier certains services ou ralentir certains contenus ?",
         livrable:
-          '2 arguments pour, 2 arguments contre, restitution orale de 2 min. Bonus : ce que dit la loi européenne depuis 2015.',
-        difficulty: 'Avancé',
+          'Deux arguments en faveur, deux arguments contre et une courte restitution orale.',
+        difficulty: 'Investigation',
         duration: '20 min',
       },
     ],
     exposes: [
-      'Géopolitique des câbles : pourquoi sont-ils devenus des cibles militaires prioritaires ?',
-      'Internet et écologie : le coût environnemental caché de tes e-mails et du streaming 4K.',
+      'Pourquoi les câbles sous-marins constituent-ils un enjeu géopolitique majeur ?',
+      "Quel est l'impact environnemental des infrastructures numériques ?",
+      'Internet appartient-il réellement à tout le monde ?',
     ],
     deep: [
       {
-        label: 'Pour le prof (1h30)',
-        text: 'Attribuer 1 sujet par groupe de 3. Préparation 20 min, présentation 5 min. Utiliser le site comme base, pas comme fin. Vérifier le livrable de chaque élève.',
+        label: 'Pour le professeur',
+        text: "Répartir les missions entre les groupes. Prévoir une courte phase de recherche suivie d'une restitution. Le livrable permet de vérifier que les élèves ont réellement exploité les notions du parcours. En 1h30, la mission finale prime : le score de progression reste un indicateur d'avancement, pas l'objectif de la séance.",
       },
     ],
   },
 ];
 
-/* ---------- Quiz ---------- */
+/* =========================================================
+QUIZ
+========================================================= */
+
 const QUIZ_QUESTIONS: Question[] = [
   {
-    q: "Par où passe l'essentiel du trafic Internet entre les continents ?",
-    options: ['Par câbles sous-marins', 'Par satellite', 'Par les ondes WiFi'],
+    q: 'Par quelle infrastructure passe principalement le trafic Internet entre les continents ?',
+    options: [
+      'Par des câbles sous-marins',
+      'Principalement par satellite',
+      'Par les réseaux Wi-Fi',
+    ],
     correct: 0,
     explanation:
-      'Environ 99 % du trafic intercontinental passe par des câbles sous-marins en fibre optique. Le satellite reste marginal.',
+      'Les câbles sous-marins en fibre optique constituent une infrastructure essentielle des communications intercontinentales.',
   },
   {
     q: 'Que signifie DNS ?',
     options: ['Data Network System', 'Domain Name System', 'Digital Node Service'],
     correct: 1,
-    explanation: "C'est l'annuaire d'Internet : il traduit un nom de domaine (google.fr) en adresse IP.",
+    explanation:
+      "Le DNS est le système qui permet notamment d'associer un nom de domaine à une adresse IP.",
   },
   {
-    q: 'Un paquet IP contient :',
-    options: ['Juste la donnée', 'Le mot de passe', "La donnée + adresses de départ et d'arrivée"],
-    correct: 2,
-    explanation: "Il faut une adresse pour que le routeur sache où l'envoyer.",
-  },
-  {
-    q: 'Dans le pair-à-pair (P2P), chaque utilisateur est :',
-    options: ['Uniquement client', 'À la fois client et serveur', 'Uniquement serveur'],
+    q: "Quel est le rôle principal d'une adresse IP ?",
+    options: [
+      "Décorer l'interface d'un site web",
+      'Identifier une machine sur un réseau',
+      'Remplacer un câble réseau',
+    ],
     correct: 1,
-    explanation: 'Chacun télécharge ET partage : pas de serveur central, la charge se répartit entre tous.',
+    explanation: "Une adresse IP permet d'identifier une machine connectée à un réseau.",
   },
   {
-    q: 'Si un paquet est perdu en route, TCP :',
-    options: ["Le redemande et remet tout dans l'ordre", "L'oublie : la page sera abîmée", 'Envoie automatiquement tout en double'],
+    q: 'Quel est le rôle des routeurs ?',
+    options: [
+      'Acheminer les paquets sur le réseau',
+      'Créer les sites web',
+      'Fabriquer les ordinateurs',
+    ],
     correct: 0,
-    explanation: 'TCP numérote les paquets, détecte les manquants et les redemande.',
+    explanation:
+      "Les routeurs participent à l'acheminement des paquets entre différents réseaux.",
+  },
+  {
+    q: 'Quel protocole permet notamment de gérer la bonne réception des données ?',
+    options: ['TCP', 'HTML', 'JPEG'],
+    correct: 0,
+    explanation:
+      'TCP participe au contrôle de la transmission et à la gestion des données reçues.',
   },
 ];
 
+/* Compétences validées (écran final = certificat, pas un « grade jeu ») */
+const COMPETENCES = [
+  {
+    key: 'infra',
+    label: 'Infrastructure',
+    desc: "Comprendre le caractère physique d'Internet",
+  },
+  {
+    key: 'ip',
+    label: 'Adressage',
+    desc: 'Identifier le rôle des adresses IP et du DNS',
+  },
+  {
+    key: 'routage',
+    label: 'Routage',
+    desc: 'Comprendre le déplacement des paquets',
+  },
+  {
+    key: 'proto',
+    label: 'Protocoles',
+    desc: 'Comprendre pourquoi les machines peuvent communiquer',
+  },
+];
+
+/* =========================================================
+COMPOSANT PRINCIPAL
+========================================================= */
+
 export default function InternetChapter() {
   const [modeSession, setModeSession] = useState<ModeSession>('20min');
-  const [mode, setMode] = useState<'cours' | 'quiz' | 'resultat'>('cours');
+  const [mode, setMode] = useState<'home' | 'cours' | 'quiz' | 'resultat'>('home');
   const [step, setStep] = useState(0);
   const [openLesson, setOpenLesson] = useState(false);
   const [quizIdx, setQuizIdx] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
   const [score, setScore] = useState(0);
-  const [bonusXP, setBonusXP] = useState(0);
+  const [labPoints, setLabPoints] = useState(0);
   const [lab1Answer, setLab1Answer] = useState<string | null>(null);
   const [lab2Answer, setLab2Answer] = useState<string | null>(null);
 
@@ -311,31 +419,29 @@ export default function InternetChapter() {
   const question = QUIZ_QUESTIONS[quizIdx];
   const isLastStep = step === LESSON_STEPS.length - 1;
   const isLastQuestion = quizIdx === QUIZ_QUESTIONS.length - 1;
-
-  /** XP global = quiz (100 pts / bonne réponse) + labs interactifs */
-  const totalXP = score * 100 + bonusXP;
-
-  const rank =
-    score === QUIZ_QUESTIONS.length
-      ? 'Maître du Réseau'
-      : score >= 3
-      ? 'Technicien Réseau'
-      : 'Apprenti Réseau';
   const isLong = modeSession === '1h' || modeSession === '1h30';
 
-  /** Changer de durée = réinitialiser la séance pour s'adapter au format */
+  /** Score de progression = quiz + labs (effort cognitif validé) */
+  const progressionScore = score * QUIZ_POINTS + labPoints;
+
   const changeSessionMode = (m: ModeSession) => {
     setModeSession(m);
-    setMode('cours');
+    setMode('home');
     setStep(0);
     setOpenLesson(false);
     setQuizIdx(0);
     setSelectedAnswer(null);
     setIsLocked(false);
     setScore(0);
-    setBonusXP(0);
+    setLabPoints(0);
     setLab1Answer(null);
     setLab2Answer(null);
+  };
+
+  const startCourse = () => {
+    setMode('cours');
+    setStep(0);
+    setOpenLesson(false);
   };
 
   const nextStep = () => {
@@ -344,15 +450,23 @@ export default function InternetChapter() {
     else setStep((s) => s + 1);
   };
 
+  const previousStep = () => {
+    if (step > 0) {
+      setStep((s) => s - 1);
+      setOpenLesson(false);
+    }
+  };
+
   const answerLab1 = (val: string) => {
     if (lab1Answer !== null) return;
     setLab1Answer(val);
-    if (val === LAB1_CORRECT) setBonusXP((prev) => prev + LAB_XP);
+    if (val === LAB1_CORRECT) setLabPoints((p) => p + LAB_POINTS);
   };
+
   const answerLab2 = (val: string) => {
     if (lab2Answer !== null) return;
     setLab2Answer(val);
-    if (val === LAB2_CORRECT) setBonusXP((prev) => prev + LAB_XP);
+    if (val === LAB2_CORRECT) setLabPoints((p) => p + LAB_POINTS);
   };
 
   const handleAnswer = (idx: number) => {
@@ -373,351 +487,517 @@ export default function InternetChapter() {
   };
 
   const restart = () => {
-    setMode('cours');
+    setMode('home');
     setStep(0);
     setOpenLesson(false);
     setQuizIdx(0);
     setSelectedAnswer(null);
     setIsLocked(false);
     setScore(0);
-    setBonusXP(0);
+    setLabPoints(0);
     setLab1Answer(null);
     setLab2Answer(null);
   };
 
-  const labClass = (val: string, answer: string | null, correct: string, idle: string) => {
-    if (answer === null) return idle;
-    if (val === correct) return 'bg-green-500 text-white';
-    if (val === answer) return 'bg-red-500 text-white';
-    return 'bg-white text-slate-400 border border-slate-200 opacity-60';
+  const labClass = (val: string, answer: string | null, correct: string) => {
+    if (answer === null) {
+      return 'bg-white border-slate-300 hover:border-cyan-500 hover:bg-cyan-50';
+    }
+    if (val === correct) return 'bg-emerald-50 border-emerald-500 text-emerald-800';
+    if (val === answer) return 'bg-red-50 border-red-400 text-red-800';
+    return 'bg-slate-50 text-slate-400 border-slate-200 opacity-60';
   };
 
   const optionClass = (i: number) => {
-    if (!isLocked) return 'bg-white border-slate-200 hover:border-blue-500';
-    if (i === question.correct) return 'bg-green-100 border-green-500 text-green-800';
-    if (i === selectedAnswer) return 'bg-red-100 border-red-400 text-red-800';
+    if (!isLocked) return 'bg-white border-slate-200 hover:border-cyan-500 hover:bg-cyan-50';
+    if (i === question.correct) return 'bg-emerald-50 border-emerald-500 text-emerald-800';
+    if (i === selectedAnswer) return 'bg-red-50 border-red-400 text-red-800';
     return 'bg-white opacity-40';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50 text-slate-900 pb-20 font-sans selection:bg-blue-200">
-      {/* NAV sticky + sélecteur de durée (très visuel) */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 px-4 py-3 flex items-center justify-between shadow-sm">
-        <Link href="/themes" className="text-blue-600 font-black text-sm hover:underline">
-          ← Thèmes
-        </Link>
+    <div className="min-h-screen bg-[#f6f8fb] text-slate-900 font-sans selection:bg-cyan-200">
+      {/* NAV — score discret = outil de pilotage pour le prof */}
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between gap-3">
+          <Link
+            href="/themes"
+            className="text-sm font-bold text-slate-500 hover:text-slate-900 transition shrink-0"
+          >
+            ← Tous les thèmes
+          </Link>
 
-        <div className="flex gap-1 bg-slate-100 rounded-full p-1 shadow-inner">
-          {(['20min', '1h', '1h30'] as ModeSession[]).map((m) => (
-            <button
-              key={m}
-              onClick={() => changeSessionMode(m)}
-              className={`px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wide transition-all ${
-                modeSession === m
-                  ? 'bg-blue-600 text-white shadow-md scale-105'
-                  : 'text-slate-500 hover:text-slate-800 hover:bg-slate-200/60'
-              }`}
-            >
-              {m}
-            </button>
-          ))}
-        </div>
+          <div className="hidden md:block text-center">
+            <div className="text-[10px] uppercase tracking-[0.25em] font-bold text-cyan-600">
+              Sciences numériques et technologie
+            </div>
+            <div className="text-sm font-black tracking-tight">EXPLORER LE NUMÉRIQUE</div>
+          </div>
 
-        <div className="font-black text-xs text-blue-600 tracking-widest tabular-nums">
-          XP: {totalXP}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Indicateur d'avancement (lisible en passant dans les rangs) */}
+            {(mode === 'cours' || mode === 'quiz' || mode === 'resultat') && (
+              <div
+                className="hidden sm:flex flex-col items-end leading-none"
+                title="Score de progression : labs + questionnaire. Indicateur d'avancement pour le professeur."
+              >
+                <span className="text-[9px] uppercase tracking-widest font-bold text-slate-400">
+                  Progression
+                </span>
+                <span className="text-sm font-black text-slate-800 tabular-nums">
+                  {progressionScore}
+                  <span className="text-slate-400 font-bold text-xs ml-0.5">pts</span>
+                </span>
+              </div>
+            )}
+
+            <div className="flex gap-1 bg-slate-100 rounded-lg p-1">
+              {(['20min', '1h', '1h30'] as ModeSession[]).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => changeSessionMode(m)}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+                    modeSession === m
+                      ? 'bg-slate-900 text-white shadow'
+                      : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </nav>
 
-      <main className="max-w-2xl mx-auto px-6 py-8 space-y-8">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900">
-            Internet
-          </h1>
-          <p className="text-slate-500 font-medium">
-            Le réseau physique, invisible mais bien réel.
-          </p>
-          <div className="inline-flex gap-2 mt-2">
-            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-black">
-              5 étapes + mission
-            </span>
-            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-black">
-              {modeSession}
-            </span>
-          </div>
-        </div>
-
-        {/* ================= COURS ================= */}
-        {mode === 'cours' && (
-          <div className="space-y-6">
-            <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden shadow-inner">
-              <div
-                className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-700"
-                style={{ width: `${((step + 1) / LESSON_STEPS.length) * 100}%` }}
-              />
+      {/* ===================================================
+          ACCUEIL
+          =================================================== */}
+      {mode === 'home' && (
+        <main className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+          <section className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-700 mb-8">
+              <span className="w-2 h-2 rounded-full bg-cyan-500" />
+              Parcours SNT
             </div>
 
-            <article
-              className={`relative bg-white rounded-[2.5rem] border-[6px] shadow-2xl overflow-hidden transition-all ${current.color}`}
-            >
-              <div className="absolute top-0 right-0 p-6 opacity-10">
-                <span className="text-9xl font-black select-none">{current.icon}</span>
+            <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-[0.9] mb-8">
+              INTERNET
+            </h1>
+
+            <div className="w-20 h-1 bg-cyan-500 mb-8" />
+
+            <p className="text-2xl md:text-3xl font-medium leading-relaxed text-slate-700">
+              Que se passe-t-il réellement lorsque vous envoyez un message à l&apos;autre bout du
+              monde ?
+            </p>
+
+            <p className="text-lg leading-relaxed text-slate-500 mt-8 max-w-2xl">
+              Vos données ne disparaissent pas dans un nuage. Elles circulent à travers des
+              machines, des câbles, des routeurs et des infrastructures réparties sur toute la
+              planète.
+            </p>
+
+            <div className="mt-12 flex flex-wrap gap-4">
+              <button
+                onClick={startCourse}
+                className="px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-cyan-700 transition shadow-lg"
+              >
+                Commencer l&apos;exploration →
+              </button>
+
+              <div className="px-6 py-4 border border-slate-200 rounded-xl bg-white text-sm text-slate-500">
+                Durée sélectionnée :{' '}
+                <strong className="text-slate-900">{modeSession}</strong>
               </div>
+            </div>
+          </section>
 
-              <div className="p-8 md:p-10 relative z-10">
-                <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight leading-none">
-                  {current.title}
+          <section className="grid md:grid-cols-3 gap-5 mt-24">
+            <div className="bg-white border border-slate-200 rounded-2xl p-7">
+              <div className="text-xs font-bold uppercase tracking-widest text-cyan-600 mb-5">
+                Comprendre
+              </div>
+              <h3 className="font-black text-xl mb-3">Comment Internet fonctionne</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Découvrir les infrastructures physiques qui permettent aux données de circuler.
+              </p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-7">
+              <div className="text-xs font-bold uppercase tracking-widest text-cyan-600 mb-5">
+                Observer
+              </div>
+              <h3 className="font-black text-xl mb-3">Suivre une information</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Comprendre comment les machines trouvent leur destination et choisissent leur
+                route.
+              </p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-7">
+              <div className="text-xs font-bold uppercase tracking-widest text-cyan-600 mb-5">
+                Manipuler
+              </div>
+              <h3 className="font-black text-xl mb-3">Expérimenter</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Utiliser de véritables outils pour observer le fonctionnement du réseau.
+              </p>
+            </div>
+          </section>
+
+          {/* Encadré prof : institutionnaliser la progression (pas « un jeu ») */}
+          <section className="mt-16 border border-amber-200 bg-amber-50/80 rounded-2xl p-6 md:p-8">
+            <div className="text-xs font-bold uppercase tracking-widest text-amber-800 mb-3">
+              Pour le professeur — outil de pilotage
+            </div>
+            <p className="text-sm text-amber-950 leading-relaxed max-w-3xl">
+              Le <strong>score de progression</strong> (affiché discrètement en haut de page)
+              permet de vérifier d&apos;un coup d&apos;œil l&apos;avancement de chaque élève en
+              salle informatique : expériences validées + questionnaire. En parcours{' '}
+              <strong>1 h 30</strong>, la mission finale et le livrable restent le cœur de
+              l&apos;évaluation des compétences de recherche et d&apos;esprit critique.
+            </p>
+          </section>
+
+          <section className="mt-24">
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <div className="text-xs uppercase tracking-[0.2em] font-bold text-slate-400">
+                  Votre parcours
+                </div>
+                <h2 className="text-3xl font-black mt-2">
+                  5 étapes pour comprendre Internet
                 </h2>
+              </div>
+            </div>
 
-                {current.isProject ? (
-                  <div className="space-y-4">
-                    {current.intro && (
-                      <p className="text-sm text-slate-600 font-medium">{current.intro}</p>
-                    )}
+            <div className="space-y-3">
+              {LESSON_STEPS.slice(0, 5).map((item) => (
+                <div
+                  key={item.number}
+                  className="bg-white border border-slate-200 rounded-xl p-5 flex items-center gap-6"
+                >
+                  <div className="text-3xl font-black text-slate-200">{item.number}</div>
+                  <div>
+                    <div className="font-bold">{item.title}</div>
+                    <div className="text-sm text-slate-500">{item.subtitle}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
+      )}
 
+      {/* ===================================================
+          COURS
+          =================================================== */}
+      {mode === 'cours' && (
+        <main className="max-w-4xl mx-auto px-6 py-12">
+          <div className="mb-10">
+            <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
+              <span>Parcours {current.number}</span>
+              <span>
+                {step + 1} / {LESSON_STEPS.length}
+              </span>
+            </div>
+            <div className="h-1 bg-slate-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-cyan-500 transition-all duration-500"
+                style={{
+                  width: `${((step + 1) / LESSON_STEPS.length) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          <header className="mb-12">
+            <div className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 mb-5">
+              {current.subtitle}
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+              {current.title}
+            </h1>
+          </header>
+
+          <article className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+            <div className="p-8 md:p-12">
+              {current.isProject ? (
+                <div>
+                  <div className="border-l-4 border-cyan-500 pl-5 mb-10">
+                    <div className="text-xs uppercase tracking-widest font-bold text-cyan-600 mb-2">
+                      Votre objectif
+                    </div>
+                    <p className="text-lg text-slate-600 leading-relaxed">{current.intro}</p>
+                  </div>
+
+                  {modeSession === '1h30' && (
+                    <p className="text-sm text-slate-500 mb-8 bg-slate-50 rounded-xl px-5 py-4 border border-slate-100">
+                      En parcours 1 h 30, cette mission et son <strong>livrable</strong> sont le
+                      moment central de la séance. Le score de progression confirme que les
+                      notions ont été parcourues ; la qualité du livrable valide la recherche et
+                      l&apos;argumentation.
+                    </p>
+                  )}
+
+                  <div className="grid gap-5">
                     {current.projects?.map((proj, i) => (
                       <div
                         key={i}
-                        className="bg-purple-50 border-2 border-purple-100 p-5 rounded-3xl"
+                        className="border border-slate-200 rounded-2xl p-6 hover:border-cyan-400 transition"
                       >
-                        <div className="flex justify-between items-start gap-3 mb-2">
-                          <h4 className="font-black text-purple-600 uppercase text-xs tracking-tight">
-                            {proj.topic}
-                          </h4>
-                          <span className="shrink-0 text-[10px] bg-purple-100 text-purple-700 px-2 py-1 rounded-md font-black">
+                        <div className="flex flex-wrap justify-between gap-4 mb-4">
+                          <h3 className="font-black text-xl">{proj.topic}</h3>
+                          <div className="text-xs font-bold text-slate-400">
                             {proj.duration} · {proj.difficulty}
-                          </span>
+                          </div>
                         </div>
-
-                        <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                          {proj.externalUrl ? (
-                            <>
-                              Ouvre{' '}
-                              <a
-                                href={proj.externalUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-purple-700 font-black underline underline-offset-2 hover:text-purple-900"
-                              >
-                                {proj.externalLabel ?? proj.externalUrl}
-                              </a>
-                              . {proj.desc}
-                            </>
-                          ) : (
-                            proj.desc
-                          )}
-                        </p>
-
-                        {/* Livrable = argument massue pour le prof */}
-                        <p className="text-xs text-purple-900 font-bold mt-3 bg-purple-100/80 rounded-xl px-3 py-2">
-                          📝 Livrable : {proj.livrable}
-                        </p>
+                        <p className="text-slate-600 leading-relaxed">{proj.desc}</p>
+                        {proj.externalUrl && (
+                          <a
+                            href={proj.externalUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block mt-4 text-sm font-bold text-cyan-700 hover:underline"
+                          >
+                            {proj.externalLabel} →
+                          </a>
+                        )}
+                        <div className="mt-6 pt-5 border-t border-slate-100">
+                          <div className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-2">
+                            Livrable attendu
+                          </div>
+                          <p className="text-sm text-slate-600">{proj.livrable}</p>
+                        </div>
                       </div>
                     ))}
+                  </div>
 
-                    {current.exposes && (
-                      <div className="pt-2">
-                        <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
-                          🎤 Pour un exposé (à la maison)
+                  {current.exposes && (
+                    <div className="mt-10 bg-slate-50 rounded-2xl p-6">
+                      <div className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-4">
+                        Pour poursuivre à la maison
+                      </div>
+                      <ul className="space-y-3 text-sm text-slate-600">
+                        {current.exposes.map((e, i) => (
+                          <li key={i} className="flex gap-3">
+                            <span className="text-cyan-600">→</span>
+                            {e}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {isLong &&
+                    current.deep?.find((d) => d.label.includes('professeur')) && (
+                      <div className="mt-8 border border-amber-200 bg-amber-50 rounded-2xl p-6">
+                        <div className="text-xs uppercase tracking-widest font-bold text-amber-800 mb-2">
+                          Note professeur — mode {modeSession}
                         </div>
-                        <ul className="text-xs text-slate-500 font-medium list-disc pl-4 space-y-1">
-                          {current.exposes.map((e, i) => (
-                            <li key={i}>{e}</li>
-                          ))}
-                        </ul>
+                        <p className="text-sm text-amber-950 leading-relaxed">
+                          {
+                            current.deep.find((d) => d.label.includes('professeur'))
+                              ?.text
+                          }
+                        </p>
                       </div>
                     )}
+                </div>
+              ) : (
+                <>
+                  <section className="mb-10">
+                    <div className="text-xs font-bold uppercase tracking-widest text-cyan-600 mb-4">
+                      L&apos;idée essentielle
+                    </div>
+                    <p className="text-xl md:text-2xl leading-relaxed text-slate-700 font-medium">
+                      {current.content}
+                    </p>
+                  </section>
 
-                    {/* Note prof — ambre, visible uniquement en 1h / 1h30 */}
-                    {isLong &&
-                      current.deep?.find((d) => d.label.includes('prof')) && (
-                        <div className="bg-amber-50 border-2 border-amber-300 rounded-3xl p-5 mt-4 shadow-sm">
-                          <h4 className="text-amber-800 font-black text-sm uppercase mb-2 flex items-center gap-2">
-                            🧑‍🏫 Note professeur — Mode {modeSession}
-                          </h4>
-                          <p className="text-sm text-amber-950 font-medium leading-relaxed">
-                            {
-                              current.deep.find((d) => d.label.includes('prof'))
-                                ?.text
-                            }
-                          </p>
+                  {current.details && (
+                    <section>
+                      <button
+                        onClick={() => setOpenLesson(!openLesson)}
+                        className="w-full flex justify-between items-center border border-slate-200 rounded-xl px-6 py-5 hover:border-cyan-400 transition"
+                      >
+                        <span className="font-bold">Approfondir la notion</span>
+                        <span className="text-slate-400">{openLesson ? '−' : '+'}</span>
+                      </button>
+
+                      {openLesson && (
+                        <div className="mt-6 space-y-8">
+                          {current.details.map((detail, i) => (
+                            <div key={i} className="border-l-2 border-cyan-300 pl-6">
+                              <div className="text-xs font-bold uppercase tracking-widest text-cyan-600 mb-3">
+                                {detail.h}
+                              </div>
+                              <p className="text-slate-600 leading-relaxed">{detail.p}</p>
+                            </div>
+                          ))}
                         </div>
                       )}
+                    </section>
+                  )}
+                </>
+              )}
+
+              {current.hasLab && (
+                <section className="mt-10 bg-cyan-50 border border-cyan-100 rounded-2xl p-7">
+                  <div className="text-xs uppercase tracking-widest font-bold text-cyan-700 mb-3">
+                    Expérience rapide
                   </div>
-                ) : (
-                  <p className="text-xl text-slate-600 font-medium leading-relaxed mb-6">
-                    {current.content}
+                  <h3 className="font-black text-xl mb-3">Identifier un nom de domaine</h3>
+                  <p className="text-sm text-slate-600 mb-6">
+                    Parmi les deux propositions suivantes, laquelle correspond à un nom de
+                    domaine ?
                   </p>
-                )}
-
-                {current.details && (
-                  <div className="mb-4">
-                    <button
-                      onClick={() => setOpenLesson(!openLesson)}
-                      className="w-full py-4 rounded-2xl bg-slate-900 text-white font-black text-sm uppercase tracking-widest hover:bg-black transition-all flex items-center justify-center gap-3 shadow-[0_4px_0_rgb(30,41,59)]"
-                    >
-                      <span>📖</span>
-                      {openLesson
-                        ? 'Refermer le cours détaillé'
-                        : 'Ouvrir le cours (définitions + vocabulaire)'}
-                    </button>
-                    {openLesson && (
-                      <div className="mt-4 bg-slate-50 rounded-3xl p-6 md:p-8 border-2 border-slate-100 space-y-6 animate-in slide-in-from-top-2 duration-300">
-                        {current.details.map((b, i) => (
-                          <div key={i} className="relative pl-5 border-l-2 border-blue-200">
-                            <span className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-500 ring-4 ring-white" />
-                            <h4 className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-2">
-                              {b.h}
-                            </h4>
-                            <p className="text-sm md:text-base text-slate-700 font-medium leading-relaxed">
-                              {b.p}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                  <div className="flex flex-wrap gap-3">
+                    {LAB1_OPTIONS.map((val) => (
+                      <button
+                        key={val}
+                        disabled={lab1Answer !== null}
+                        onClick={() => answerLab1(val)}
+                        className={`px-5 py-3 rounded-lg border font-bold transition ${labClass(
+                          val,
+                          lab1Answer,
+                          LAB1_CORRECT
+                        )}`}
+                      >
+                        {val}
+                      </button>
+                    ))}
                   </div>
-                )}
-
-                {/* LAB 1 DNS */}
-                {current.hasLab && (
-                  <div className="bg-blue-50 p-6 rounded-3xl border-2 border-blue-100 mt-4 text-center">
-                    <h4 className="text-blue-900 font-black text-sm mb-4 uppercase tracking-widest">
-                      🧪 LAB : Le répertoire DNS
-                    </h4>
-                    <p className="text-xs text-blue-700 mb-4 font-bold">
-                      Lequel est le NOM DE DOMAINE ?
-                    </p>
-                    <div className="flex gap-2 justify-center flex-wrap">
-                      {LAB1_OPTIONS.map((val) => (
-                        <button
-                          key={val}
-                          disabled={lab1Answer !== null}
-                          onClick={() => answerLab1(val)}
-                          className={`px-4 py-2 rounded-xl font-bold transition-all ${labClass(
-                            val,
-                            lab1Answer,
-                            LAB1_CORRECT,
-                            'bg-white text-blue-600 border border-blue-200 hover:bg-blue-100'
-                          )}`}
-                        >
-                          {val}
-                        </button>
-                      ))}
-                    </div>
-                    {lab1Answer !== null && (
-                      <p className="text-xs text-blue-800 font-medium mt-4">
+                  {lab1Answer !== null && (
+                    <p className="mt-5 text-sm text-slate-700">
+                      <strong>
                         {lab1Answer === LAB1_CORRECT
-                          ? `✅ +${LAB_XP} XP — `
-                          : '❌ '}
-                        {LAB1_FEEDBACK}
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {/* LAB 2 Routage */}
-                {current.hasLab2 && (
-                  <div className="bg-red-50 p-6 rounded-3xl border-2 border-red-100 mt-4 text-center">
-                    <h4 className="text-red-900 font-black text-sm mb-4 uppercase tracking-widest">
-                      🧪 LAB : Routage
-                    </h4>
-                    <p className="text-xs text-red-700 mb-4 font-bold">
-                      Si le routeur principal tombe en panne, que font les paquets ?
+                          ? `Notion validée (+${LAB_POINTS} pts). `
+                          : 'Pas exactement. '}
+                      </strong>
+                      {LAB1_FEEDBACK}
                     </p>
-                    <div className="flex gap-2 justify-center flex-wrap">
-                      {LAB2_OPTIONS.map((val) => (
-                        <button
-                          key={val}
-                          disabled={lab2Answer !== null}
-                          onClick={() => answerLab2(val)}
-                          className={`px-4 py-2 rounded-xl font-bold transition-all ${labClass(
-                            val,
-                            lab2Answer,
-                            LAB2_CORRECT,
-                            'bg-white text-red-600 border border-red-200 hover:bg-red-100'
-                          )}`}
-                        >
-                          {val}
-                        </button>
-                      ))}
-                    </div>
-                    {lab2Answer !== null && (
-                      <p className="text-xs text-red-800 font-medium mt-4">
+                  )}
+                </section>
+              )}
+
+              {current.hasLab2 && (
+                <section className="mt-10 bg-orange-50 border border-orange-100 rounded-2xl p-7">
+                  <div className="text-xs uppercase tracking-widest font-bold text-orange-700 mb-3">
+                    Expérience rapide
+                  </div>
+                  <h3 className="font-black text-xl mb-3">Comprendre le routage</h3>
+                  <p className="text-sm text-slate-600 mb-6">
+                    Si un équipement important du réseau devient indisponible, que peut-il
+                    arriver aux paquets ?
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {LAB2_OPTIONS.map((val) => (
+                      <button
+                        key={val}
+                        disabled={lab2Answer !== null}
+                        onClick={() => answerLab2(val)}
+                        className={`px-5 py-3 rounded-lg border font-bold transition ${labClass(
+                          val,
+                          lab2Answer,
+                          LAB2_CORRECT
+                        )}`}
+                      >
+                        {val}
+                      </button>
+                    ))}
+                  </div>
+                  {lab2Answer !== null && (
+                    <p className="mt-5 text-sm text-slate-700">
+                      <strong>
                         {lab2Answer === LAB2_CORRECT
-                          ? `✅ +${LAB_XP} XP — `
-                          : '❌ '}
-                        {LAB2_FEEDBACK}
-                      </p>
-                    )}
+                          ? `Notion validée (+${LAB_POINTS} pts). `
+                          : 'Pas exactement. '}
+                      </strong>
+                      {LAB2_FEEDBACK}
+                    </p>
+                  )}
+                </section>
+              )}
+
+              {!current.isProject && isLong && current.deep && (
+                <section className="mt-10 border-t border-slate-100 pt-10">
+                  <div className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-6">
+                    Pour aller plus loin
                   </div>
-                )}
-
-                {/* Extensions 1h / 1h30 */}
-                {!current.isProject && isLong && current.deep && (
-                  <div className="mt-6 space-y-3">
-                    {current.deep
-                      .filter(
-                        (d) =>
-                          d.label.includes('débat') ||
-                          d.label.includes('Recherche') ||
-                          d.label.includes('Exposé')
-                      )
-                      .map((ext, i) => (
-                        <div
-                          key={i}
-                          className="bg-gradient-to-r from-amber-50 to-orange-50 p-5 rounded-3xl border-2 border-amber-200"
-                        >
-                          <h4 className="font-black text-amber-700 text-sm mb-2 uppercase tracking-wide">
-                            💬 Extension {modeSession}
-                          </h4>
-                          <p className="text-sm text-slate-700 font-medium leading-relaxed">
-                            {ext.text}
-                          </p>
-                        </div>
-                      ))}
+                  <div className="grid gap-4">
+                    {current.deep.map((ext, i) => (
+                      <div key={i} className="bg-slate-50 rounded-xl p-6">
+                        <h4 className="font-bold mb-2">{ext.label}</h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">{ext.text}</p>
+                      </div>
+                    ))}
                   </div>
-                )}
-              </div>
+                </section>
+              )}
+            </div>
 
-              <div className="p-6 bg-gradient-to-r from-slate-900 to-slate-800">
-                <button
-                  onClick={nextStep}
-                  className="w-full py-5 bg-white text-slate-900 rounded-2xl font-black text-xl shadow-[0_8px_0_rgb(226,232,240)] hover:translate-y-1 transition-all active:translate-y-2"
-                >
-                  {isLastStep ? 'PASSER AU QUIZ ⚡' : 'ÉTAPE SUIVANTE →'}
-                </button>
-              </div>
-            </article>
+            <div className="border-t border-slate-100 p-6 md:p-8 flex justify-between gap-4">
+              <button
+                onClick={previousStep}
+                disabled={step === 0}
+                className="px-5 py-3 text-sm font-bold text-slate-500 disabled:opacity-20"
+              >
+                ← Précédent
+              </button>
+              <button
+                onClick={nextStep}
+                className="px-7 py-3 bg-slate-900 text-white rounded-lg font-bold hover:bg-cyan-700 transition"
+              >
+                {isLastStep ? 'Vérifier mes acquis →' : 'Continuer →'}
+              </button>
+            </div>
+          </article>
 
-            <div className="bg-white/60 backdrop-blur rounded-3xl p-6 border border-slate-200/60 text-sm text-slate-500 font-medium">
-              <strong className="text-slate-800">Mode actuel : {modeSession}</strong> —{' '}
+          <div className="mt-8 border border-slate-200 rounded-xl bg-white p-5">
+            <div className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-2">
+              Parcours sélectionné
+            </div>
+            <p className="text-sm text-slate-600">
               {modeSession === '20min' &&
-                'Cœur du cours + labs interactifs + quiz rapide. Idéal pour révision ou classe inversée.'}
+                'Essentiel : découverte des idées fondamentales et activités courtes.'}
               {modeSession === '1h' &&
-                'Cours détaillé + labs + débats guidés. Idéal pour découverte en salle info.'}
+                'Exploration : notions détaillées, expériences et questions pour approfondir.'}
               {modeSession === '1h30' &&
-                'Tout ce qui précède + missions + recherches élèves. Idéal pour projet de fin de chapitre.'}
-            </div>
+                'Investigation : parcours complet, puis mission finale et livrable (cœur de la séance).'}
+            </p>
           </div>
-        )}
+        </main>
+      )}
 
-        {/* ================= QUIZ ================= */}
-        {mode === 'quiz' && (
-          <div className="bg-white rounded-[2.5rem] border-[6px] border-indigo-200 shadow-2xl p-8 md:p-12 space-y-8">
-            <div className="text-xs font-black uppercase tracking-widest text-slate-400 text-center">
-              Question {quizIdx + 1} / {QUIZ_QUESTIONS.length}
+      {/* ===================================================
+          QUIZ
+          =================================================== */}
+      {mode === 'quiz' && (
+        <main className="max-w-3xl mx-auto px-6 py-16">
+          <div className="mb-12">
+            <div className="text-xs uppercase tracking-[0.2em] font-bold text-cyan-600 mb-4">
+              Vérification des acquis
             </div>
-            <h2 className="text-2xl md:text-3xl font-black text-center tracking-tight italic">
-              « {question.q} »
+            <h1 className="text-4xl md:text-5xl font-black">Ce que vous avez retenu</h1>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-3xl p-8 md:p-12 shadow-sm">
+            <div className="flex justify-between text-xs font-bold text-slate-400 mb-10">
+              <span>Question {quizIdx + 1}</span>
+              <span>{QUIZ_QUESTIONS.length} questions</span>
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-black leading-tight mb-10">
+              {question.q}
             </h2>
-            <div className="grid gap-4">
+
+            <div className="grid gap-3">
               {question.options.map((opt, i) => (
                 <button
                   key={i}
                   disabled={isLocked}
                   onClick={() => handleAnswer(i)}
-                  className={`p-5 md:p-6 rounded-[2rem] border-2 font-bold text-left transition-all ${optionClass(
+                  className={`p-5 rounded-xl border text-left font-medium transition ${optionClass(
                     i
                   )}`}
                 >
@@ -725,87 +1005,111 @@ export default function InternetChapter() {
                 </button>
               ))}
             </div>
+
             {isLocked && (
-              <div className="mt-6 p-6 bg-indigo-50 rounded-[2rem] border-2 border-indigo-100 animate-in slide-in-from-bottom-4 shadow-sm">
-                <p className="text-sm text-indigo-900 font-medium mb-4">
-                  {question.explanation}
-                </p>
+              <div className="mt-8 border-t border-slate-100 pt-8">
+                <div className="text-xs uppercase tracking-widest font-bold text-cyan-600 mb-3">
+                  Explication
+                </div>
+                <p className="text-slate-600 leading-relaxed mb-6">{question.explanation}</p>
                 <button
                   onClick={nextQuestion}
-                  className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all"
+                  className="px-6 py-3 bg-slate-900 text-white rounded-lg font-bold hover:bg-cyan-700 transition"
                 >
-                  {isLastQuestion ? 'Voir mon résultat' : 'Continuer'}
+                  {isLastQuestion ? 'Voir mon bilan →' : 'Question suivante →'}
                 </button>
               </div>
             )}
           </div>
-        )}
+        </main>
+      )}
 
-        {/* ================= RÉSULTAT ================= */}
-        {mode === 'resultat' && (
-          <div className="text-center space-y-8 animate-in zoom-in duration-500">
-            <div className="bg-gradient-to-b from-blue-600 to-indigo-700 p-10 md:p-12 rounded-[3rem] shadow-2xl text-white">
-              <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-2 uppercase italic">
-                Connecté !
-              </h2>
-              <div className="text-7xl md:text-9xl font-black my-6 leading-none">
-                {totalXP}
-                <span className="text-3xl text-white/40 ml-2">XP</span>
-              </div>
-              <div className="text-sm font-bold text-white/80 mb-2">
-                {score} / {QUIZ_QUESTIONS.length} au quiz
-                {bonusXP > 0 && (
-                  <span className="block mt-1 text-white/70">
-                    + {bonusXP} XP labs (DNS & Routage)
-                  </span>
-                )}
-              </div>
-              <div className="inline-block px-6 py-3 bg-white/20 rounded-full font-black uppercase tracking-widest text-sm backdrop-blur mt-4">
-                {rank}
-              </div>
-
-              {/* Preuve de réussite — Graal salle info */}
-              <p className="mt-8 text-base md:text-lg font-black bg-white/15 rounded-2xl px-5 py-3 inline-block backdrop-blur">
-                👀 Montre cet écran à ton professeur
-              </p>
+      {/* ===================================================
+          RESULTAT — certificat de compétences (pas un grade jeu)
+          =================================================== */}
+      {mode === 'resultat' && (
+        <main className="max-w-4xl mx-auto px-6 py-20">
+          <section className="bg-white border border-slate-200 rounded-3xl p-10 md:p-16 shadow-sm">
+            <div className="text-xs uppercase tracking-[0.2em] font-bold text-cyan-600 mb-6">
+              Parcours terminé
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4 text-left">
-              <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-100">
-                <h4 className="font-black text-slate-800 mb-2">Pour le professeur</h4>
-                <p className="text-sm text-slate-500 font-medium">
-                  Le total XP (quiz + labs) et le livrable des missions montrent ce qui est acquis.
-                </p>
+            <h1 className="text-4xl md:text-5xl font-black mb-4">Bilan de compétences</h1>
+            <p className="text-slate-500 mb-10 max-w-xl leading-relaxed">
+              Ce bilan synthétise les notions travaillées. Le score de progression sert
+              d&apos;indicateur d&apos;avancement ; les compétences ci-dessous structurent ce
+              qui a été abordé dans le parcours.
+            </p>
+
+            {/* Score discret, pas un trophée géant */}
+            <div className="flex flex-wrap items-end gap-8 mb-12 pb-10 border-b border-slate-100">
+              <div>
+                <div className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-2">
+                  Questionnaire
+                </div>
+                <div className="text-5xl font-black text-slate-900">
+                  {score}
+                  <span className="text-2xl text-slate-300">/{QUIZ_QUESTIONS.length}</span>
+                </div>
               </div>
-              <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-100">
-                <h4 className="font-black text-slate-800 mb-2">Pour l’élève</h4>
-                <p className="text-sm text-slate-500 font-medium">
-                  Pas de note. Feedback immédiat + XP. On peut refaire le chapitre.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-100">
-                <h4 className="font-black text-slate-800 mb-2">Pour la suite</h4>
-                <p className="text-sm text-slate-500 font-medium">
-                  Adapter avec le guide professeur selon le format 20 min / 1 h / 1 h 30.
+              <div>
+                <div className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-2">
+                  Score de progression
+                </div>
+                <div className="text-3xl font-black text-slate-800 tabular-nums">
+                  {progressionScore}{' '}
+                  <span className="text-base font-bold text-slate-400">pts</span>
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  {score * QUIZ_POINTS} (quiz) + {labPoints} (expériences)
                 </p>
               </div>
             </div>
 
-            <button
-              onClick={restart}
-              className="block w-full py-5 bg-white text-slate-900 border-2 border-slate-200 rounded-[2rem] font-black text-lg hover:border-blue-500 transition-all"
-            >
-              🔁 Refaire le chapitre
-            </button>
-            <Link
-              href="/themes"
-              className="block w-full py-6 bg-slate-900 text-white rounded-[2rem] font-black text-xl shadow-xl hover:bg-black transition-all"
-            >
-              RETOUR AU CATALOGUE
-            </Link>
-          </div>
-        )}
-      </main>
+            <div className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-5">
+              Compétences du parcours
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {COMPETENCES.map((c) => (
+                <div
+                  key={c.key}
+                  className="border border-slate-200 rounded-xl p-6 bg-slate-50/50"
+                >
+                  <div className="text-xs uppercase tracking-widest font-bold text-cyan-600 mb-3">
+                    {c.label}
+                  </div>
+                  <div className="font-bold text-slate-900">{c.desc}</div>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-10 text-center text-sm font-bold text-slate-600 bg-slate-50 border border-slate-200 rounded-xl px-5 py-4">
+              Montrez cet écran à votre professeur
+            </p>
+
+            <div className="mt-6 text-xs text-slate-400 leading-relaxed max-w-2xl mx-auto text-center">
+              Pour le professeur : le score de progression indique l&apos;avancement en séance ;
+              le livrable de la mission (parcours 1 h / 1 h 30) valide la recherche et
+              l&apos;esprit critique.
+            </div>
+
+            <div className="mt-12 pt-10 border-t border-slate-100 flex flex-wrap gap-4">
+              <button
+                onClick={restart}
+                className="px-6 py-3 border border-slate-300 rounded-lg font-bold hover:border-slate-900 transition"
+              >
+                Revoir le parcours
+              </button>
+              <Link
+                href="/themes"
+                className="px-6 py-3 bg-slate-900 text-white rounded-lg font-bold hover:bg-cyan-700 transition"
+              >
+                Explorer un autre thème →
+              </Link>
+            </div>
+          </section>
+        </main>
+      )}
     </div>
   );
 }
