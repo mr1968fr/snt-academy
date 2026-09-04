@@ -18,14 +18,14 @@ type Step = {
   number: string;
   title: string;
   subtitle: string;
-  content: string;
+  content?: string;
+  intro?: string;
   icon: string;
   competence?: string;
   details?: Detail[];
   hasLab?: boolean;
   hasLab2?: boolean;
   isProject?: boolean;
-  intro?: string;
   projects?: Project[];
   deep?: { label: string; text: string }[];
 };

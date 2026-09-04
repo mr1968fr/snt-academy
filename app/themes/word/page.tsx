@@ -18,14 +18,14 @@ type Step = {
   number: string;
   title: string;
   subtitle: string;
-  content: string;
+  content?: string;
+  intro?: string;
   icon: string;
   competence?: string;
   details?: Detail[];
   hasLab?: boolean;
   hasLab2?: boolean;
   isProject?: boolean;
-  intro?: string;
   projects?: Project[];
   deep?: { label: string; text: string }[];
 };
@@ -94,7 +94,7 @@ const LESSON_STEPS: Step[] = [
     ],
     deep: [
       { label: "Mode brouillon", text: "Affichage > Brouillon : les sauts sont visualisés par des lignes en pointillés. Facilite le diagnostic quand la mise en page part en vrille." },
-      { label: "Impression recto-verso", p: "L'option 'Commencer sur page impaire' (saut de section) garantit que chaque chapitre démarre sur la page de droite lors d'une impression reliée (standard livre)." }
+      { label: "Impression recto-verso", text: "L'option 'Commencer sur page impaire' (saut de section) garantit que chaque chapitre démarre sur la page de droite lors d'une impression reliée (standard livre)." }
     ]
   },
   {
