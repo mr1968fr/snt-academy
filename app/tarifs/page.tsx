@@ -1,11 +1,11 @@
 import Link from 'next/link';
 
 const AVANTAGES_LANCEMENT = [
-  'Les 7 thèmes officiels SNT, cours complet + quiz type Pix',
+  'Les 7 thèmes officiels SNT, séances clé en main en 3 durées : 20 min · 1 h · 1 h 30',
+  'Quiz type Pix + expériences intégrées — aucune préparation nécessaire',
   '8 modules bonus : Python, Word, Excel, Canva, e-mail, smartphone, réseaux, fake news',
-  'Espace prof multi-classes (jusqu\u2019à 6 classes de 40 élèves)',
-  'Import CSV Pronote, suivi des thèmes, export tableaux',
-  'Guide enseignant et nouveaux thèmes en continu',
+  'Espace prof multi-classes en option (jusqu\u2019à 6 classes de 40 élèves)',
+  'Import CSV Pronote, suivi des thèmes, export tableaux — à configurer seulement si tu en as envie',
 ];
 
 export default function Tarifs() {
@@ -13,17 +13,17 @@ export default function Tarifs() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <nav className="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center shadow-sm">
         <Link href="/" className="text-blue-600 font-bold">← Accueil</Link>
-        <div className="font-black text-xs uppercase tracking-widest text-slate-400">Accès &amp; tarifs</div>
+        <div className="font-black text-xs uppercase tracking-widest text-slate-400">Accès</div>
         <Link href="/themes" className="text-blue-600 font-bold">Thèmes →</Link>
       </nav>
 
       <div className="max-w-3xl mx-auto px-6 py-12 space-y-8">
         <header className="text-center">
-          <div className="inline-block px-4 py-1 rounded-full bg-green-100 text-green-700 font-black text-xs uppercase tracking-widest mb-4">Phase de lancement</div>
-          <h1 className="text-4xl font-black tracking-tight mb-3">Accès libre, pour tout le monde.</h1>
+          <div className="inline-block px-4 py-1 rounded-full bg-green-100 text-green-700 font-black text-xs uppercase tracking-widest mb-4">🎁 Offert aux collègues</div>
+          <h1 className="text-4xl font-black tracking-tight mb-3">Gratuit. Pour toujours. Sans chichi.</h1>
           <p className="text-lg text-slate-600 font-medium">
-            Pendant toute la phase de lancement, SNT Academy est gratuite et sans limitation :
-            aucun compte, aucune carte bancaire, aucune inscription.
+            SNT Academy est un site de collègue, fait pour des collègues débordés — et conçu pour le rester.
+            Aucun compte, aucune carte bancaire, aucune inscription : tu ouvres un thème, tu projètes, et la séance s&apos;anime toute seule.
           </p>
         </header>
 
@@ -32,7 +32,7 @@ export default function Tarifs() {
           <h2 className="text-2xl font-black tracking-tight mb-1">Élèves &amp; enseignants</h2>
           <div className="flex items-baseline gap-2 mb-5">
             <span className="text-5xl font-black text-green-600">Gratuit</span>
-            <span className="text-sm text-slate-400 font-bold">pendant le lancement</span>
+            <span className="text-sm text-slate-400 font-bold">vraiment, y compris plus tard</span>
           </div>
           <ul className="space-y-3 mb-6">
             {AVANTAGES_LANCEMENT.map(a => (
@@ -47,22 +47,23 @@ export default function Tarifs() {
         </div>
 
         <div className="bg-white p-8 rounded-[2rem] border-2 border-slate-100 shadow-sm">
-          <h2 className="text-2xl font-black tracking-tight mb-1">Établissements</h2>
-          <p className="text-sm text-slate-500 font-bold uppercase tracking-widest mb-4">À partir de la rentrée 2027</p>
+          <h2 className="text-2xl font-black tracking-tight mb-1">Fais tourner à un collègue</h2>
+          <p className="text-sm text-slate-500 font-bold uppercase tracking-widest mb-4">La meilleure pub : la salle des profs</p>
           <p className="text-slate-600 font-medium leading-relaxed mb-6">
-            Déploiement pour tous les enseignants de SNT du lycée, facturation établissement
-            (bon de commande ou mandat), support dédié et sensibilisation à la certification Pix.
+            Tu connais un enseignant de SNT submergé par les préparations ? Glisse-lui l&apos;adresse de la
+            plateforme : elle fonctionne sans rien configurer. Et si quelque chose pêche, ou qu&apos;une idée
+            te trotte dans la tête, écris-moi — c&apos;est toi qui améliores la plateforme.
           </p>
-          <a href="mathschamplain@?gmail.com?subject=Offre%20%C3%A9tablissement" className="inline-block px-6 py-3 bg-slate-900 text-white rounded-2xl font-black hover:bg-black transition-all">
-            Demander une présentation
+          <a href="mailto:mathschamplain@gmail.com?subject=SNT%20Academy%20%E2%80%94%20retour%20de%20coll%C3%A8gue" className="inline-block px-6 py-3 bg-slate-900 text-white rounded-2xl font-black hover:bg-black transition-all">
+            ✉️ Écrire un mot au collègue d&apos;en face
           </a>
         </div>
 
         <div className="p-6 bg-blue-50 rounded-[2rem] border-2 border-blue-100 text-center">
           <p className="text-sm text-blue-900 font-bold leading-relaxed">
-            🎁 Les enseignants qui utilisent la plateforme pendant le lancement
-            garderont un <span className="font-black">tarif préférentiel à vie</span> sur les futures offres.
-            Tes retours construisent la plateforme : c&apos;est eux qui paient ton accès.
+            🌱 Aucune offre payante n&apos;est prévue : SNT Academy reste un cadeau entre
+            profs. Plus il y a d&apos;utilisateurs derrière toi, plus le site s&apos;enrichit —
+            nouveaux thèmes, corrections, idées pédagogiques.
           </p>
         </div>
 
